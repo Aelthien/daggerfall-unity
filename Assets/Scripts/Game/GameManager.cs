@@ -49,7 +49,8 @@ namespace DaggerfallWorkshop.Game
         GameObject playerObject = null;
         Camera mainCamera = null;
         RetroRenderer retroRenderer = null;
-        PlayerMouseLook playerMouseLook = null;
+        //PlayerMouseLook playerMouseLook = null;
+        PlayerController playerController = null;
         PlayerHealth playerHealth = null;
         VitalsChangeDetector vitalsChangeDetector = null;
         StartGameBehaviour startGameBehaviour = null;
@@ -79,7 +80,7 @@ namespace DaggerfallWorkshop.Game
         FPSWeapon[] playerWeapons = new FPSWeapon[2];
         FPSSpellCasting playerSpellCasting = null;
         PlayerActivate playerActivate = null;
-        CharacterController playerController = null;
+        CharacterController characterController = null;
         SunlightManager sunlightManager = null;
         ItemHelper itemHelper = null;
         StateManager stateManager = null;
@@ -133,10 +134,16 @@ namespace DaggerfallWorkshop.Game
             set { playerObject = value; }
         }
 
-        public PlayerMouseLook PlayerMouseLook
+        /*public PlayerMouseLook PlayerMouseLook
         {
             get { return (playerMouseLook) ? playerMouseLook : playerMouseLook = GetComponentFromObject<PlayerMouseLook>(MainCameraObject, "MainCamera"); }
             set { playerMouseLook = value; }
+        }*/
+        public PlayerController PlayerController
+        {
+
+            get { return (playerController) ? playerController : playerController = GetComponentFromObject<PlayerController>(PlayerObject, "TopDownCamera"); }
+            set { playerController = value; }
         }
 
         public PlayerHealth PlayerHealth
@@ -318,10 +325,10 @@ namespace DaggerfallWorkshop.Game
             set { playerActivate = value; }
         }
 
-        public CharacterController PlayerController
+        public CharacterController CharacterController
         {
-            get { return (playerController) ? playerController : playerController = GetComponentFromObject<CharacterController>(PlayerObject); }
-            set { playerController = value; }
+            get { return (characterController) ? characterController : characterController = GetComponentFromObject<CharacterController>(PlayerObject); }
+            set { characterController = value; }
         }
 
         public SunlightManager SunlightManager

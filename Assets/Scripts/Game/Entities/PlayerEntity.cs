@@ -629,11 +629,12 @@ namespace DaggerfallWorkshop.Game.Entity
                     Vector3 lowestDoorNormal;
                     if (GameManager.Instance.PlayerEnterExit.Interior.FindLowestInteriorDoor(out lowestDoorPos, out lowestDoorNormal))
                     {
-                        lowestDoorPos += lowestDoorNormal * (GameManager.Instance.PlayerController.radius + 0.1f);
+                        //fixme
+                        //lowestDoorPos += lowestDoorNormal * (GameManager.Instance.PlayerController.radius + 0.1f);
                         int guardCount = UnityEngine.Random.Range(2, 6);
                         for (int i = 0; i < guardCount; i++)
                         {
-                            SpawnCityGuard(lowestDoorPos, Vector3.forward);
+                            //SpawnCityGuard(lowestDoorPos, Vector3.forward);
                         }
                     }
                     return;

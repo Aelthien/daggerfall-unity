@@ -350,7 +350,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         protected override void MouseEnter()
         {
             // Cannot be over large HUD when cursor not active or large HUD not enabled
-            ActiveMouseOverLargeHUD = GameManager.Instance.PlayerMouseLook.cursorActive && DaggerfallUnity.Settings.LargeHUD;
+            //ActiveMouseOverLargeHUD = GameManager.Instance.PlayerMouseLook.cursorActive && DaggerfallUnity.Settings.LargeHUD;
 
             base.MouseEnter();
         }

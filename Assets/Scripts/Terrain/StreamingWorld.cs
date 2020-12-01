@@ -1412,10 +1412,10 @@ namespace DaggerfallWorkshop
             }
 
             // Set player facing away from door
-            PlayerMouseLook playerMouseLook = GameManager.Instance.PlayerMouseLook;
-            if (playerMouseLook)
+            PlayerController playerController = GameManager.Instance.PlayerMouseLook;
+            if (playerController)
             {
-                playerMouseLook.SetHorizontalFacing(foundDoorNormal);
+                playerController.SetFacing(foundDoorNormal, true);
             }
         }
 

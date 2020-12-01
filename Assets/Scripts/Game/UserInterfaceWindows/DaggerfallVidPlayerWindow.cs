@@ -148,9 +148,9 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
         private void DoHideCursor(bool hide)
         {
-            PlayerMouseLook mLook = GameManager.Instance.PlayerMouseLook;
+            /*PlayerMouseLook mLook = GameManager.Instance.PlayerMouseLook;
             if (mLook != null)
-                mLook.ForceHideCursor(hide && hideCursor);
+                mLook.ForceHideCursor(hide && hideCursor);*/
         }
 
         #region Event Handlers

@@ -213,8 +213,7 @@ namespace DaggerfallWorkshop.Game
                 ChangeInteractionMode(PlayerActivateModes.Talk);
 
             // Do not do scene activation if player has cursor active over large HUD
-            if (GameManager.Instance.PlayerMouseLook.cursorActive &&
-                DaggerfallUI.Instance.DaggerfallHUD != null &&
+            if (DaggerfallUI.Instance.DaggerfallHUD != null &&
                 DaggerfallUI.Instance.DaggerfallHUD.LargeHUD.ActiveMouseOverLargeHUD)
             {
                 return;

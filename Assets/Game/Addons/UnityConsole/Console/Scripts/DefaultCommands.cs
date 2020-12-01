@@ -67,8 +67,8 @@ namespace Wenzil.Console
             ConsoleCommandsDatabase.RegisterCommand(RetryAssetImports.name, RetryAssetImports.description, RetryAssetImports.usage, RetryAssetImports.Execute);
 
             ConsoleCommandsDatabase.RegisterCommand(SetWalkSpeed.name, SetWalkSpeed.description, SetWalkSpeed.usage, SetWalkSpeed.Execute);
-            ConsoleCommandsDatabase.RegisterCommand(SetMouseSensitivity.name, SetMouseSensitivity.description, SetMouseSensitivity.usage, SetMouseSensitivity.Execute);
-            ConsoleCommandsDatabase.RegisterCommand(ToggleMouseSmoothing.name, ToggleMouseSmoothing.description, ToggleMouseSmoothing.usage, ToggleMouseSmoothing.Execute);
+            //ConsoleCommandsDatabase.RegisterCommand(SetMouseSensitivity.name, SetMouseSensitivity.description, SetMouseSensitivity.usage, SetMouseSensitivity.Execute);
+            //ConsoleCommandsDatabase.RegisterCommand(ToggleMouseSmoothing.name, ToggleMouseSmoothing.description, ToggleMouseSmoothing.usage, ToggleMouseSmoothing.Execute);
             ConsoleCommandsDatabase.RegisterCommand(AddPopupText.name, AddPopupText.description, AddPopupText.usage, AddPopupText.Execute);
 
             //ConsoleCommandsDatabase.RegisterCommand(SetMouseSmoothing.name, SetMouseSmoothing.description, SetMouseSmoothing.usage, SetMouseSmoothing.Execute);
@@ -781,7 +781,7 @@ namespace Wenzil.Console
             }
         }
 
-        private static class SetMouseSensitivity
+        /*private static class SetMouseSensitivity
         {
             public static readonly string name = "set_mspeed";
             public static readonly string error = "Failed to set mouse sensitivity- invalid setting or PlayerMouseLook object not found";
@@ -859,7 +859,7 @@ namespace Wenzil.Console
                 }
             }
 
-        }
+        }*/
 
         private static class SetVSync
         {
@@ -2097,10 +2097,11 @@ namespace Wenzil.Console
                         foreach (WeaponMaterialTypes material in weaponMaterials)
                         {
                             Array enumArray = itemHelper.GetEnumArray(ItemGroups.Weapons);
-                            for (int i = 0; i < enumArray.Length-1; i++)
+                            for (int i = 0; i < enumArray.Length - 1; i++)
                             {
                                 newItem = ItemBuilder.CreateWeapon((Weapons)enumArray.GetValue(i), material);
-                                if (args[0] == "magicWeapons") {
+                                if (args[0] == "magicWeapons")
+                                {
                                     newItem.legacyMagic = new DaggerfallEnchantment[] { new DaggerfallEnchantment() { type = EnchantmentTypes.CastWhenUsed, param = 5 } };
                                     newItem.IdentifyItem();
                                 }

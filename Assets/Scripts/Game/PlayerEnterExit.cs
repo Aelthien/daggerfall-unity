@@ -698,7 +698,8 @@ namespace DaggerfallWorkshop.Game
             Vector3 foundDoorNormal = Vector3.zero;
             if (interior.FindClosestInteriorDoor(checkPosition, out landingPosition, out foundDoorNormal))
             {
-                landingPosition += foundDoorNormal * (GameManager.Instance.PlayerController.radius + 0.4f);
+                //fixme
+                //landingPosition += foundDoorNormal * (GameManager.Instance.PlayerController.radius + 0.4f);
             }
             else
             {
@@ -890,12 +891,18 @@ namespace DaggerfallWorkshop.Game
                 if (DaggerfallStaticDoors.FindClosestDoorToPlayer(transform.position, doors, out doorPos, out doorIndex))
                 {
                     // Set player facing away from door
-                    PlayerMouseLook playerMouseLook = GameManager.Instance.PlayerMouseLook;
+                    PlayerController playerController = GameManager.Instance.PlayerController;
+                    if (playerController)
+                    {
+                        Vector3 normal = DaggerfallStaticDoors.GetDoorNormal(doors[doorIndex]);
+                        playerController.SetFacing(normal, true);
+                    }
+                    /*PlayerMouseLook playerMouseLook = GameManager.Instance.PlayerMouseLook;
                     if (playerMouseLook)
                     {
                         Vector3 normal = DaggerfallStaticDoors.GetDoorNormal(doors[doorIndex]);
                         playerMouseLook.SetFacing(normal);
-                    }
+                    }*/
                 }
             }
 
@@ -955,9 +962,9 @@ namespace DaggerfallWorkshop.Game
             MovePlayerToMarker(marker);
 
             // Set player facing north
-            PlayerMouseLook playerMouseLook = GameManager.Instance.PlayerMouseLook;
-            if (playerMouseLook)
-                playerMouseLook.SetFacing(Vector3.forward);
+            PlayerController playerController = GameManager.Instance.PlayerController;
+            if (playerController)
+                playerController.SetFacing(Vector3.forward, true);
 
             // Raise event
             RaiseOnTransitionDungeonInteriorEvent(new StaticDoor(), dungeon);
