@@ -75,7 +75,6 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             { UIWindowType.GuildServicePopup, typeof(DaggerfallGuildServicePopupWindow) },
             { UIWindowType.Inventory, typeof(DaggerfallInventoryWindow) },
             { UIWindowType.ItemMaker, typeof(DaggerfallItemMakerWindow) },
-            { UIWindowType.JoystickControls, typeof(DaggerfallJoystickControlsWindow) },
             { UIWindowType.LoadClassicGame, typeof(DaggerfallLoadClassicGameWindow) },
             { UIWindowType.MerchantRepairPopup, typeof(DaggerfallMerchantRepairPopupWindow) },
             { UIWindowType.MerchantServicePopup, typeof(DaggerfallMerchantServicePopupWindow) },

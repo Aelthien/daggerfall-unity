@@ -67,18 +67,18 @@ namespace DaggerfallWorkshop.Game
                 return;
             if (levitateMotor.IsLevitating)
                 return;
-
+            //fixme
             float continueHangingSkillCheckFrequency = 14f;
             //float halfHeight = (controller.height / 2f);
-            //bool inputBack = InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards);
-            bool inputForward = InputManager.Instance.HasAction(InputManager.Actions.MoveForwards);
+            bool inputBack = false;// InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards);
+            bool inputForward = false;//InputManager.Instance.HasAction(InputManager.Actions.MoveForwards);
 
-            //bool touchingSides = (playerMotor.CollisionFlags & CollisionFlags.Sides) != 0;
+            bool touchingSides = (playerMotor.CollisionFlags & CollisionFlags.Sides) != 0;
             bool touchingAbove = (playerMotor.CollisionFlags & CollisionFlags.Above) != 0;
             IsWithinHangingDistance = touchingAbove;//(scanner.HeadHitDistance > halfHeight - 0.17f && scanner.HeadHitDistance < halfHeight - 0.09f);
 
-            bool inputAbortCondition = (InputManager.Instance.HasAction(InputManager.Actions.Crouch)
-                                        || InputManager.Instance.HasAction(InputManager.Actions.Jump));
+            bool inputAbortCondition = false;// (InputManager.Instance.HasAction(InputManager.Actions.Crouch)
+                                        //|| InputManager.Instance.HasAction(InputManager.Actions.Jump));
             
             bool horizontallyStationary = Vector2.Distance(lastHorizontalPosition, new Vector2(controller.transform.position.x, controller.transform.position.z)) < startHangingHorizontalTolerance;
             bool forwardStationaryNearCeiling = inputForward && IsWithinHangingDistance && horizontallyStationary;
@@ -139,19 +139,19 @@ namespace DaggerfallWorkshop.Game
         {
             Vector3 pos = controller.transform.position;
             Vector3 startPos = pos + (controller.transform.forward * 0.4f) + (Vector3.up * 0.5f);
-            if (InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards))
+            /*if (InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards))
             {
                 scanner.FindAdjacentSurface(startPos, -controller.transform.forward, PlayerMoveScanner.RotationDirection.YZClockwise);
-            }
+            }*/
         }
 
         private void FindFrontWall()
         {
             Vector3 pos = controller.transform.position;
             Vector3 startPos = pos + (-controller.transform.forward * 0.2f) + (Vector3.down * 0.2f);
-            if (InputManager.Instance.HasAction(InputManager.Actions.MoveForwards))
+            //if (InputManager.Instance.HasAction(InputManager.Actions.MoveForwards))
                 // initial scan direction is downward
-                scanner.FindAdjacentSurface(startPos, Vector3.down, PlayerMoveScanner.RotationDirection.YZCounterClockwise);
+              //  scanner.FindAdjacentSurface(startPos, Vector3.down, PlayerMoveScanner.RotationDirection.YZCounterClockwise);
         }
 
         private bool HangingTransition(HangingTransitionState transState)
@@ -195,7 +195,7 @@ namespace DaggerfallWorkshop.Game
             {
                 float playerspeed = speedChanger.GetClimbingSpeed(playerMotor.Speed);
                 Vector3 moveVector = Vector3.zero;
-                if (InputManager.Instance.HasAction(InputManager.Actions.MoveForwards))
+                /*if (InputManager.Instance.HasAction(InputManager.Actions.MoveForwards))
                     moveVector += controller.transform.forward;
                 else if (InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards))
                     moveVector -= controller.transform.forward;
@@ -203,7 +203,7 @@ namespace DaggerfallWorkshop.Game
                 if (InputManager.Instance.HasAction(InputManager.Actions.MoveRight))
                     moveVector += controller.transform.right;
                 else if (InputManager.Instance.HasAction(InputManager.Actions.MoveLeft))
-                    moveVector -= controller.transform.right;
+                    moveVector -= controller.transform.right;*/
 
                 if (moveVector != Vector3.zero)
                 {  

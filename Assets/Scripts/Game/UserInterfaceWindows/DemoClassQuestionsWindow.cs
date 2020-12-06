@@ -92,7 +92,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         public override void Update()
         {
             base.Update();
-
+            /*
             // Scroll questions up or down
             if (Input.GetKey(KeyCode.Mouse0))
             {
@@ -100,7 +100,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
                     ScrollQuestions(-1);
                 else if (scrollDownButton.MouseOverComponent)
                     ScrollQuestions(1);
-            }
+            }*/
         }
 
         void ScrollQuestions(int step)

@@ -1681,7 +1681,7 @@ namespace Wenzil.Console
                 else
                 {
                     loc = hitInfo.point;
-                    while (Physics.CheckCapsule(loc, loc + dir, GameManager.Instance.PlayerController.radius + .1f) && step < 50)
+                    while (Physics.CheckCapsule(loc, loc + dir, 20 + .1f) && step < 50)
                     {
                         loc = dir + loc;
                         step++;
@@ -2155,7 +2155,7 @@ namespace Wenzil.Console
             {
                 AcrobatMotor acrobatMotor = GameManager.Instance.AcrobatMotor;
                 FrictionMotor frictionMotor = GameManager.Instance.FrictionMotor;
-                CharacterController cc = GameManager.Instance.PlayerController;
+                CharacterController cc = GameManager.Instance.CharacterController;
                 acrobatMotor.ClearFallingDamage();
 
                 RaycastHit hitInfo;

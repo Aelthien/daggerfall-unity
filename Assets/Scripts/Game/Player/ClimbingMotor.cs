@@ -130,11 +130,11 @@ namespace DaggerfallWorkshop.Game
         public void ClimbingCheck()
         {
             bool advancedClimbingOn = DaggerfallUnity.Settings.AdvancedClimbing;
-
+            //fixme
             // true if we should try climbing wall and are airborne
             bool airborneGraspWall = (!isClimbing && !isSlipping && acrobatMotor.Falling);
-            bool inputBack = InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards);
-            bool inputForward = InputManager.Instance.HasAction(InputManager.Actions.MoveForwards);
+            bool inputBack = false;// InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards);
+            bool inputForward = false;// InputManager.Instance.HasAction(InputManager.Actions.MoveForwards);
             //inputForward = true;
 
             // boolean that means ground directly below us is too close for climbing or rappelling
@@ -148,8 +148,8 @@ namespace DaggerfallWorkshop.Game
             if (advancedClimbingOn)
             {
                 // TODO: prevent crouch from toggling crouch when aborting climb
-                inputAbortCondition = (InputManager.Instance.HasAction(InputManager.Actions.Crouch)
-                                      || InputManager.Instance.HasAction(InputManager.Actions.Jump));
+                //inputAbortCondition = (InputManager.Instance.HasAction(InputManager.Actions.Crouch)
+                  //                    || InputManager.Instance.HasAction(InputManager.Actions.Jump));
             }
             else
                 inputAbortCondition = !inputForward;
@@ -213,8 +213,9 @@ namespace DaggerfallWorkshop.Game
             wasClimbing = isClimbing;
             if ((!pushingFaceAgainstWallNearCeiling)
                 &&
-                (inputAbortCondition
-                || ClimbQuitMoveUnderToHang
+                (//inputAbortCondition
+                //|| 
+                ClimbQuitMoveUnderToHang
                 || !climbingOrForwardOrGrasping 
                 || !touchingSides && !releasedFromCeiling
                 || levitateMotor.IsLevitating
@@ -227,8 +228,8 @@ namespace DaggerfallWorkshop.Game
                 // if we're hanging, and touching sides with a wall that isn't mostly vertical
                 || hangTouchNonVertical))
             {
-                if (isClimbing && inputAbortCondition && advancedClimbingOn)
-                    WallEject = true;
+                //if (isClimbing && inputAbortCondition && advancedClimbingOn)
+                  //  WallEject = true;
 
                 StopClimbing();
                 releasedFromCeiling = false;
@@ -270,7 +271,7 @@ namespace DaggerfallWorkshop.Game
                         climbingContinueTimer = 0;
 
                         // don't allow slipping if not moving.
-                        if (!InputManager.Instance.HasAction(InputManager.Actions.MoveForwards)
+                        /*if (!InputManager.Instance.HasAction(InputManager.Actions.MoveForwards)
                                 && !InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards)
                                 && !InputManager.Instance.HasAction(InputManager.Actions.MoveLeft)
                                 && !InputManager.Instance.HasAction(InputManager.Actions.MoveRight))
@@ -279,7 +280,7 @@ namespace DaggerfallWorkshop.Game
                         else if (isSlipping)
                             isSlipping = !ClimbingSkillCheck(regainHoldMinChance);
                         else
-                            isSlipping = !ClimbingSkillCheck(continueClimbMinChance);
+                            isSlipping = !ClimbingSkillCheck(continueClimbMinChance);*/
                     }
                 }
 
@@ -491,10 +492,10 @@ namespace DaggerfallWorkshop.Game
             {
                 float climbScalar = speedChanger.GetClimbingSpeed(playerMotor.Speed);
                 moveDirection = Vector3.zero;
-                bool movedForward = InputManager.Instance.HasAction(InputManager.Actions.MoveForwards);
-                bool movedBackward = InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards);
-                bool movedLeft = InputManager.Instance.HasAction(InputManager.Actions.MoveLeft);
-                bool movedRight = InputManager.Instance.HasAction(InputManager.Actions.MoveRight);
+                bool movedForward = false;// InputManager.Instance.HasAction(InputManager.Actions.MoveForwards);
+                bool movedBackward = false;// InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards);
+                bool movedLeft = false;// InputManager.Instance.HasAction(InputManager.Actions.MoveLeft);
+                bool movedRight = false;// InputManager.Instance.HasAction(InputManager.Actions.MoveRight);
 
                 if (DaggerfallUnity.Settings.AdvancedClimbing)
                 {

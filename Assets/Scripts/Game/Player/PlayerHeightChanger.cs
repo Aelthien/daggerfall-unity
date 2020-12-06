@@ -31,7 +31,6 @@ namespace DaggerfallWorkshop.Game
 
     [RequireComponent(typeof(PlayerMotor))]
     [RequireComponent(typeof(CharacterController))]
-    [RequireComponent(typeof(HeadBobber))]
     [RequireComponent(typeof(LevitateMotor))]
     public class PlayerHeightChanger : MonoBehaviour
     {
@@ -47,7 +46,6 @@ namespace DaggerfallWorkshop.Game
 
         private PlayerMotor playerMotor;
         private CharacterController controller;
-        private HeadBobber headBobber;
         private LevitateMotor levitateMotor;
         private ClimbingMotor climbingMotor;
         private Camera mainCamera;
@@ -103,7 +101,6 @@ namespace DaggerfallWorkshop.Game
         {
             playerMotor = GetComponent<PlayerMotor>();
             controller = GetComponent<CharacterController>();
-            headBobber = GetComponent<HeadBobber>();
             mainCamera = GameManager.Instance.MainCamera;
             levitateMotor = GetComponent<LevitateMotor>();
             climbingMotor = GetComponent<ClimbingMotor>();
@@ -128,7 +125,7 @@ namespace DaggerfallWorkshop.Game
             bool swimming = levitateMotor.IsSwimming;
             bool crouching = playerMotor.IsCrouching;
             bool riding = playerMotor.IsRiding;
-            bool pressedCrouch = InputManager.Instance.ActionStarted(InputManager.Actions.Crouch);
+            bool pressedCrouch = false;// InputManager.Instance.ActionStarted(InputManager.Actions.Crouch);
             bool climbing = climbingMotor.IsClimbing;
             bool levitating = playerMotor.IsLevitating;
             //timerMax = timerSlow;
@@ -461,7 +458,6 @@ namespace DaggerfallWorkshop.Game
         private void UpdateCameraPosition(float yPosMod)
         {
             Vector3 camPos = mainCamera.transform.localPosition;
-            headBobber.RestPos = new Vector3(headBobber.RestPos.x, yPosMod);
             mainCamera.transform.localPosition = new Vector3(camPos.x, yPosMod, camPos.z);
         }
 

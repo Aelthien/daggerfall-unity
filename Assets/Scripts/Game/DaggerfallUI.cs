@@ -94,7 +94,6 @@ namespace DaggerfallWorkshop.Game
         DaggerfallCharacterSheetWindow dfCharacterSheetWindow;
         DaggerfallInventoryWindow dfInventoryWindow;
         DaggerfallControlsWindow dfControlsWindow;
-        DaggerfallJoystickControlsWindow dfJoystickControlsWindow;
         DaggerfallUnityMouseControlsWindow dfUnityMouseControlsWindow;
         DaggerfallTravelMapWindow dfTravelMapWindow;
         DaggerfallAutomapWindow dfAutomapWindow;
@@ -214,12 +213,7 @@ namespace DaggerfallWorkshop.Game
         {
             get { return dfControlsWindow; }
         }
-
-        public DaggerfallJoystickControlsWindow JoystickControlsWindow
-        {
-            get { return dfJoystickControlsWindow; }
-        }
-
+        
         public DaggerfallUnityMouseControlsWindow MouseControlsWindow
         {
             get { return dfUnityMouseControlsWindow; }
@@ -440,7 +434,6 @@ namespace DaggerfallWorkshop.Game
             dfCharacterSheetWindow = (DaggerfallCharacterSheetWindow)UIWindowFactory.GetInstance(UIWindowType.CharacterSheet, uiManager);
             dfInventoryWindow = (DaggerfallInventoryWindow)UIWindowFactory.GetInstance(UIWindowType.Inventory, uiManager, null);
             dfControlsWindow = (DaggerfallControlsWindow)UIWindowFactory.GetInstance(UIWindowType.Controls, uiManager, null);
-            dfJoystickControlsWindow = (DaggerfallJoystickControlsWindow)UIWindowFactory.GetInstance(UIWindowType.JoystickControls, uiManager, null);
             dfUnityMouseControlsWindow = (DaggerfallUnityMouseControlsWindow)UIWindowFactory.GetInstance(UIWindowType.UnityMouseControls, uiManager, null);
             dfTravelMapWindow = (DaggerfallTravelMapWindow)UIWindowFactory.GetInstance(UIWindowType.TravelMap, uiManager);
             dfAutomapWindow = (DaggerfallAutomapWindow)UIWindowFactory.GetInstance(UIWindowType.Automap, uiManager);
@@ -487,9 +480,6 @@ namespace DaggerfallWorkshop.Game
                     break;
                 case DaggerfallUIMessages.dfuiOpenControlsWindow:
                     uiManager.PushWindow(dfControlsWindow);
-                    break;
-                case DaggerfallUIMessages.dfuiOpenJoystickControlsWindow:
-                    uiManager.PushWindow(dfJoystickControlsWindow);
                     break;
                 case DaggerfallUIMessages.dfuiOpenMouseControlsWindow:
                     uiManager.PushWindow(dfUnityMouseControlsWindow);
@@ -619,7 +609,7 @@ namespace DaggerfallWorkshop.Game
                     }
                     else
                     {
-                        if (GameManager.Instance.PlayerController.isGrounded)
+                        if (GameManager.Instance.CharacterController.isGrounded)
                             uiManager.PushWindow(UIWindowFactory.GetInstance(UIWindowType.Transport, uiManager));
                     }
                     break;
@@ -1367,14 +1357,15 @@ namespace DaggerfallWorkshop.Game
 
         void DisplayStatusInfo()
         {
+            //fixme
             // Setup status info as the first message box.
             DaggerfallMessageBox statusBox = new DaggerfallMessageBox(Instance.uiManager, Instance.uiManager.TopWindow);
-            statusBox.ExtraProceedBinding = InputManager.Instance.GetBinding(InputManager.Actions.Status); // set proceed binding for statusBox to key binding for status window
+            //statusBox.ExtraProceedBinding = InputManager.Instance.GetBinding(InputManager.Actions.Status); // set proceed binding for statusBox to key binding for status window
             statusBox.SetTextTokens(22);
 
             // Setup health info as the second message box.
             DaggerfallMessageBox healthBox = CreateHealthStatusBox(statusBox);
-            healthBox.ExtraProceedBinding = InputManager.Instance.GetBinding(InputManager.Actions.Status); // set proceed binding for healthBox to key binding for status window
+            //healthBox.ExtraProceedBinding = InputManager.Instance.GetBinding(InputManager.Actions.Status); // set proceed binding for healthBox to key binding for status window
             statusBox.AddNextMessageBox(healthBox);
 
             statusBox.Show();

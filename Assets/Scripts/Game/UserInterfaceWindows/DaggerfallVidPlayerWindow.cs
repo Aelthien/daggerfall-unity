@@ -110,12 +110,12 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         public override void Update()
         {
             base.Update();
-
+            //fixme
             // Handle exit any key or end of video
             if (useCustomVideo)
             {
-                if (endOnAnyKey && InputManager.Instance.AnyKeyDown ||
-                    Input.GetKeyDown(KeyCode.Escape) ||
+                if (//endOnAnyKey && InputManager.Instance.AnyKeyDown ||
+                    //Input.GetKeyDown(KeyCode.Escape) ||
                     !customVideo.IsPlaying)
                 {
                     customVideo.Stop();
@@ -130,8 +130,8 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             }
             else
             {
-                if (endOnAnyKey && InputManager.Instance.AnyKeyDown ||
-                    Input.GetKeyDown(KeyCode.Escape) ||
+                if (//endOnAnyKey && InputManager.Instance.AnyKeyDown ||
+                    //Input.GetKeyDown(KeyCode.Escape) ||
                     video.VidFile.EndOfFile && video.Playing)
                 {
                     video.Playing = false;

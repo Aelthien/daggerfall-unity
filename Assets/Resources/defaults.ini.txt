@@ -1,5 +1,5 @@
 [Daggerfall]
-MyDaggerfallPath=
+MyDaggerfallPath=F:\Games\Bethesda Softworks\Daggerfall\arena2
 MyDaggerfallUnitySavePath=
 
 [Video]

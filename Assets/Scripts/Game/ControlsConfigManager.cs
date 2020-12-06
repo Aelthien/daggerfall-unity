@@ -43,17 +43,17 @@ namespace DaggerfallWorkshop.Game
 
         private readonly Color crossDupeColor = new Color(0, 0.58f, 1);
         private readonly Color internalDupeColor = new Color(1, 0, 0);
-
-        private readonly Dictionary<InputManager.Actions, string> PrimaryUnsavedKeybindDict 
+        //fixme
+        /*private readonly Dictionary<InputManager.Actions, string> PrimaryUnsavedKeybindDict 
             = new Dictionary<InputManager.Actions, string>();
         private readonly Dictionary<InputManager.Actions, string> SecondaryUnsavedKeybindDict
-            = new Dictionary<InputManager.Actions, string>();
+            = new Dictionary<InputManager.Actions, string>();*/
 
         #endregion
 
         #region Public Properties
 
-        public static string ElongatedButtonText { get => "..."; }
+        public static string ElongatedButtonText { get => "..."; } 
 
         public bool UsingPrimary { get; set; } = true;
 
@@ -62,12 +62,12 @@ namespace DaggerfallWorkshop.Game
         #region Private Properties
 
         private int maxButtonTextLength { get => DaggerfallUnity.Settings.SDFFontRendering ? 16 : 10; }
-
+            /*
         private Dictionary<InputManager.Actions, string> CurrentUnsavedKeybindDict
         {
             get { return UsingPrimary ? PrimaryUnsavedKeybindDict : SecondaryUnsavedKeybindDict; }
         }
-
+        */
         #endregion
 
         #region Singleton
@@ -117,7 +117,7 @@ namespace DaggerfallWorkshop.Game
         #endregion
 
         #region Public Methods
-
+        /*
         public string GetUnsavedBinding(InputManager.Actions action, UnaryBindings binding = UnaryBindings.Current)
         {
             var dict = GetUnsavedBindingDictionary(binding);
@@ -142,7 +142,7 @@ namespace DaggerfallWorkshop.Game
         {
             GetUnsavedBindingDictionary(binding)[action] = keyCodeString;
         }
-
+        */
         public HashSet<String> GetDuplicates(IEnumerable<String> texts)
         {
             HashSet<String> recorded = new HashSet<String>();
@@ -155,20 +155,20 @@ namespace DaggerfallWorkshop.Game
             {
                 if (str.Contains('+'))
                 {
-                    var c = InputManager.Instance.GetCombo(InputManager.Instance.GetComboCode(str));
+                    //var c = InputManager.Instance.GetCombo(InputManager.Instance.GetComboCode(str));
                     // Only record the modifier (i.e. the button that gets held down first)
-                    var kc1 = InputManager.Instance.GetKeyString(c.Item1);
+                    //var kc1 = InputManager.Instance.GetKeyString(c.Item1);
 
                     // Add modifier to 'recorded' so it cannot be used as an independent keybind
-                    if (!recorded.Contains(kc1))
+                    /*if (!recorded.Contains(kc1))
                         recorded.Add(kc1);
 
                     HashSet<String> mods;
                     if (!modifiers.TryGetValue(kc1, out mods))
                         mods = (modifiers[kc1] = new HashSet<String>());
-
+                        */
                     // Add combo to mod list
-                    mods.Add(str);
+                    //mods.Add(str);
 
                     return true;
                 }
@@ -206,15 +206,15 @@ namespace DaggerfallWorkshop.Game
             {
                 if (str.Contains('+'))
                 {
-                    var c = InputManager.Instance.GetCombo(InputManager.Instance.GetComboCode(str));
-                    var kc2 = InputManager.Instance.GetKeyString(c.Item2);
+                    //var c = InputManager.Instance.GetCombo(InputManager.Instance.GetComboCode(str));
+                    //var kc2 = InputManager.Instance.GetKeyString(c.Item2);
                     HashSet<string> mods;
 
-                    if (modifiers.TryGetValue(kc2, out mods))
+                    /*if (modifiers.TryGetValue(kc2, out mods))
                     {
                         dupes.UnionWith(mods);
                         dupes.Add(str);
-                    }
+                    }*/
                 }
             }
             return dupes;
@@ -222,14 +222,14 @@ namespace DaggerfallWorkshop.Game
 
         public bool InternalDuplicateKeyCodesExist(UnaryBindings binding)
         {
-            var dict = GetUnsavedBindingDictionary(binding);
+            //var dict = GetUnsavedBindingDictionary(binding);
 
-            return GetDuplicates(dict.Values).Count > 0;
+            return false;// GetDuplicates(dict.Values).Count > 0;
         }
 
         public bool CheckDuplicateKeyCodes(IEnumerable<Button> totalButtons)
         {
-            IEnumerable<String> pkeyList = PrimaryUnsavedKeybindDict.Values;
+            /*IEnumerable<String> pkeyList = PrimaryUnsavedKeybindDict.Values;
             IEnumerable<String> skeyList = SecondaryUnsavedKeybindDict.Values;
 
             var dupes = GetDuplicates(UsingPrimary ? pkeyList : skeyList);
@@ -239,8 +239,8 @@ namespace DaggerfallWorkshop.Game
             foreach (Button keybindButton in totalButtons)
             {
                 // Assumption: button.Name is the action.ToString()
-                var action = (InputManager.Actions)Enum.Parse(typeof(InputManager.Actions), keybindButton.Name);
-                var binding = CurrentUnsavedKeybindDict[action];
+                //var action = (InputManager.Actions)Enum.Parse(typeof(InputManager.Actions), keybindButton.Name);
+                //var binding = CurrentUnsavedKeybindDict[action];
 
                 if (dupes.Contains(binding))
                     keybindButton.Label.TextColor = internalDupeColor;
@@ -258,18 +258,18 @@ namespace DaggerfallWorkshop.Game
             foreach (Button keybindButton in totalButtons)
             {
                 // Assumption: button.Name is the action.ToString()
-                var action = (InputManager.Actions)Enum.Parse(typeof(InputManager.Actions), keybindButton.Name);
-                var binding = CurrentUnsavedKeybindDict[action];
+                //var action = (InputManager.Actions)Enum.Parse(typeof(InputManager.Actions), keybindButton.Name);
+                //var binding = CurrentUnsavedKeybindDict[action];
 
                 if (dupes.Contains(binding) && keybindButton.Label.TextColor != internalDupeColor)
                     keybindButton.Label.TextColor = crossDupeColor;
             }
-
-            return noRedDupes && dupes.Count == 0;
+            */
+            return false; //noRedDupes && dupes.Count == 0;
         }
 
         public void ResetUnsavedKeybinds()
-        {
+        {/*
             foreach (InputManager.Actions a in Enum.GetValues(typeof(InputManager.Actions)))
             {
                 PrimaryUnsavedKeybindDict[a] = InputManager.Instance.GetKeyString(InputManager.Instance.GetBinding(a, true));
@@ -278,7 +278,7 @@ namespace DaggerfallWorkshop.Game
             foreach (InputManager.Actions a in Enum.GetValues(typeof(InputManager.Actions)))
             {
                 SecondaryUnsavedKeybindDict[a] = InputManager.Instance.GetKeyString(InputManager.Instance.GetBinding(a, false));
-            }
+            }*/
         }
 
         public void SetAllKeyBindValues()
@@ -296,10 +296,10 @@ namespace DaggerfallWorkshop.Game
             removeAssignmentBox.PauseWhileOpen = true;
 
             string prompt = TextManager.Instance.GetLocalizedText("removeKeybind");
-            var action = (InputManager.Actions)Enum.Parse(typeof(InputManager.Actions), button.Name);
-            string text = GetButtonText(GetUnsavedBindingKeyCode(action), true);
+            //var action = (InputManager.Actions)Enum.Parse(typeof(InputManager.Actions), button.Name);
+            //string text = GetButtonText(GetUnsavedBindingKeyCode(action), true);
 
-            removeAssignmentBox.SetText(string.Format(prompt, Regex.Replace(button.Name, "(?<=[a-z])([A-Z])", " $1", RegexOptions.Compiled).Trim(), text));
+           //removeAssignmentBox.SetText(string.Format(prompt, Regex.Replace(button.Name, "(?<=[a-z])([A-Z])", " $1", RegexOptions.Compiled).Trim(), text));
 
             removeAssignmentBox.AddButton(DaggerfallMessageBox.MessageBoxButtons.Yes);
             removeAssignmentBox.AddButton(DaggerfallMessageBox.MessageBoxButtons.No, true);
@@ -309,7 +309,7 @@ namespace DaggerfallWorkshop.Game
                 if (messageBoxButton == DaggerfallMessageBox.MessageBoxButtons.Yes)
                 {
                     button.Label.Text = KeyCode.None.ToString();
-                    SetUnsavedBinding(action, button.Label.Text);
+                    //SetUnsavedBinding(action, button.Label.Text);
                     checkDuplicates();
                 }
                 s.CloseWindow();
@@ -498,7 +498,7 @@ namespace DaggerfallWorkshop.Game
                     text = "Enter";
                     break;
             }
-
+            /*
             if ((int)key >= (int)KeyCode.JoystickButton0 && (int)key <= (int)KeyCode.JoystickButton19)
             {
                 text = "Joy B" + (((int)key - 10) % 20);
@@ -516,14 +516,14 @@ namespace DaggerfallWorkshop.Game
             {
                 text = FormatButtonText(InputManager.Instance.GetKeyString((KeyCode)key), fullString);
             }
-
+            */
             return DaggerfallUnity.Settings.SDFFontRendering ? text : text.ToUpper();
         }
 
         #endregion
 
         #region Private Methods
-
+        /*
         private Dictionary<InputManager.Actions, string> GetUnsavedBindingDictionary(UnaryBindings ub)
         {
             switch(ub)
@@ -536,10 +536,10 @@ namespace DaggerfallWorkshop.Game
                     return CurrentUnsavedKeybindDict;
             }
         }
-
+        */
         private void SetKeyBindValues(bool primary)
         {
-            var dict = primary ? PrimaryUnsavedKeybindDict : SecondaryUnsavedKeybindDict;
+            /*var dict = primary ? PrimaryUnsavedKeybindDict : SecondaryUnsavedKeybindDict;
             foreach (var action in dict.Keys)
             {
                 KeyCode code = InputManager.Instance.ParseKeyCodeString(dict[action]);
@@ -551,7 +551,7 @@ namespace DaggerfallWorkshop.Game
                     InputManager.Instance.SetBinding(code, action, primary);
                     Debug.LogFormat("({0}) Bound Action {1} with Code {2} ({3})", primary ? "Primary" : "Secondary", action, code.ToString(), (int)code);
                 }
-            }
+            }*/
         }
 
         private string FormatButtonText(string str, bool fullString)

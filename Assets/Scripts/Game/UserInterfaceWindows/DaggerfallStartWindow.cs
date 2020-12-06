@@ -67,7 +67,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         public override void Update()
         {
             base.Update();
-            InputManager.Instance.CursorVisible = true;
+            //InputManager.Instance.CursorVisible = true;
         }
 
         void LoadGame()

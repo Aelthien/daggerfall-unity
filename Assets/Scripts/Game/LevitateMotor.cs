@@ -67,7 +67,8 @@ namespace DaggerfallWorkshop.Game
             // Cancel levitate movement if player is paralyzed
             if (GameManager.Instance.PlayerEntity.IsParalyzed)
                 return;
-
+            //fixme
+            /*
             // Forward/backwards
             if (InputManager.Instance.HasAction(InputManager.Actions.MoveForwards))
                 AddMovement(playerCamera.transform.forward);
@@ -79,17 +80,17 @@ namespace DaggerfallWorkshop.Game
                 AddMovement(playerCamera.transform.right);
             else if (InputManager.Instance.HasAction(InputManager.Actions.MoveLeft))
                 AddMovement(-playerCamera.transform.right);
-
+                */
             // Up/down
             Vector3 upDownVector = new Vector3 (0, 0, 0);
 
             bool overEncumbered = (GameManager.Instance.PlayerEntity.CarriedWeight * 4 > 250) && !playerLevitating && !GameManager.Instance.PlayerEntity.GodMode;
             if (playerSwimming && overEncumbered && !climbingMotor.IsClimbing && !GameManager.Instance.PlayerEntity.IsWaterWalking)
                 upDownVector += Vector3.down;
-            else if (InputManager.Instance.HasAction(InputManager.Actions.Jump) || InputManager.Instance.HasAction(InputManager.Actions.FloatUp))
+            /*else if (InputManager.Instance.HasAction(InputManager.Actions.Jump) || InputManager.Instance.HasAction(InputManager.Actions.FloatUp))
                 upDownVector += Vector3.up;
             else if (InputManager.Instance.HasAction(InputManager.Actions.Crouch) || InputManager.Instance.HasAction(InputManager.Actions.FloatDown))
-                upDownVector += Vector3.down;
+                upDownVector += Vector3.down;*/
 
             AddMovement(upDownVector, true);
 

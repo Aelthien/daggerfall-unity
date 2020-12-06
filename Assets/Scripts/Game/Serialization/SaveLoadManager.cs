@@ -1264,7 +1264,7 @@ namespace DaggerfallWorkshop.Game.Serialization
         {
             GameManager.Instance.PlayerDeath.ClearDeathAnimation();
             GameManager.Instance.PlayerMotor.CancelMovement = true;
-            InputManager.Instance.ClearAllActions();
+            //InputManager.Instance.ClearAllActions();
             QuestMachine.Instance.ClearState();
             stateManager.ClearSceneCache();
             PlayerEntity playerEntity = GameManager.Instance.PlayerEntity;

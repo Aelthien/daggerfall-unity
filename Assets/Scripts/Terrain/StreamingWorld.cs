@@ -1403,7 +1403,7 @@ namespace DaggerfallWorkshop
             if (foundCollection)
             {
                 Vector3 startPosition = foundCollection.GetDoorPosition(foundIndex);
-                startPosition += foundDoorNormal * (GameManager.Instance.PlayerController.radius + 0.1f);
+                startPosition += foundDoorNormal * (20 + 0.1f);
                 RepositionPlayer(MapPixelX, MapPixelY, startPosition);
             }
             else
@@ -1412,7 +1412,7 @@ namespace DaggerfallWorkshop
             }
 
             // Set player facing away from door
-            PlayerController playerController = GameManager.Instance.PlayerMouseLook;
+            PlayerController playerController = GameManager.Instance.PlayerController;
             if (playerController)
             {
                 playerController.SetFacing(foundDoorNormal, true);
@@ -1518,32 +1518,32 @@ namespace DaggerfallWorkshop
 
             // Start player in position
             Vector3 newPlayerPosition = centre;
-            PlayerMouseLook mouseLook = LocalPlayerGPS.GetComponentInChildren<PlayerMouseLook>();
+            PlayerController mouseLook = LocalPlayerGPS.GetComponentInChildren<PlayerController>();
             if (mouseLook)
             {
                 switch (side)
                 {
                     case 0:         // North
                         newPlayerPosition += new Vector3(0, 0, (halfHeight + extraDistance));
-                        mouseLook.SetFacing(180, 0);
+                        mouseLook.SetFacing(180, 0, true);
                         //LocalPlayerGPS.gameObject.SendMessage("SetFacing", Vector3.back, SendMessageOptions.DontRequireReceiver);
                         //Debug.Log("Spawned player north.");
                         break;
                     case 1:         // South
                         newPlayerPosition += new Vector3(0, 0, -(halfHeight + extraDistance));
-                        mouseLook.SetFacing(0, 0);
+                        mouseLook.SetFacing(0, 0, true);
                         //LocalPlayerGPS.gameObject.SendMessage("SetFacing", Vector3.forward, SendMessageOptions.DontRequireReceiver);
                         //Debug.Log("Spawned player south.");
                         break;
                     case 2:         // East
                         newPlayerPosition += new Vector3((halfWidth + extraDistance), 0, 0);
-                        mouseLook.SetFacing(270, 0);
+                        mouseLook.SetFacing(270, 0, true);
                         //LocalPlayerGPS.gameObject.SendMessage("SetFacing", Vector3.left, SendMessageOptions.DontRequireReceiver);
                         //Debug.Log("Spawned player east.");
                         break;
                     case 3:         // West
                         newPlayerPosition += new Vector3(-(halfWidth + extraDistance), 0, 0);
-                        mouseLook.SetFacing(90, 0);
+                        mouseLook.SetFacing(90, 0, true);
                         //LocalPlayerGPS.gameObject.SendMessage("SetFacing", Vector3.right, SendMessageOptions.DontRequireReceiver);
                         //Debug.Log("Spawned player west.");
                         break;

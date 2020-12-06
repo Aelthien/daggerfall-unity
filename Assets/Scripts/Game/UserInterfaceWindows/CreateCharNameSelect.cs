@@ -118,8 +118,8 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         {
             base.Update();
 
-            if (Input.GetKeyDown(KeyCode.Return))
-                AcceptName();
+            //if (Input.GetKeyDown(KeyCode.Return))
+             //   AcceptName();
         }
 
         void AcceptName()

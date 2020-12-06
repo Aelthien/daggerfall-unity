@@ -201,7 +201,8 @@ namespace DaggerfallWorkshop.Game
         {
             if (mainCamera == null)
                 return;
-
+            //fixme
+            /*
             // Change activate mode
             if (InputManager.Instance.ActionStarted(InputManager.Actions.StealMode))
                 ChangeInteractionMode(PlayerActivateModes.Steal);
@@ -211,7 +212,7 @@ namespace DaggerfallWorkshop.Game
                 ChangeInteractionMode(PlayerActivateModes.Info);
             else if (InputManager.Instance.ActionStarted(InputManager.Actions.TalkMode))
                 ChangeInteractionMode(PlayerActivateModes.Talk);
-
+                */
             // Do not do scene activation if player has cursor active over large HUD
             if (DaggerfallUI.Instance.DaggerfallHUD != null &&
                 DaggerfallUI.Instance.DaggerfallHUD.LargeHUD.ActiveMouseOverLargeHUD)
@@ -256,7 +257,7 @@ namespace DaggerfallWorkshop.Game
             }
 
             // Player activates object
-            if (InputManager.Instance.ActionComplete(InputManager.Actions.ActivateCenterObject))
+            /*if (InputManager.Instance.ActionComplete(InputManager.Actions.ActivateCenterObject))
             {
                 // TODO: Handle player clicking into scene with active cursor
                 // In this case the activation ray should project from click into scene not from camera position
@@ -399,7 +400,7 @@ namespace DaggerfallWorkshop.Game
                     Debug.Log(string.Format("hit='{0}' static={1}", hit.transform, GameObjectHelper.IsStaticGeometry(hit.transform.gameObject)));
                     #endregion
                 }
-            }
+            }*/
         }
 
         #region Activation Logic

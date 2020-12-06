@@ -292,9 +292,9 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
             if (!DaggerfallUI.Instance.HotkeySequenceProcessed)
             {
-                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || InputManager.Instance.GetKeyDown(extraProceedBinding))
+                if (false)//Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || InputManager.Instance.GetKeyDown(extraProceedBinding))
                     isNextMessageDeferred = true;
-                else if ((Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.KeypadEnter) || InputManager.Instance.GetKeyUp(extraProceedBinding)) && isNextMessageDeferred)
+                else if (false)//(Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.KeypadEnter) || InputManager.Instance.GetKeyUp(extraProceedBinding)) && isNextMessageDeferred)
                 {
                     isNextMessageDeferred = false;
                     // Special handling for message boxes with buttons
@@ -619,8 +619,8 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
                 return;
 
             // Filter out (mouse) fighting activity
-            if (InputManager.Instance.GetKey(InputManager.Instance.GetBinding(InputManager.Actions.SwingWeapon)))
-                return;
+            //if (InputManager.Instance.GetKey(InputManager.Instance.GetBinding(InputManager.Actions.SwingWeapon)))
+             //   return;
 
             if (uiManager.TopWindow == this)
             {

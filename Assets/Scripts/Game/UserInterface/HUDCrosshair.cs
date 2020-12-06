@@ -62,10 +62,10 @@ namespace DaggerfallWorkshop.Game.UserInterface
         public override void Draw()
         {
             // Do not draw crosshair when cursor is active - i.e. player is now using mouse to point and click not crosshair target
-            if (GameManager.Instance.PlayerMouseLook.cursorActive)
+            /*if (GameManager.Instance.PlayerMouseLook.cursorActive)
                 return;
 
-            base.Draw();
+            base.Draw();*/
         }
 
         void LoadAssets()

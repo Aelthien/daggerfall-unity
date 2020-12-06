@@ -151,12 +151,12 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             SetDefaults();
 
             // Store toggle closed binding for this window
-            toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.CastSpell);
+            //toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.CastSpell);
         }
 
         public override void OnPush()
         {
-            toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.CastSpell);
+            //toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.CastSpell);
 
             if (buyMode && GameManager.Instance.PlayerEnterExit.IsPlayerInside)
                 buildingDiscoveryData = GameManager.Instance.PlayerEnterExit.BuildingDiscoveryData;
@@ -207,8 +207,8 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             if (!DaggerfallUI.Instance.HotkeySequenceProcessed)
             {
                 // Toggle window closed with same hotkey used to open it
-                if (InputManager.Instance.GetKeyUp(toggleClosedBinding))
-                    CloseWindow();
+             //   if (InputManager.Instance.GetKeyUp(toggleClosedBinding))
+               //     CloseWindow();
             }
         }
 

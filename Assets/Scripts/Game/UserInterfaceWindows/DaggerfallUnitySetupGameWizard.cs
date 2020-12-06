@@ -159,10 +159,10 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
             int cursorWidth = 32;
             int cursorHeight = 32;
-
+            //fixme
             // Apply joystick settings to input manager to keep consistency between the setup wizard and the game
-            InputManager.Instance.JoystickCursorSensitivity = DaggerfallUnity.Settings.JoystickCursorSensitivity;
-            InputManager.Instance.JoystickDeadzone = DaggerfallUnity.Settings.JoystickDeadzone;
+            //InputManager.Instance.JoystickCursorSensitivity = DaggerfallUnity.Settings.JoystickCursorSensitivity;
+            //InputManager.Instance.JoystickDeadzone = DaggerfallUnity.Settings.JoystickDeadzone;
 
             // Override cursor
             Texture2D tex;
@@ -204,7 +204,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             if (enableController != null)
             {
                 enableController.IsChecked = DaggerfallUnity.Settings.EnableController;
-                InputManager.Instance.EnableController = DaggerfallUnity.Settings.EnableController;
+                //InputManager.Instance.EnableController = DaggerfallUnity.Settings.EnableController;
             }
 
             // Move to next setup stage

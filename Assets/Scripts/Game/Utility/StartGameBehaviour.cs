@@ -43,6 +43,7 @@ namespace DaggerfallWorkshop.Game.Utility
         public bool ShowEditorFlats = false;
         public bool NoWorld = false;
         public bool GodMode = false;
+        public bool ShowStartMessage = false;
 
         //events used to update state in state manager
         public static EventHandler OnStartMenu;
@@ -198,29 +199,8 @@ namespace DaggerfallWorkshop.Game.Utility
                 Camera camera = cameraObject.GetComponent<Camera>();
                 if (camera)
                     camera.fieldOfView = DaggerfallUnity.Settings.FieldOfView;
-
-                // Set mouse look
-                PlayerMouseLook mouseLook = cameraObject.GetComponent<PlayerMouseLook>();
-                if (mouseLook)
-                {
-                    mouseLook.invertMouseY = DaggerfallUnity.Settings.InvertMouseVertical;
-                    // Set mouse look smoothing
-                    mouseLook.enableSmoothing = DaggerfallUnity.Settings.MouseLookSmoothing;
-                    // Set mouse look sensitivity
-                    mouseLook.sensitivityScale = DaggerfallUnity.Settings.MouseLookSensitivity;
-
-                    mouseLook.joystickSensitivityScale = DaggerfallUnity.Settings.JoystickLookSensitivity;
-                }
             }
-
-            InputManager.Instance.JoystickCursorSensitivity = DaggerfallUnity.Settings.JoystickCursorSensitivity;
-
-            InputManager.Instance.JoystickMovementThreshold = DaggerfallUnity.Settings.JoystickMovementThreshold;
-
-            InputManager.Instance.JoystickDeadzone = DaggerfallUnity.Settings.JoystickDeadzone;
-
-            InputManager.Instance.EnableController = DaggerfallUnity.Settings.EnableController;
-
+            //fixme
             Application.runInBackground = DaggerfallUnity.Settings.RunInBackground;
 
             // Set shadow resolution
@@ -287,6 +267,9 @@ namespace DaggerfallWorkshop.Game.Utility
             ResetWeaponManager();
             NoWorld = true;
             lastStartMethod = StartMethods.Void;
+
+            if (!ShowStartMessage)
+                return;
 
             if (string.IsNullOrEmpty(PostStartMessage))
                 DaggerfallUI.PostMessage(DaggerfallUIMessages.dfuiInitGame);
@@ -428,7 +411,7 @@ namespace DaggerfallWorkshop.Game.Utility
             // Start game
             GameManager.Instance.PauseGame(false);
             DaggerfallUI.Instance.FadeBehaviour.FadeHUDFromBlack();
-            DaggerfallUI.PostMessage(PostStartMessage);
+            //DaggerfallUI.PostMessage(PostStartMessage);
 
             lastStartMethod = StartMethods.NewCharacter;
 
@@ -437,11 +420,11 @@ namespace DaggerfallWorkshop.Game.Utility
             QuestMachine.Instance.StartQuest("_BRISIEN");
 
             // Launch startup optional quest
-            if (!string.IsNullOrEmpty(LaunchQuest))
+            /*if (!string.IsNullOrEmpty(LaunchQuest))
             {
                 QuestMachine.Instance.StartQuest(LaunchQuest);
                 LaunchQuest = string.Empty;
-            }
+            }*/
             // Launch any InitAtGameStart quests
             GameManager.Instance.QuestListsManager.InitAtGameStartQuests();
 
@@ -524,22 +507,6 @@ namespace DaggerfallWorkshop.Game.Utility
             }
 
             GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
-            PlayerMouseLook mouseLook = cameraObject.GetComponent<PlayerMouseLook>();
-            if (mouseLook)
-            {
-                // Classic save value ranges from -256 (looking up) to 256 (looking down).
-                // The maximum up and down range of view in classic is similar to 45 degrees up and down in DF Unity.
-                float pitch = positionRecord.RecordRoot.Pitch;
-                if (pitch != 0)
-                    pitch = (pitch * 45 / 256);
-                mouseLook.Pitch = pitch;
-
-                float yaw = positionRecord.RecordRoot.Yaw;
-                // In classic saves 2048 units of yaw is 360 degrees.
-                if (yaw != 0)
-                    yaw = (yaw * 360 / 2048);
-                mouseLook.Yaw = yaw;
-            }
 
             // Set whether the player's weapon is drawn
             WeaponManager weaponManager = GameManager.Instance.WeaponManager;

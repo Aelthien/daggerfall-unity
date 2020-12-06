@@ -18,6 +18,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
     {
         event EventHandler OnWindowChange;
         IUserInterfaceWindow TopWindow { get; }
+        void ToggleWindow(string name);
         void PopWindow();
         void PushWindow(IUserInterfaceWindow window);
         bool ContainsWindow(IUserInterfaceWindow window);
@@ -39,6 +40,9 @@ namespace DaggerfallWorkshop.Game.UserInterface
 
         Queue<string> messages = new Queue<string>();
         Stack<IUserInterfaceWindow> windows = new Stack<IUserInterfaceWindow>();
+
+        SortedDictionary<string, IUserInterfaceWindow> interfaces = new SortedDictionary<string, IUserInterfaceWindow>();
+
         public event EventHandler OnWindowChange;
 
         /// <summary>
@@ -72,6 +76,18 @@ namespace DaggerfallWorkshop.Game.UserInterface
             get { return windows.Count-1; }
         }
 
+        public void ToggleWindow(string name)
+        {
+            IUserInterfaceWindow window;
+            interfaces.TryGetValue(name, out window);
+
+            bool enabled = window.Enabled;
+
+            if (enabled)
+
+            window.Enabled = enabled ? false : true;
+        }
+
         /// <summary>
         /// Push a new window onto the stack.
         /// </summary>
@@ -82,7 +98,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
             AddWindow(window);
 
             // Clear all user input from world
-            InputManager.Instance.ClearAllActions();
+            //InputManager.Instance.ClearAllActions();
 
             // Clear fade in progress when any UI window is pushed
             if (DaggerfallUI.Instance.FadeBehaviour && DaggerfallUI.Instance.FadeBehaviour.FadeInProgress)

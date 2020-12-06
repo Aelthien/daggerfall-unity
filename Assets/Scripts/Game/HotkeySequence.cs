@@ -145,7 +145,7 @@ namespace DaggerfallWorkshop.Game
 
         public static KeyModifiers GetKeyboardKeyModifiers()
         {
-            return GetKeyModifiers(Input.GetKey(KeyCode.LeftControl), Input.GetKey(KeyCode.RightControl), Input.GetKey(KeyCode.LeftShift), Input.GetKey(KeyCode.RightShift), Input.GetKey(KeyCode.LeftAlt), Input.GetKey(KeyCode.RightAlt));
+            return new KeyModifiers();// GetKeyModifiers(Input.GetKey(KeyCode.LeftControl), Input.GetKey(KeyCode.RightControl), Input.GetKey(KeyCode.LeftShift), Input.GetKey(KeyCode.RightShift), Input.GetKey(KeyCode.LeftAlt), Input.GetKey(KeyCode.RightAlt));
         }
 
         public static bool CheckSetModifiers(HotkeySequence.KeyModifiers pressedModifiers, HotkeySequence.KeyModifiers triggeringModifiers)
@@ -155,18 +155,18 @@ namespace DaggerfallWorkshop.Game
         }
 
         public bool IsDownWith(KeyModifiers pressedModifiers)
-        {
-            return InputManager.Instance.GetKeyDown(keyCode, useSecondary) && CheckSetModifiers(pressedModifiers, modifiers);
+        {//fixme
+            return false;// InputManager.Instance.GetKeyDown(keyCode, useSecondary) && CheckSetModifiers(pressedModifiers, modifiers);
         }
 
         public bool IsUpWith(KeyModifiers pressedModifiers)
         {
-            return InputManager.Instance.GetKeyUp(keyCode, useSecondary) && CheckSetModifiers(pressedModifiers, modifiers);
+            return false;//InputManager.Instance.GetKeyUp(keyCode, useSecondary) && CheckSetModifiers(pressedModifiers, modifiers);
         }
 
         public bool IsPressedWith(KeyModifiers pressedModifiers)
         {
-            return InputManager.Instance.GetKey(keyCode, useSecondary) && CheckSetModifiers(pressedModifiers, modifiers);
+            return false;//InputManager.Instance.GetKey(keyCode, useSecondary) && CheckSetModifiers(pressedModifiers, modifiers);
         }
 
         // Simple method variants if you don't mind building a temporary KeyModifiers

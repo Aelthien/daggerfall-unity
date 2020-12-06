@@ -342,8 +342,8 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         public override void OnPush()
         {
             base.OnPush();
-
-            toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.TravelMap);
+            //fixme
+            //toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.TravelMap);
 
             if (IsSetup)
             {
@@ -369,13 +369,13 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             base.Update();
 
             // Toggle window closed with same hotkey used to open it
-            if (InputManager.Instance.GetKeyUp(toggleClosedBinding))
+            /*if (InputManager.Instance.GetKeyUp(toggleClosedBinding))
             {
                 if (RegionSelected)
                     CloseRegionPanel();
                 else
                     CloseWindow();
-            }
+            }*/
 
             // Input handling
             HotkeySequence.KeyModifiers keyModifiers = HotkeySequence.GetKeyboardKeyModifiers();
@@ -394,7 +394,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
             if (RegionSelected)
             {
-                if (InputManager.Instance.GetMouseButtonUp(1))
+                /*if (InputManager.Instance.GetMouseButtonUp(1))
                 {
                     // Zoom to mouse position
                     zoomPosition = currentMousePos;
@@ -406,7 +406,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
                     // Scrolling while zoomed in
                     zoomPosition = currentMousePos;
                     ZoomMapTextures();
-                }
+                }*/
                 if (DaggerfallShortcut.GetBinding(DaggerfallShortcut.Buttons.TravelMapList).IsUpWith(keyModifiers))
                 {
 
@@ -510,7 +510,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             verticalArrowButton.OnMouseClick += ArrowButtonClickHandler;
 
             // Store toggle closed binding for this window
-            toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.TravelMap);
+            //toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.TravelMap);
 
         }
 

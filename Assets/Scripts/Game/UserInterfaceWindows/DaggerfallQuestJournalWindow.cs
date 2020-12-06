@@ -174,8 +174,8 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             questMessages = QuestMachine.Instance.GetAllQuestLogMessages();
 
             // Store toggle closed bindings for this window
-            toggleClosedBinding1 = InputManager.Instance.GetBinding(InputManager.Actions.LogBook);
-            toggleClosedBinding2 = InputManager.Instance.GetBinding(InputManager.Actions.NoteBook);
+            //toggleClosedBinding1 = InputManager.Instance.GetBinding(InputManager.Actions.LogBook);
+            //toggleClosedBinding2 = InputManager.Instance.GetBinding(InputManager.Actions.NoteBook);
 
 #if LAYOUT
             SetBackgroundColors();
@@ -190,8 +190,8 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         {
             base.OnPush();
 
-            toggleClosedBinding1 = InputManager.Instance.GetBinding(InputManager.Actions.LogBook);
-            toggleClosedBinding2 = InputManager.Instance.GetBinding(InputManager.Actions.NoteBook);
+            //toggleClosedBinding1 = InputManager.Instance.GetBinding(InputManager.Actions.LogBook);
+            //toggleClosedBinding2 = InputManager.Instance.GetBinding(InputManager.Actions.NoteBook);
 
             questMessages       = QuestMachine.Instance.GetAllQuestLogMessages();
             lastMessageIndex    = NULLINT;
@@ -214,8 +214,8 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             if (!DaggerfallUI.Instance.HotkeySequenceProcessed)
             {
                 // Toggle window closed with same hotkey used to open it
-                if (InputManager.Instance.GetKeyUp(toggleClosedBinding1) || InputManager.Instance.GetKeyUp(toggleClosedBinding2))
-                    CloseWindow();
+                //if (InputManager.Instance.GetKeyUp(toggleClosedBinding1) || InputManager.Instance.GetKeyUp(toggleClosedBinding2))
+                  //  CloseWindow();
             }
 
             if (lastMessageIndex != currentMessageIndex)

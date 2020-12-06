@@ -127,7 +127,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         {
             base.Update();
 
-            if (InputManager.Instance.GetMouseButton(0))
+            if (false)//InputManager.Instance.GetMouseButton(0))
             {
                 Vector2 mousePosition = ScreenToLocal(MousePosition);
                 if (!draggingThumb && thumbRect.Contains(mousePosition))

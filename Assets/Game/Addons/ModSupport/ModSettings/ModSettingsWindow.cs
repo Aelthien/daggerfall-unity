@@ -167,10 +167,11 @@ namespace DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings
 
             if (paginator != null)
             {
-                if (Input.GetKeyDown(nextPageKey))
+                //fixme
+                /*if (Input.GetKeyDown(nextPageKey))
                     paginator.Next();
                 else if (Input.GetKeyDown(previousPageKey))
-                    paginator.Previous();
+                    paginator.Previous();*/
             }
         }
 

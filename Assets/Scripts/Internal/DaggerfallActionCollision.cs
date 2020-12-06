@@ -42,7 +42,7 @@ namespace DaggerfallWorkshop
                 return;
 
             //only trigger collision when player has actively moved
-            if (InputManager.Instance.HasAction(InputManager.Actions.MoveForwards)
+            /*if (InputManager.Instance.HasAction(InputManager.Actions.MoveForwards)
                 || InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards)
                 || InputManager.Instance.HasAction(InputManager.Actions.MoveLeft)
                 || InputManager.Instance.HasAction(InputManager.Actions.MoveRight))//up/down//jump don't seem to trigger action in daggerfall
@@ -50,7 +50,8 @@ namespace DaggerfallWorkshop
                     //start action
                     thisAction.Receive(GameManager.Instance.PlayerObject, CollisionType);
                     timer = 0;
-                }
+                }*/
+                //fixme
 
             Colliding = false;
             CollisionType = DaggerfallAction.TriggerTypes.None;

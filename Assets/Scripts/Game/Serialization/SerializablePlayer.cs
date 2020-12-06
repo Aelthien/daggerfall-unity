@@ -31,7 +31,6 @@ namespace DaggerfallWorkshop.Game.Serialization
         PlayerEnterExit playerEnterExit;
         StreamingWorld streamingWorld;
         Camera playerCamera;
-        PlayerMouseLook playerMouseLook;
         PlayerMotor playerMotor;
         DaggerfallEntityBehaviour playerEntityBehaviour;
         WeaponManager weaponManager;
@@ -59,10 +58,6 @@ namespace DaggerfallWorkshop.Game.Serialization
             playerCamera = GetComponentInChildren<Camera>();
             if (!playerCamera)
                 throw new Exception("Player Camera not found.");
-
-            playerMouseLook = playerCamera.GetComponent<PlayerMouseLook>();
-            if (!playerMouseLook)
-                throw new Exception("PlayerMouseLook not found.");
 
             playerMotor = GetComponent<PlayerMotor>();
             if (!playerMotor)
@@ -204,8 +199,6 @@ namespace DaggerfallWorkshop.Game.Serialization
             playerPosition.worldCompensation = GameManager.Instance.StreamingWorld.WorldCompensation;
             playerPosition.worldContext = playerEnterExit.WorldContext;
             playerPosition.floatingOriginVersion = FloatingOrigin.floatingOriginVersion;
-            playerPosition.yaw = playerMouseLook.Yaw;
-            playerPosition.pitch = playerMouseLook.Pitch;
             playerPosition.isCrouching = playerMotor.IsCrouching;
             playerPosition.worldPosX = StreamingWorld.LocalPlayerGPS.WorldX;
             playerPosition.worldPosZ = StreamingWorld.LocalPlayerGPS.WorldZ;
@@ -258,7 +251,7 @@ namespace DaggerfallWorkshop.Game.Serialization
 
         public void RestoreSaveData(object dataIn)
         {
-            if (!playerEnterExit || !StreamingWorld || !playerCamera || !playerMouseLook)
+            if (!playerEnterExit || !StreamingWorld || !playerCamera)
                 return;
 
             // Restore player entity data
@@ -443,8 +436,6 @@ namespace DaggerfallWorkshop.Game.Serialization
             }
 
             // Restore orientation and crouch state
-            playerMouseLook.Yaw = positionData.yaw;
-            playerMouseLook.Pitch = positionData.pitch;
             playerMotor.IsCrouching = positionData.isCrouching;
         }
 

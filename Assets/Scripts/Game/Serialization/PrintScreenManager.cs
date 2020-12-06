@@ -56,7 +56,7 @@ namespace DaggerfallWorkshop.Game.Serialization
 
         void Start ()
         {
-            DaggerfallWorkshop.Game.InputManager.OnSavedKeyBinds += GetPrintScreenKeyBind;
+            //DaggerfallWorkshop.Game.InputManager.OnSavedKeyBinds += GetPrintScreenKeyBind;
             GetPrintScreenKeyBind();
         }
 
@@ -64,8 +64,8 @@ namespace DaggerfallWorkshop.Game.Serialization
         {
             if (!DaggerfallUI.Instance.HotkeySequenceProcessed)
             {
-                if (InputManager.Instance.GetKeyUp(prtscrBinding))
-                    StartCoroutine(TakeScreenshot());
+                //if (InputManager.Instance.GetKeyUp(prtscrBinding))
+                  //  StartCoroutine(TakeScreenshot());
             }
         }
 
@@ -75,7 +75,7 @@ namespace DaggerfallWorkshop.Game.Serialization
 
         void GetPrintScreenKeyBind()
         {
-            prtscrBinding = InputManager.Instance.GetBinding(InputManager.Actions.PrintScreen);
+            //prtscrBinding = InputManager.Instance.GetBinding(InputManager.Actions.PrintScreen);
         }
 
         IEnumerator TakeScreenshot()

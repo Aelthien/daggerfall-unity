@@ -70,8 +70,8 @@ namespace DaggerfallWorkshop.Game
             // Otherwise recalculate moveDirection directly from axes
             else
             {
-                float inputX = InputManager.Instance.Horizontal;
-                float inputY = InputManager.Instance.Vertical;
+                float inputX = 0;//InputManager.Instance.Horizontal;
+                float inputY = 0;// InputManager.Instance.Vertical;
 
                 // Cancel all movement input if player is paralyzed
                 // Player should still be able to fall or move with platforms

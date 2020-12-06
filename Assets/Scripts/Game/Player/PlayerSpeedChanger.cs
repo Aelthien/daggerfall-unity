@@ -59,7 +59,7 @@ namespace DaggerfallWorkshop.Game
         /// Record player input for speed adjustment
         /// </summary>
         public void CaptureInputSpeedAdjustment()
-        {
+        {/*
             if (!ToggleRun)
                 runningMode = InputManager.Instance.HasAction(InputManager.Actions.Run);
             else
@@ -81,7 +81,7 @@ namespace DaggerfallWorkshop.Game
             if (InputManager.Instance.ActionStarted(InputManager.Actions.MoveBackwards))
             {
                 ToggleRun = false;
-            }
+            }*/
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace DaggerfallWorkshop.Game
                 speed -= (1 / classicToUnitySpeedUnitRatio);
             }
 
-            InputManager.Instance.MaximizeJoystickMovement = isRunning;
+            //InputManager.Instance.MaximizeJoystickMovement = isRunning;
         }
 
         public bool CanRunUnlessRiding()

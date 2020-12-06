@@ -134,7 +134,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         {
             base.Update();
 
-            if (InputManager.Instance.GetMouseButton(0) && colorPreview.MouseOverComponent)
+            if (false)//InputManager.Instance.GetMouseButton(0) && colorPreview.MouseOverComponent)
             {
                 if (!draggingThumb)
                     draggingThumb = true;

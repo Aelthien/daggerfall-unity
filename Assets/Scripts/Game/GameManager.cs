@@ -59,7 +59,7 @@ namespace DaggerfallWorkshop.Game
         EntityEffectBroker entityEffectBroker = null;
         EntityEffectManager playerEffectManager = null;
         PlayerDeath playerDeath = null;
-        PlayerGPS playerGPS  = null;
+        PlayerGPS playerGPS = null;
         PlayerEnterExit playerEnterExit = null;
         WeatherManager weatherManager = null;
         DaggerfallSky skyRig = null;
@@ -87,7 +87,7 @@ namespace DaggerfallWorkshop.Game
         Automap interiorAutomap = null;
         ExteriorAutomap exteriorAutomap = null;
         QuestMachine questMachine = null;
-		TransportManager transportManager = null;
+        TransportManager transportManager = null;
         TalkManager talkManager = null;
         GuildManager guildManager = null;
         QuestListsManager questListsManager = null;
@@ -119,7 +119,7 @@ namespace DaggerfallWorkshop.Game
         public Camera MainCamera
         {
             get { return (mainCamera) ? mainCamera : mainCamera = GetComponentFromObject<Camera>(MainCameraObject, "MainCamera"); }
-            set { mainCamera = value;}
+            set { mainCamera = value; }
         }
 
         public RetroRenderer RetroRenderer
@@ -142,7 +142,7 @@ namespace DaggerfallWorkshop.Game
         public PlayerController PlayerController
         {
 
-            get { return (playerController) ? playerController : playerController = GetComponentFromObject<PlayerController>(PlayerObject, "TopDownCamera"); }
+            get { return (playerController) ? playerController : playerController = GetComponentFromObject<PlayerController>(GameObject.Find("TopDownCamera"), "TopDownCamera"); }
             set { playerController = value; }
         }
 
@@ -196,13 +196,13 @@ namespace DaggerfallWorkshop.Game
 
         public PlayerGPS PlayerGPS
         {
-            get { return (playerGPS) ? playerGPS : playerGPS = GetComponentFromObject<PlayerGPS>(PlayerObject);}
+            get { return (playerGPS) ? playerGPS : playerGPS = GetComponentFromObject<PlayerGPS>(PlayerObject); }
             set { playerGPS = value; }
         }
 
         public PlayerEnterExit PlayerEnterExit
         {
-            get { return (playerEnterExit) ? playerEnterExit: playerEnterExit = GetComponentFromObject<PlayerEnterExit>(PlayerObject); }
+            get { return (playerEnterExit) ? playerEnterExit : playerEnterExit = GetComponentFromObject<PlayerEnterExit>(PlayerObject); }
             set { playerEnterExit = value; }
         }
 
@@ -224,9 +224,9 @@ namespace DaggerfallWorkshop.Game
             set { weaponManager = value; }
         }
 
-        public GameObject MainCameraObject 
+        public GameObject MainCameraObject
         {
-            get { return (mainCameraObject) ? mainCameraObject : mainCameraObject = GetGameObjectWithTag("MainCamera") ; }
+            get { return (mainCameraObject) ? mainCameraObject : mainCameraObject = GetGameObjectWithTag("MainCamera"); }
             set { mainCameraObject = value; }
         }
 
@@ -264,11 +264,11 @@ namespace DaggerfallWorkshop.Game
             get { return (saveLoadManager) ? saveLoadManager : saveLoadManager = GetMonoBehaviour<SaveLoadManager>(); }
             set { saveLoadManager = value; }
         }
-        
+
         public PlayerSpeedChanger SpeedChanger
         {
             get { return (speedChanger) ? speedChanger : speedChanger = GetComponentFromObject<PlayerSpeedChanger>(PlayerObject); }
-                set { speedChanger = value; }
+            set { speedChanger = value; }
         }
 
         public PlayerMotor PlayerMotor
@@ -297,7 +297,7 @@ namespace DaggerfallWorkshop.Game
 
         public FloatingOrigin FloatingOrigin
         {
-            get { return (floatingOrigin) ? floatingOrigin :  floatingOrigin = GetMonoBehaviour<FloatingOrigin>(); }
+            get { return (floatingOrigin) ? floatingOrigin : floatingOrigin = GetMonoBehaviour<FloatingOrigin>(); }
             set { floatingOrigin = value; }
         }
 
@@ -390,9 +390,9 @@ namespace DaggerfallWorkshop.Game
             get { return IsHUDTopWindow(); }
         }
 
-        public bool IsPlayerInside 
+        public bool IsPlayerInside
         {
-            get { return PlayerEnterExit.IsPlayerInside;}
+            get { return PlayerEnterExit.IsPlayerInside; }
         }
 
         public bool IsPlayerInsideDungeon
@@ -493,6 +493,8 @@ namespace DaggerfallWorkshop.Game
             if (!IsPlayingGame())
                 return;
 
+            //fixme
+            /*
             // Post message to open options dialog on escape during gameplay
             if (InputManager.Instance.ActionComplete(InputManager.Actions.Escape))
             {
@@ -518,7 +520,7 @@ namespace DaggerfallWorkshop.Game
             }
             else if (InputManager.Instance.ActionComplete(InputManager.Actions.Transport))
             {
-	            DaggerfallUI.PostMessage(DaggerfallUIMessages.dfuiOpenTransportWindow);
+                DaggerfallUI.PostMessage(DaggerfallUIMessages.dfuiOpenTransportWindow);
             }
             else if (InputManager.Instance.ActionComplete(InputManager.Actions.LogBook))
             {
@@ -564,7 +566,7 @@ namespace DaggerfallWorkshop.Game
                         SaveLoadManager.Instance.QuickLoad();
                     });
                 }
-            }
+            }*/
         }
 
         #endregion
@@ -580,7 +582,7 @@ namespace DaggerfallWorkshop.Game
             {
                 savedTimeScale = Time.timeScale;
                 Time.timeScale = 0;
-                InputManager.Instance.IsPaused = true;
+                //InputManager.Instance.IsPaused = true;
                 isGamePaused = true;
 
                 if (hideHUD && DaggerfallUI.Instance.DaggerfallHUD != null)
@@ -592,7 +594,7 @@ namespace DaggerfallWorkshop.Game
             else if (!pause && isGamePaused)
             {
                 Time.timeScale = savedTimeScale;
-                InputManager.Instance.IsPaused = false;
+                //InputManager.Instance.IsPaused = false;
                 isGamePaused = false;
 
                 if (hudDisabledByPause && DaggerfallUI.Instance.DaggerfallHUD != null)
@@ -907,15 +909,15 @@ namespace DaggerfallWorkshop.Game
         public void GetProperties()
         {
             var props = typeof(GameManager).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-            foreach(PropertyInfo prop in props)
+            foreach (PropertyInfo prop in props)
             {
                 try
                 {
                     object obj = prop.GetValue(GameManager.instance, null);
-                    if(Verbose)
+                    if (Verbose)
                         Debug.Log(string.Format("GameManager Startup...property: {0} value: {1}", prop.Name, obj.ToString()));
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     if (Verbose)
                         Debug.Log(string.Format("{0} | GameManager Failed to get value for prop: {1}", ex.Message, prop.Name));
@@ -957,19 +959,19 @@ namespace DaggerfallWorkshop.Game
         /// <returns></returns>
         public static T GetComponentFromObject<T>(GameObject obj, string tag = null) where T : Component
         {
-            T result = default(T);    
-            if(obj == null && !string.IsNullOrEmpty(tag))
+            T result = default(T);
+            if (obj == null && !string.IsNullOrEmpty(tag))
             {
                 obj = GetGameObjectWithTag(tag);
             }
-            else if(obj == null && string.IsNullOrEmpty(tag))
+            else if (obj == null && string.IsNullOrEmpty(tag))
             {
                 string errorText = string.Format("GameManager could not find component type {0} - both object & string were null.", typeof(T));
                 Debug.LogError(errorText);
                 throw new Exception(errorText);
             }
-            
-            if(obj != null)
+
+            if (obj != null)
             {
                 result = obj.GetComponent<T>();
             }

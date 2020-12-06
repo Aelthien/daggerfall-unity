@@ -82,7 +82,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
         protected override void Setup()
         {
-            DaggerfallWorkshop.Game.InputManager.OnSavedKeyBinds += OnUpdateValues;
+            //DaggerfallWorkshop.Game.InputManager.OnSavedKeyBinds += OnUpdateValues;
 
             // Always dim background
             ParentPanel.BackgroundColor = ScreenDimColor;
@@ -115,13 +115,14 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             mainPanel.Components.Add(continueButton);
 
             // keybind buttons
+            /*
             SetupKeybindButton(escapeKeybindButton, InputManager.Actions.Escape, 20, 20);
             SetupKeybindButton(autoRunKeybindButton, InputManager.Actions.AutoRun, 20, 40);
             SetupKeybindButton(consoleKeybindButton, InputManager.Actions.ToggleConsole, 115, 20);
             SetupKeybindButton(screenshotKeybindButton, InputManager.Actions.PrintScreen, 115, 40);
             SetupKeybindButton(quickSaveKeybindButton, InputManager.Actions.QuickSave, 210, 20);
             SetupKeybindButton(quickLoadKeybindButton, InputManager.Actions.QuickLoad, 210, 40);
-
+            */
             mouseSensitivitySlider = CreateSlider("Mouse Look Sensitivity", 15, 80, 0.1f, 8.0f, DaggerfallUnity.Settings.MouseLookSensitivity);
             invertMouseVerticalCheckbox = AddOption(20, 100, "Invert Look-Y", DaggerfallUnity.Settings.InvertMouseVertical);
             mouseSmoothingCheckbox = AddOption(20, 110, "Mouse Smoothing", DaggerfallUnity.Settings.MouseLookSmoothing);
@@ -150,14 +151,14 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
         public override void OnReturn()
         {
-            UpdateKeybindButtons();
+            //UpdateKeybindButtons();
             CheckDuplicates();
         }
 
         #endregion
 
         #region Private methods
-
+        /*
         private void SetupKeybindButton(Button button, InputManager.Actions action)
         {
             var code = ControlsConfigManager.Instance.GetUnsavedBindingKeyCode(action);
@@ -167,10 +168,10 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             button.ToolTip = defaultToolTip;
             button.SuppressToolTip = button.Label.Text != ControlsConfigManager.ElongatedButtonText;
             button.ToolTipText = ControlsConfigManager.Instance.GetButtonText(code, true);
-        }
+        }*/
 
         //for initialization
-        private void SetupKeybindButton(Button button, InputManager.Actions action, int x, int y)
+        /*private void SetupKeybindButton(Button button, InputManager.Actions action, int x, int y)
         {
             Panel panel = new Panel();
             panel.Position = new Vector2(x, y);
@@ -227,8 +228,8 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             SetupKeybindButton(quickSaveKeybindButton, InputManager.Actions.QuickSave);
             SetupKeybindButton(quickLoadKeybindButton, InputManager.Actions.QuickLoad);
             SetupKeybindButton(autoRunKeybindButton, InputManager.Actions.AutoRun);
-        }
-
+        }*/
+        //fixme
         /// <summary>
         /// Add a slider with a numerical indicator.
         /// </summary>
@@ -369,7 +370,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             DaggerfallUI.Instance.PlayOneShot(SoundClips.ButtonClick);
             Button thisKeybindButton = (Button)sender;
 
-            InputManager.Instance.StartCoroutine(WaitForKeyPress(thisKeybindButton));
+            //InputManager.Instance.StartCoroutine(WaitForKeyPress(thisKeybindButton));
         }
 
         private void KeybindButton_OnMouseRightClick(BaseScreenComponent sender, Vector2 position)

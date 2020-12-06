@@ -49,7 +49,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
         Button currentBindingsButton = new Button();
 
-        string[] actions = Enum.GetNames(typeof(InputManager.Actions));
+        string[] actions = new string[6];// Enum.GetNames(typeof(InputManager.Actions));
         const string nativeTextureName = "CNFG00I0.IMG";
         const string mLookAltTextureName = "CNFG00I1.IMG";
         const string confirmDefaults = "Are you sure you want to set default controls?";
@@ -108,10 +108,6 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
             #region Tab Buttons
 
-            // Joystick
-            Button joystickButton = DaggerfallUI.AddButton(new Rect(0, 190, 80, 10), controlsPanel);
-            joystickButton.OnMouseClick += JoystickButton_OnMouseClick;
-
             // Mouse
             Button mouseButton = DaggerfallUI.AddButton(new Rect(80, 190, 80, 10), controlsPanel);
             mouseButton.BackgroundColor = new Color(0f, 0f, 0f, 1f);
@@ -143,7 +139,6 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             currentBindingsButton.Label.Text = ControlsConfigManager.Instance.UsingPrimary ? "Primary" : "Secondary";
 
             ControlsConfigManager.Instance.ResetUnsavedKeybinds();
-            DaggerfallJoystickControlsWindow.ResetUnsavedSettings();
 
             SetupKeybindButtons(moveKeysOne, 2, 8, 57, 13, true);
             SetupKeybindButtons(moveKeysTwo, 8, 14, 164, 13, true);
@@ -168,10 +163,9 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         {
             // Update keybinds only when exiting from a valid configuration
             ControlsConfigManager.Instance.SetAllKeyBindValues();
-            InputManager.Instance.SaveKeyBinds();
+            //InputManager.Instance.SaveKeyBinds();
             ControlsConfigManager.Instance.ResetUnsavedKeybinds();
 
-            DaggerfallJoystickControlsWindow.SaveSettings();
         }
 
         public override void OnReturn()
@@ -189,7 +183,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         {
             for (int i = startPoint; i < endPoint; i++)
             {
-                InputManager.Actions key = (InputManager.Actions)Enum.Parse(typeof(InputManager.Actions), actions[i]);
+                //InputManager.Actions key = (InputManager.Actions)Enum.Parse(typeof(InputManager.Actions), actions[i]);
                 int j = i - startPoint;
 
                 if (firstSetup)
@@ -213,13 +207,13 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
                     }
                 }
 
-                var code = ControlsConfigManager.Instance.GetUnsavedBindingKeyCode(key);
+                /*var code = ControlsConfigManager.Instance.GetUnsavedBindingKeyCode(key);
                 buttonGroup[j].Label.Text = ControlsConfigManager.Instance.GetButtonText(code);
                 buttonGroup[j].Label.TextColor = DaggerfallUI.DaggerfallDefaultTextColor;
 
                 buttonGroup[j].ToolTip = defaultToolTip;
                 buttonGroup[j].SuppressToolTip = buttonGroup[j].Label.Text != ControlsConfigManager.ElongatedButtonText;
-                buttonGroup[j].ToolTipText = ControlsConfigManager.Instance.GetButtonText(code, true);
+                buttonGroup[j].ToolTipText = ControlsConfigManager.Instance.GetButtonText(code, true);*/
             }
         }
 
@@ -232,10 +226,9 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
         private void SetDefaults()
         {
-            InputManager.Instance.ResetDefaults();
+         //   InputManager.Instance.ResetDefaults();
 
             ControlsConfigManager.Instance.ResetUnsavedKeybinds();
-            DaggerfallJoystickControlsWindow.ResetUnsavedSettings();
 
             UpdateKeybindButtons();
             AllowCancel = true;
@@ -279,16 +272,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         #endregion
 
         #region Tab Button Event Handlers
-
-        private void JoystickButton_OnMouseClick(BaseScreenComponent sender, Vector2 position)
-        {
-            if (waitingForInput)
-                return;
-
-            DaggerfallUI.Instance.PlayOneShot(SoundClips.ButtonClick);
-            uiManager.PostMessage(DaggerfallUIMessages.dfuiOpenJoystickControlsWindow);
-        }
-
+        
         private void MouseButton_OnMouseClick(BaseScreenComponent sender, Vector2 position)
         {
             if (waitingForInput)
@@ -315,7 +299,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             if (messageBoxButton == DaggerfallMessageBox.MessageBoxButtons.Yes)
             {
                 SetDefaults();
-                InputManager.Instance.SaveKeyBinds();
+//                InputManager.Instance.SaveKeyBinds();
             }
         }
 
@@ -367,7 +351,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             DaggerfallUI.Instance.PlayOneShot(SoundClips.ButtonClick);
             Button thisKeybindButton = (Button)sender;
 
-            InputManager.Instance.StartCoroutine(WaitForKeyPress(thisKeybindButton, CheckDuplicates, SetWaitingForInput));
+            //InputManager.Instance.StartCoroutine(WaitForKeyPress(thisKeybindButton, CheckDuplicates, SetWaitingForInput));
         }
 
         private void KeybindButton_OnMouseRightClick(BaseScreenComponent sender, Vector2 position)
@@ -386,17 +370,17 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
             button.Label.Text = "";
             yield return new WaitForSecondsRealtime(0.05f);
-
+            /*
             while (!InputManager.Instance.AnyKeyDown)
             {
                 setWaitingForInput(true);
                 yield return null;
-            }
+            }*/
 
-            KeyCode code1 = InputManager.Instance.LastSingleKeyDown;
+            //KeyCode code1 = InputManager.Instance.LastSingleKeyDown;
 
             yield return new WaitForSecondsRealtime(0.05f);
-
+            /*
             while (!InputManager.Instance.AnyKeyDown)
             {
                 if (InputManager.Instance.AnyKeyUp)
@@ -404,11 +388,11 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
                 setWaitingForInput(true);
                 yield return null;
-            }
+            }*/
 
             setWaitingForInput(false);
 
-            KeyCode code2 = InputManager.Instance.LastSingleKeyDown;
+            /*KeyCode code2 = InputManager.Instance.LastSingleKeyDown;
             KeyCode code = code1 == code2 ? code1 : InputManager.Instance.GetComboCode(code1, code2);
 
             if (code != KeyCode.None && InputManager.Instance.ReservedKeys.FirstOrDefault(x => x == code) == KeyCode.None)
@@ -424,7 +408,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             else
             {
                 button.Label.Text = currentLabel;
-            }
+            }*/
         }
 
         #endregion

@@ -241,8 +241,8 @@ namespace DaggerfallWorkshop.Game
             if (GameManager.Instance.PlayerEffectManager)
             {
                 if (GameManager.Instance.PlayerEffectManager.HasReadySpell || GameManager.Instance.PlayerSpellCasting.IsPlayingAnim)
-                {
-                    if (!isAttacking && InputManager.Instance.ActionStarted(InputManager.Actions.ReadyWeapon))
+                {//fixme
+                    /*if (!isAttacking && InputManager.Instance.ActionStarted(InputManager.Actions.ReadyWeapon))
                     {
                         GameManager.Instance.PlayerEffectManager.AbortReadySpell();
 
@@ -256,17 +256,17 @@ namespace DaggerfallWorkshop.Game
                     {
                         ShowWeapons(false);
                         return;
-                    }
+                    }*/
                 }
             }
 
             // Toggle weapon sheath
-            if (doToggleSheath || (!isAttacking && InputManager.Instance.ActionStarted(InputManager.Actions.ReadyWeapon)))
-                ToggleSheath();
+            //if (doToggleSheath || (!isAttacking && InputManager.Instance.ActionStarted(InputManager.Actions.ReadyWeapon)))
+            //   ToggleSheath();
 
             // Toggle weapon hand
-            if (!isAttacking && InputManager.Instance.ActionComplete(InputManager.Actions.SwitchHand))
-                ToggleHand();
+            //if (!isAttacking && InputManager.Instance.ActionComplete(InputManager.Actions.SwitchHand))
+            //  ToggleHand();
 
             // Do nothing if weapon isn't done equipping
             if ((usingRightHand && EquipCountdownRightHand != 0)
@@ -286,8 +286,7 @@ namespace DaggerfallWorkshop.Game
                 ShowWeapons(true);
 
             // Do nothing if player has cursor active over large HUD (player is clicking on HUD not clicking to attack)
-            if (GameManager.Instance.PlayerMouseLook.cursorActive &&
-                DaggerfallUI.Instance.DaggerfallHUD != null &&
+            if (DaggerfallUI.Instance.DaggerfallHUD != null &&
                 DaggerfallUI.Instance.DaggerfallHUD.LargeHUD.ActiveMouseOverLargeHUD)
             {
                 return;
@@ -302,16 +301,17 @@ namespace DaggerfallWorkshop.Game
                 if (!DaggerfallUnity.Settings.ClickToAttack || bowEquipped)
                 {
                     // Reset tracking if user not holding down 'SwingWeapon' button and no attack in progress
-                    if (!InputManager.Instance.HasAction(InputManager.Actions.SwingWeapon))
+                    /*if (!InputManager.Instance.HasAction(InputManager.Actions.SwingWeapon))
                     {
                         lastAttackHand = Hand.None;
                         _gesture.Clear();
                         return;
-                    }
+                    }*/
                 }
                 else
                 {
                     // Player must click to attack
+                    /*
                     if (InputManager.Instance.ActionStarted(InputManager.Actions.SwingWeapon))
                     {
                         isClickAttack = true;
@@ -321,111 +321,112 @@ namespace DaggerfallWorkshop.Game
                         _gesture.Clear();
                         return;
                     }
+                }*/
                 }
-            }
 
-            var attackDirection = MouseDirections.None;
-            if (!isAttacking)
-            {
-                if (bowEquipped)
+                var attackDirection = MouseDirections.None;
+                if (!isAttacking)
                 {
-                    // Ensure attack button was released before starting the next attack
-                    if (lastAttackHand == Hand.None)
-                        attackDirection = DaggerfallUnity.Settings.BowDrawback ? MouseDirections.Up : MouseDirections.Down; // Force attack without tracking a swing for Bow
-                }
-                else if (isClickAttack)
-                {
-                    attackDirection = (MouseDirections)UnityEngine.Random.Range((int)MouseDirections.Left, (int)MouseDirections.DownRight + 1);
-                    isClickAttack = false;
-                }
-                else
-                {
-                    attackDirection = TrackMouseAttack(); // Track swing direction for other weapons
-                }
-            }
-            if (isAttacking && bowEquipped && DaggerfallUnity.Settings.BowDrawback && ScreenWeapon.GetCurrentFrame() == 3)
-            {
-                if (InputManager.Instance.HasAction(InputManager.Actions.ActivateCenterObject) || ScreenWeapon.GetAnimTime() > MaxBowHeldDrawnSeconds)
-                {   // Un-draw the bow without releasing an arrow.
-                    ScreenWeapon.ChangeWeaponState(WeaponStates.Idle);
-                }
-                else if (!InputManager.Instance.HasAction(InputManager.Actions.SwingWeapon))
-                {   // Release arrow. Debug.Log("Release arrow!");
-                    attackDirection = MouseDirections.Down;
-                }
-            }
-
-            // Start attack if one has been initiated
-            if (attackDirection != MouseDirections.None)
-            {
-                ExecuteAttacks(attackDirection);
-                isAttacking = true;
-            }
-
-            // Stop here if no attack is happening
-            if (!isAttacking)
-                return;
-
-            if (!isBowSoundFinished && ScreenWeapon.WeaponType == WeaponTypes.Bow && ScreenWeapon.GetCurrentFrame() == 4)
-            {
-                ScreenWeapon.PlaySwingSound();
-                isBowSoundFinished = true;
-
-                // Remove arrow
-                ItemCollection playerItems = playerEntity.Items;
-                DaggerfallUnityItem arrow = playerItems.GetItem(ItemGroups.Weapons, (int)Weapons.Arrow);
-                playerItems.RemoveOne(arrow);
-            }
-            else if (!isDamageFinished && ScreenWeapon.GetCurrentFrame() == ScreenWeapon.GetHitFrame())
-            {
-                // Racial override can suppress optional attack voice
-                RacialOverrideEffect racialOverride = GameManager.Instance.PlayerEffectManager.GetRacialOverrideEffect();
-                bool suppressCombatVoices = racialOverride != null && racialOverride.SuppressOptionalCombatVoices;
-
-                // Chance to play attack voice
-                if (DaggerfallUnity.Settings.CombatVoices && !suppressCombatVoices && ScreenWeapon.WeaponType != WeaponTypes.Bow && Dice100.SuccessRoll(20))
-                    ScreenWeapon.PlayAttackVoice();
-
-                // Transfer damage.
-                bool hitEnemy = false;
-
-                // Non-bow weapons
-                if (ScreenWeapon.WeaponType != WeaponTypes.Bow)
-                    MeleeDamage(ScreenWeapon, out hitEnemy);
-                // Bow weapons
-                else
-                {
-                    DaggerfallMissile missile = Instantiate(ArrowMissilePrefab);
-                    if (missile)
+                    if (bowEquipped)
                     {
-                        missile.Caster = GameManager.Instance.PlayerEntityBehaviour;
-                        missile.TargetType = TargetTypes.SingleTargetAtRange;
-                        missile.ElementType = ElementTypes.None;
-                        missile.IsArrow = true;
-
-                        lastBowUsed = usingRightHand ? currentRightHandWeapon : currentLeftHandWeapon;;
+                        // Ensure attack button was released before starting the next attack
+                        if (lastAttackHand == Hand.None)
+                            attackDirection = DaggerfallUnity.Settings.BowDrawback ? MouseDirections.Up : MouseDirections.Down; // Force attack without tracking a swing for Bow
+                    }
+                    else if (isClickAttack)
+                    {
+                        attackDirection = (MouseDirections)UnityEngine.Random.Range((int)MouseDirections.Left, (int)MouseDirections.DownRight + 1);
+                        isClickAttack = false;
+                    }
+                    else
+                    {
+                        attackDirection = TrackMouseAttack(); // Track swing direction for other weapons
                     }
                 }
-
-                // Fatigue loss
-                playerEntity.DecreaseFatigue(swingWeaponFatigueLoss);
-
-                // Play swing sound if attack didn't hit an enemy.
-                if (!hitEnemy && ScreenWeapon.WeaponType != WeaponTypes.Bow)
-                    ScreenWeapon.PlaySwingSound();
-                else
+                if (isAttacking && bowEquipped && DaggerfallUnity.Settings.BowDrawback && ScreenWeapon.GetCurrentFrame() == 3)
                 {
-                    // Tally skills
-                    if (ScreenWeapon.WeaponType == WeaponTypes.Melee || ScreenWeapon.WeaponType == WeaponTypes.Werecreature)
-                        playerEntity.TallySkill(DFCareer.Skills.HandToHand, 1);
-                    else if (usingRightHand && (currentRightHandWeapon != null))
-                        playerEntity.TallySkill(currentRightHandWeapon.GetWeaponSkillID(), 1);
-                    else if (currentLeftHandWeapon != null)
-                        playerEntity.TallySkill(currentLeftHandWeapon.GetWeaponSkillID(), 1);
-
-                    playerEntity.TallySkill(DFCareer.Skills.CriticalStrike, 1);
+                    /*if (InputManager.Instance.HasAction(InputManager.Actions.ActivateCenterObject) || ScreenWeapon.GetAnimTime() > MaxBowHeldDrawnSeconds)
+                    {   // Un-draw the bow without releasing an arrow.
+                        ScreenWeapon.ChangeWeaponState(WeaponStates.Idle);
+                    }
+                    else if (!InputManager.Instance.HasAction(InputManager.Actions.SwingWeapon))
+                    {   // Release arrow. Debug.Log("Release arrow!");
+                        attackDirection = MouseDirections.Down;
+                    }*/
                 }
-                isDamageFinished = true;
+
+                // Start attack if one has been initiated
+                if (attackDirection != MouseDirections.None)
+                {
+                    ExecuteAttacks(attackDirection);
+                    isAttacking = true;
+                }
+
+                // Stop here if no attack is happening
+                if (!isAttacking)
+                    return;
+
+                if (!isBowSoundFinished && ScreenWeapon.WeaponType == WeaponTypes.Bow && ScreenWeapon.GetCurrentFrame() == 4)
+                {
+                    ScreenWeapon.PlaySwingSound();
+                    isBowSoundFinished = true;
+
+                    // Remove arrow
+                    ItemCollection playerItems = playerEntity.Items;
+                    DaggerfallUnityItem arrow = playerItems.GetItem(ItemGroups.Weapons, (int)Weapons.Arrow);
+                    playerItems.RemoveOne(arrow);
+                }
+                else if (!isDamageFinished && ScreenWeapon.GetCurrentFrame() == ScreenWeapon.GetHitFrame())
+                {
+                    // Racial override can suppress optional attack voice
+                    RacialOverrideEffect racialOverride = GameManager.Instance.PlayerEffectManager.GetRacialOverrideEffect();
+                    bool suppressCombatVoices = racialOverride != null && racialOverride.SuppressOptionalCombatVoices;
+
+                    // Chance to play attack voice
+                    if (DaggerfallUnity.Settings.CombatVoices && !suppressCombatVoices && ScreenWeapon.WeaponType != WeaponTypes.Bow && Dice100.SuccessRoll(20))
+                        ScreenWeapon.PlayAttackVoice();
+
+                    // Transfer damage.
+                    bool hitEnemy = false;
+
+                    // Non-bow weapons
+                    if (ScreenWeapon.WeaponType != WeaponTypes.Bow)
+                        MeleeDamage(ScreenWeapon, out hitEnemy);
+                    // Bow weapons
+                    else
+                    {
+                        DaggerfallMissile missile = Instantiate(ArrowMissilePrefab);
+                        if (missile)
+                        {
+                            missile.Caster = GameManager.Instance.PlayerEntityBehaviour;
+                            missile.TargetType = TargetTypes.SingleTargetAtRange;
+                            missile.ElementType = ElementTypes.None;
+                            missile.IsArrow = true;
+
+                            lastBowUsed = usingRightHand ? currentRightHandWeapon : currentLeftHandWeapon; ;
+                        }
+                    }
+
+                    // Fatigue loss
+                    playerEntity.DecreaseFatigue(swingWeaponFatigueLoss);
+
+                    // Play swing sound if attack didn't hit an enemy.
+                    if (!hitEnemy && ScreenWeapon.WeaponType != WeaponTypes.Bow)
+                        ScreenWeapon.PlaySwingSound();
+                    else
+                    {
+                        // Tally skills
+                        if (ScreenWeapon.WeaponType == WeaponTypes.Melee || ScreenWeapon.WeaponType == WeaponTypes.Werecreature)
+                            playerEntity.TallySkill(DFCareer.Skills.HandToHand, 1);
+                        else if (usingRightHand && (currentRightHandWeapon != null))
+                            playerEntity.TallySkill(currentRightHandWeapon.GetWeaponSkillID(), 1);
+                        else if (currentLeftHandWeapon != null)
+                            playerEntity.TallySkill(currentLeftHandWeapon.GetWeaponSkillID(), 1);
+
+                        playerEntity.TallySkill(DFCareer.Skills.CriticalStrike, 1);
+                    }
+                    isDamageFinished = true;
+                }
             }
         }
 
@@ -765,7 +766,7 @@ namespace DaggerfallWorkshop.Game
         MouseDirections TrackMouseAttack()
         {
             // Track action for idle plus all eight mouse directions
-            var sum = _gesture.Add(InputManager.Instance.MouseX, InputManager.Instance.MouseY) * weaponSensitivity;
+            /*var sum = _gesture.Add(InputManager.Instance.MouseX, InputManager.Instance.MouseY) * weaponSensitivity;
 
             if (InputManager.Instance.UsingController)
             {
@@ -785,20 +786,20 @@ namespace DaggerfallWorkshop.Game
             else if (_gesture.TravelDist/_longestDim < AttackThreshold)
             {
                 return MouseDirections.None;
-            }
+            }*/
 
             joystickSwungOnce = true;
 
             // Treat mouse movement as a vector from the origin
             // The angle of the vector will be used to determine the angle of attack/swing
-            var angle = Mathf.Atan2(sum.y, sum.x) * Mathf.Rad2Deg;
+            //var angle = Mathf.Atan2(sum.y, sum.x) * Mathf.Rad2Deg;
             // Put angle into 0 - 360 deg range
-            if (angle < 0f) angle += 360f;
+            //if (angle < 0f) angle += 360f;
             // The swing gestures are divided into radial segments
             // Up-down and left-right attacks are in a 30 deg cone about the x/y axes
             // Up-right and up-left aren't valid so the up range is expanded to fill the range
             // The remaining 60 deg quadrants trigger the diagonal attacks
-            var radialSection = Mathf.CeilToInt(angle / 15f);
+            var radialSection = 0;// Mathf.CeilToInt(angle / 15f);
             MouseDirections direction;
             switch (radialSection)
             {

@@ -331,7 +331,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             UpdateRemoteTargetIcon();
 
             // Store toggle closed binding for this window
-            toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.Inventory);
+            //toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.Inventory);
         }
 
         public override void Update()
@@ -341,8 +341,8 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             if (!DaggerfallUI.Instance.HotkeySequenceProcessed)
             {
                 // Toggle window closed with same hotkey used to open it
-                if (InputManager.Instance.GetKeyUp(toggleClosedBinding))
-                    CloseWindow();
+                //if (InputManager.Instance.GetKeyUp(toggleClosedBinding))
+                  //  CloseWindow();
             }
 
             // Close window immediately if inventory suppressed
@@ -566,7 +566,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
         public override void OnPush()
         {
-            toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.Inventory);
+            //toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.Inventory);
 
             // Racial override can suppress inventory
             // We still setup and push window normally, actual suppression is done in Update()

@@ -121,7 +121,7 @@ namespace DaggerfallWorkshop.Game
             {
                 DaggerfallUI.Instance.FadeBehaviour.ClearFade();
                 deathInProgress = false;
-                InputManager.Instance.IsPaused = false;
+                //InputManager.Instance.IsPaused = false;
                 ResetCamera();
             }
         }
@@ -152,7 +152,7 @@ namespace DaggerfallWorkshop.Game
             // Start the death process and pause player input
             deathInProgress = true;
             timeOfDeath = Time.fixedTime;
-            InputManager.Instance.IsPaused = true;
+            //InputManager.Instance.IsPaused = true;
 
             // Start camera falling and fading to black
             startCameraHeight = mainCamera.transform.localPosition.y;

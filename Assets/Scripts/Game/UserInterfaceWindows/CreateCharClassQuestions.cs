@@ -173,12 +173,12 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             base.Update();
 
             // User picked an answer with a key
-            if (Input.GetKeyDown(KeyCode.A))
+            /*if (Input.GetKeyDown(KeyCode.A))
                 AnswerAndPlayAnim(0);
             else if (Input.GetKeyDown(KeyCode.B))
                 AnswerAndPlayAnim(1);
             else if (Input.GetKeyDown(KeyCode.C))
-                AnswerAndPlayAnim(2);
+                AnswerAndPlayAnim(2);*/
 
             // User is scrolling with a mouseclick
             if (isScrolling)

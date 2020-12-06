@@ -171,9 +171,9 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             stopButton.Hotkey = DaggerfallShortcut.GetBinding(DaggerfallShortcut.Buttons.RestStop);
             stopButton.OnKeyboardEvent += StopButton_OnKeyboardEvent;
 
-
+            //fixme
             // Store toggle closed binding for this window
-            toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.Rest);
+            //toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.Rest);
         }
 
         #endregion
@@ -188,11 +188,11 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             {
                 // Toggle window closed with same hotkey used to open it, or the DaggerfallBaseWindow's exitKey
                 // Window will properly end the rest if the player was currently resting
-                if (InputManager.Instance.GetKeyUp(toggleClosedBinding) || Input.GetKeyUp(exitKey))
+                /*if (InputManager.Instance.GetKeyUp(toggleClosedBinding) || Input.GetKeyUp(exitKey))
                     if (currentRestMode != RestModes.Selection)
                         EndRest();
                     else
-                        CloseWindow();
+                        CloseWindow();*/
             }
 
             // Update HUD
@@ -236,7 +236,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         {
             base.OnPush();
 
-            toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.Rest);
+            //toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.Rest);
 
             // Reset counters
             minutesOfHour = 0;

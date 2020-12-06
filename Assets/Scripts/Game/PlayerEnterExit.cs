@@ -281,7 +281,7 @@ namespace DaggerfallWorkshop.Game
         }
 
         void Update()
-        {            
+        {
             // Track which dungeon block player is inside of
             if (dungeon && isPlayerInsideDungeon)
             {
@@ -1198,7 +1198,7 @@ namespace DaggerfallWorkshop.Game
             // Look for required components
             if (controller == null)
                 controller = GetComponent<CharacterController>();
-            
+
             // Fail if missing required components
             if (dfUnity == null || controller == null)
                 return false;

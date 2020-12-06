@@ -199,8 +199,8 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
             if (!DaggerfallUI.Instance.HotkeySequenceProcessed)
             {
-                if (Input.GetKeyDown(KeyCode.Tab))
-                    NextPage();
+                //if (Input.GetKeyDown(KeyCode.Tab))
+                  //  NextPage();
             }
         }
 

@@ -17,6 +17,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
     public interface IUserInterfaceWindow
     {
         UserInterfaceWindow Value { get; }
+        string Name { get; set; }
         bool Enabled { get; set; }
         bool PauseWhileOpen { get; set; }
         Panel ParentPanel { get; }
@@ -38,10 +39,17 @@ namespace DaggerfallWorkshop.Game.UserInterface
     public abstract class UserInterfaceWindow : IUserInterfaceWindow
     {
         protected Panel parentPanel = new Panel();      // Parent panel fits to entire viewport
+        protected string name;
         protected IUserInterfaceManager uiManager;
         protected bool enabled = true;
         protected bool pauseWhileOpened = true;
         protected BaseScreenComponent focusControl = null;
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
 
         public UserInterfaceWindow Value
         {

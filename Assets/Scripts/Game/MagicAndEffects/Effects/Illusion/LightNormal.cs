@@ -93,7 +93,7 @@ namespace DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects
             // Ideally the candle would have a spring setup to push it away from collisions and smoothly move back into place
             // Just implementing similar to classic for now but at closer range
             UnityEngine.Vector3 candlePosition = GameManager.Instance.PlayerObject.transform.position + GameManager.Instance.PlayerObject.transform.forward * candleDistance;
-            candlePosition.y += GameManager.Instance.PlayerController.height * 0.25f;
+            candlePosition.y += GameManager.Instance.CharacterController.height * 0.25f;
 
             // Instantiate magic candle prefab
             UnityEngine.GameObject candleObject = UnityEngine.Object.Instantiate(

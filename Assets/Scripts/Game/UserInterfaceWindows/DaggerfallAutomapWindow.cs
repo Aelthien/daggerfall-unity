@@ -522,7 +522,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
                 automap.SlicingBiasY = defaultSlicingBiasY; // reset slicing y-bias
                 //ResetRotationPivotAxisPosition(); // reset rotation pivot axis                
             }
-
+            /*
             // check if global automap open/close hotkey has changed
             if (InputManager.Instance.GetBinding(InputManager.Actions.AutoMap) != automapBinding)
             {
@@ -532,7 +532,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
                 SetupHotkeySequences();
                 // update button tool tip texts - since hotkeys changed
                 UpdateButtonToolTipsText();
-            }
+            }*/
 
             automap.IsOpenAutomap = true; // signal Automap script that automap is open and it should do its stuff in its Update() function            
 
@@ -684,7 +684,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             if (automap.ITweenCameraAnimationIsRunning)
             {
                 // update oldMousePosition to prevent problems with drag and drog action that starts before animation is over 
-                oldMousePosition = new Vector2(InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
+                oldMousePosition = new Vector2(0, 0);// InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
 
                 // if so update automap view so animation plays correctly
                 UpdateAutomapView();
@@ -696,26 +696,26 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             ResizeGUIelementsOnDemand();
 
             HotkeySequence.KeyModifiers keyModifiers = HotkeySequence.GetKeyboardKeyModifiers();
-
+            /*
             if (Input.GetKeyDown(KeyCode.Escape) ||
                 // Toggle window closed with same hotkey used to open it
-                InputManager.Instance.GetKeyDown(automapBinding))
+                //InputManager.Instance.GetKeyDown(automapBinding))
                 isCloseWindowDeferred = true;
             else if ((Input.GetKeyUp(KeyCode.Escape) ||
                 // Toggle window closed with same hotkey used to open it
-                InputManager.Instance.GetKeyUp(automapBinding)) && isCloseWindowDeferred)
+                //InputManager.Instance.GetKeyUp(automapBinding)) && isCloseWindowDeferred)
             {
                 isCloseWindowDeferred = false;
                 CloseWindow();
                 return;
-            }
+            }*/
 
             // debug teleport mode action
             if (
-                (automap.DebugTeleportMode == true) &&
-                leftMouseClickedOnPanelAutomap && // make sure click happened in panel area
-                InputManager.Instance.GetMouseButtonDown(0) && // make sure click was issued in this frame
-                ((Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift)) || (Input.GetKey(KeyCode.RightControl) && Input.GetKey(KeyCode.RightShift)))
+                (automap.DebugTeleportMode == true)// &&
+                // leftMouseClickedOnPanelAutomap && // make sure click happened in panel area
+                //InputManager.Instance.GetMouseButtonDown(0) && // make sure click was issued in this frame
+                //((Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift)) || (Input.GetKey(KeyCode.RightControl) && Input.GetKey(KeyCode.RightShift)))
                )
             {
                 //Vector2 mousePosition = new Vector2((InputManager.Instance.MousePosition.x / Screen.width) * panelRenderAutomap.Size.x, (InputManager.Instance.MousePosition.y / Screen.height) * panelRenderAutomap.Size.y);
@@ -870,7 +870,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             // check mouse input and assign actions
             if (leftMouseDownOnPanelAutomap)
             {
-                Vector2 mousePosition = new Vector2(InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
+                Vector2 mousePosition = new Vector2(0, 0);// InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
 
                 float dragSpeedCompensated;
                 switch (automapViewMode)
@@ -893,7 +893,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
             if (rightMouseDownOnPanelAutomap)
             {
-                Vector2 mousePosition = new Vector2(InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
+                Vector2 mousePosition = new Vector2(0, 0);// InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
 
                 Vector2 bias = mousePosition - oldMousePosition;
 
@@ -915,7 +915,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
             if (middleMouseDownOnPanelAutomap)
             {
-                Vector2 mousePosition = new Vector2(InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
+                Vector2 mousePosition = new Vector2(0, 0);// InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
 
                 Vector2 bias = mousePosition - oldMousePosition;
 
@@ -1860,7 +1860,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
                     return;
 
                 // if no teleporter portal marker was hit, try to add or edit a user marker note
-                automap.TryToAddOrEditUserNoteMarkerOnDungeonSegmentAtScreenPosition(mousePosition, !Input.GetKey(KeyCode.LeftControl));
+                //automap.TryToAddOrEditUserNoteMarkerOnDungeonSegmentAtScreenPosition(mousePosition, !Input.GetKey(KeyCode.LeftControl));
             }
         }
 
@@ -1908,7 +1908,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             if (automap.DebugTeleportMode && ((Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift)) || (Input.GetKey(KeyCode.RightControl) && Input.GetKey(KeyCode.RightShift))))
                 return;
 
-            Vector2 mousePosition = new Vector2(InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
+            Vector2 mousePosition = new Vector2(0, 0);// InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
             oldMousePosition = mousePosition;
             leftMouseDownOnPanelAutomap = true;
             alreadyInMouseDown = true;
@@ -1926,7 +1926,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             if (alreadyInRightMouseDown)
                 return;
 
-            Vector2 mousePosition = new Vector2(InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
+            Vector2 mousePosition = new Vector2(0, 0);// InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
             oldMousePosition = mousePosition;
             rightMouseDownOnPanelAutomap = true;
             alreadyInRightMouseDown = true;
@@ -1943,7 +1943,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             if (alreadyInMiddleMouseDown)
                 return;
 
-            Vector2 mousePosition = new Vector2(InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
+            Vector2 mousePosition = new Vector2(0, 0);// InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
             oldMousePosition = mousePosition;
             middleMouseDownOnPanelAutomap = true;
             alreadyInMiddleMouseDown = true;

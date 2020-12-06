@@ -241,7 +241,8 @@ namespace DaggerfallWorkshop.Game.MagicAndEffects
                     CastReadySpell();
                     return;
                 }
-
+                //fixme
+                /*
                 // Cast spell
                 if (InputManager.Instance.ActionStarted(InputManager.Actions.ActivateCenterObject) && readySpell != null)
                 {
@@ -265,6 +266,7 @@ namespace DaggerfallWorkshop.Game.MagicAndEffects
                 {
                     AbortReadySpell();
                 }
+                */
             }
             // Enemies always cast ready spell instantly once queued
             else

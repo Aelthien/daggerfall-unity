@@ -74,7 +74,7 @@ namespace DaggerfallWorkshop.Game
             bool rappelAllowed = (DaggerfallUnity.Settings.AdvancedClimbing
                 //&& !playerScanner.HitSomethingInFront
                 && !climbingMotor.WasClimbing
-                && InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards)
+                //&& InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards)
                 && !climbingMotor.IsSlipping && acrobatMotor.Falling && !acrobatMotor.Jumping);
 
             if (!rappelAllowed)
@@ -150,7 +150,7 @@ namespace DaggerfallWorkshop.Game
 
             InitialSetRappelType();
 
-            bool inputBackward = InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards);
+            bool inputBackward = false;// InputManager.Instance.HasAction(InputManager.Actions.MoveBackwards);
             Vector3 origin = Vector3.zero;
             Vector3 direction = -controller.transform.forward;
 

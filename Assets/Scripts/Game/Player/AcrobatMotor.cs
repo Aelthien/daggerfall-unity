@@ -62,8 +62,8 @@ namespace DaggerfallWorkshop.Game
                 GameManager.Instance.PlayerEntity.IsSlowFalling ||
                 GameManager.Instance.TransportManager.TransportMode == TransportModes.Cart)
                 return;
-
-            if (InputManager.Instance.HasAction(InputManager.Actions.Jump))
+            //fixme
+            /*if (InputManager.Instance.HasAction(InputManager.Actions.Jump))
             {
                 const float jumpSpellMultiplier = 1.6f;
                 const float athleticismMultiplier = 1.1f;
@@ -97,7 +97,7 @@ namespace DaggerfallWorkshop.Game
             else
             {
                 jumping = false;
-            }
+            }*/
         }
         /// <summary>
         /// If air control is allowed, check movement but don't touch the y component
@@ -106,8 +106,8 @@ namespace DaggerfallWorkshop.Game
         /// <param name="speed">The speed multiplier</param>
         public void CheckAirControl(ref Vector3 moveDirection, float speed)
         {
-            float inputX = InputManager.Instance.Horizontal;
-            float inputY = InputManager.Instance.Vertical;
+            float inputX = 0;// InputManager.Instance.Horizontal;
+            float inputY = 0;// InputManager.Instance.Vertical;
 
             // Cancel all movement input if player is paralyzed
             // Player should still be able to fall or move with platforms
