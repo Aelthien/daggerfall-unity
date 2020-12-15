@@ -167,7 +167,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
                 indicator.Draw();
         }
 
-        protected override void MouseClick(Vector2 clickPosition)
+        public override void MouseClick(Vector2 clickPosition)
         {
             base.MouseClick(clickPosition);
 

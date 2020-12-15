@@ -115,19 +115,19 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             DaggerfallUI.Instance.ReinstantiatePersistentWindowInstances();
         }
 
-        public static IUserInterfaceWindow GetInstance(UIWindowType windowType, IUserInterfaceManager uiManager)
+        public static UserInterfaceWindow GetInstance(UIWindowType windowType, IUserInterfaceManager uiManager)
         {
             object[] args = new object[] { uiManager };
             return GetInstance(windowType, args);
         }
 
-        public static IUserInterfaceWindow GetInstance(UIWindowType windowType, IUserInterfaceManager uiManager, DaggerfallBaseWindow previous)
+        public static UserInterfaceWindow GetInstance(UIWindowType windowType, IUserInterfaceManager uiManager, DaggerfallBaseWindow previous)
         {
             object[] args = new object[] { uiManager, previous };
             return GetInstance(windowType, args);
         }
 
-        public static IUserInterfaceWindow GetInstanceWithArgs(UIWindowType windowType, object[] args)
+        public static UserInterfaceWindow GetInstanceWithArgs(UIWindowType windowType, object[] args)
         {
 
             return GetInstance(windowType, args);
@@ -142,12 +142,12 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             return null;
         }
 
-        private static IUserInterfaceWindow GetInstance(UIWindowType windowType, object[] args)
+        private static UserInterfaceWindow GetInstance(UIWindowType windowType, object[] args)
         {
             Type windowClassType;
             if (uiWindowImplementations.TryGetValue(windowType, out windowClassType))
             {
-                return (IUserInterfaceWindow)Activator.CreateInstance(windowClassType, args);
+                return (UserInterfaceWindow)Activator.CreateInstance(windowClassType, args);
             }
             return null;
         }

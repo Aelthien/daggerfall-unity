@@ -77,7 +77,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         protected DaedraData daedraToSummon;
         protected FactionFile.FactionData summonerFactionData;
 
-        public DaggerfallQuestPopupWindow(IUserInterfaceManager uiManager, IUserInterfaceWindow previousWindow = null)
+        public DaggerfallQuestPopupWindow(IUserInterfaceManager uiManager, UserInterfaceWindow previousWindow = null)
             : base(uiManager, previousWindow)
         {
         }

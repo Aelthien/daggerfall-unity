@@ -11,12 +11,16 @@
 
 using UnityEngine;
 using DaggerfallWorkshop.Game.UserInterfaceWindows;
+using System;
+using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 namespace DaggerfallWorkshop.Game.UserInterface
 {
-    public interface IUserInterfaceWindow
+    /*public interface UserInterfaceWindow
     {
         UserInterfaceWindow Value { get; }
+        string Name { get; }
         bool Enabled { get; set; }
         bool PauseWhileOpen { get; set; }
         Panel ParentPanel { get; }
@@ -28,26 +32,22 @@ namespace DaggerfallWorkshop.Game.UserInterface
         void OnPush();
         void OnPop();
         void OnReturn();
-    }
+        void HandleClick();
+    }*/
 
     /// <summary>
     /// UserInterfaceWindow abstract base class.
     /// Each window is a unique state managed by UserInterfaceManager.
     /// All subordinate controls should be added to ParentPanel.
     /// </summary>
-    public abstract class UserInterfaceWindow : IUserInterfaceWindow
+    public abstract class UserInterfaceWindow
     {
         protected Panel parentPanel = new Panel();      // Parent panel fits to entire viewport
         protected IUserInterfaceManager uiManager;
         protected bool enabled = true;
         protected bool pauseWhileOpened = true;
         protected BaseScreenComponent focusControl = null;
-
-        public UserInterfaceWindow Value
-        {
-            get { return (this); }
-        }
-
+        protected BaseScreenComponent hoveredComponent;
         public bool Enabled
         {
             get { return enabled; }
@@ -103,6 +103,43 @@ namespace DaggerfallWorkshop.Game.UserInterface
             }
         }
 
+        public void HandleHover()
+        {
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+
+            DaggerfallBaseWindow window = (DaggerfallBaseWindow)this;
+
+            foreach (var component in window.NativePanel.Components)
+            {
+                //Debug.Log(component.Position.ToString());
+                //Debug.Log(mousePosition.x - scr);
+
+                if (component.IsHovered(mousePosition))
+                {
+                    //component.
+                    
+                        Debug.Log(component.Name);
+                    hoveredComponent = component;
+                    hoveredComponent.MouseEnter();
+                }
+
+                //if (focusControl != component)
+                  //  focusControl.MouseLeave();
+            }
+        }
+
+        public virtual void HandleMouseClick(Vector2 position)
+        {
+            if (hoveredComponent != null)
+                hoveredComponent.MouseClick(position);
+        }
+
+        public void HandleMouseMove(Vector2 movement)
+        {
+            if (focusControl != null)
+                focusControl.MouseMove(movement);
+        }
+
         /// <summary>
         /// Called when this window is pushed to stack.
         /// </summary>
@@ -122,6 +159,11 @@ namespace DaggerfallWorkshop.Game.UserInterface
         /// </summary>
         public virtual void OnReturn()
         {
+        }
+
+        public virtual void OpenWindow()
+        {
+
         }
 
         public void CloseWindow()

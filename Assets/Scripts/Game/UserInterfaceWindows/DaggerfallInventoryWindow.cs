@@ -269,7 +269,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         }
 
         #endregion
-
+        
         #region Constructors
 
         public DaggerfallInventoryWindow(IUserInterfaceManager uiManager, DaggerfallBaseWindow previous = null)
@@ -2013,7 +2013,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
         protected void ExitButton_OnKeyboardEvent(BaseScreenComponent sender, Event keyboardEvent)
         {
-            if (keyboardEvent.type == EventType.KeyDown)
+            /*if (keyboardEvent.type == EventType.KeyDown)
             {
                 DaggerfallUI.Instance.PlayOneShot(SoundClips.ButtonClick);
                 isCloseWindowDeferred = true;
@@ -2022,7 +2022,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             {
                 isCloseWindowDeferred = false;
                 CloseWindow();
-            }
+            }*/
         }
 
         #endregion
@@ -2088,9 +2088,9 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
         #region Hover & StartGame Event Handlers
 
-        private void PaperDoll_OnMouseMove(int x, int y)
+        private void PaperDoll_OnMouseMove(Vector2 movement)
         {
-            byte value = paperDoll.GetEquipIndex(x, y);
+            byte value = paperDoll.GetEquipIndex((byte) movement.x, (byte) movement.y);
             if (value != 0xff)
             {
                 // Only update when index changed

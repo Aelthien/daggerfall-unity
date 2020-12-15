@@ -207,7 +207,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
         #endregion
 
-        public CreateCharSpecialAdvantageWindow(IUserInterfaceManager uiManager, List<SpecialAdvDis> advDisList, List<SpecialAdvDis> otherList, DFCareer careerData, IUserInterfaceWindow previous = null, bool isDisadvantages = false)
+        public CreateCharSpecialAdvantageWindow(IUserInterfaceManager uiManager, List<SpecialAdvDis> advDisList, List<SpecialAdvDis> otherList, DFCareer careerData, UserInterfaceWindow previous = null, bool isDisadvantages = false)
             : base(uiManager, previous)
         {
             this.isDisadvantages = isDisadvantages;

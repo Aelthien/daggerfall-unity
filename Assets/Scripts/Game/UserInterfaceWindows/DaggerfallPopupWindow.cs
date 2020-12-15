@@ -21,7 +21,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
     /// </summary>
     public abstract class DaggerfallPopupWindow : DaggerfallBaseWindow
     {
-        IUserInterfaceWindow previousWindow;
+        UserInterfaceWindow previousWindow;
 
         //Color screenDimColor = new Color32(0, 0, 0, 128);
         Color screenDimColor = Color.clear;
@@ -45,13 +45,13 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             get { return cancelled; }
         }
 
-        public IUserInterfaceWindow PreviousWindow
+        public UserInterfaceWindow PreviousWindow
         {
             get { return previousWindow; }
             set { previousWindow = value; }
         }
 
-        public DaggerfallPopupWindow(IUserInterfaceManager uiManager, IUserInterfaceWindow previousWindow = null, int screenWidth = 320, int screenHeight = 200)
+        public DaggerfallPopupWindow(IUserInterfaceManager uiManager, UserInterfaceWindow previousWindow = null, int screenWidth = 320, int screenHeight = 200)
             : base(uiManager, screenWidth, screenHeight)
         {
             this.previousWindow = previousWindow;

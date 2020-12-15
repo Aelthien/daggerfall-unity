@@ -297,20 +297,20 @@ namespace DaggerfallWorkshop.Game.Utility
         void StartTitleMenu()
         {
             RaiseOnNewGameEvent();
-            DaggerfallUI.Instance.PopToHUD();
+            //DaggerfallUI.Instance.PopToHUD();
             QuestMachine.Instance.ClearState();
             playerEnterExit.DisableAllParents();
             ResetWeaponManager();
 
-            if (string.IsNullOrEmpty(PostStartMessage))
-                DaggerfallUI.PostMessage(DaggerfallUIMessages.dfuiInitGame);
-            else
-                DaggerfallUI.PostMessage(PostStartMessage);
+            //if (string.IsNullOrEmpty(PostStartMessage))
+                //DaggerfallUI.PostMessage(DaggerfallUIMessages.dfuiInitGame);
+            //else
+                //DaggerfallUI.PostMessage(PostStartMessage);
 
             lastStartMethod = StartMethods.TitleMenu;
 
-            if (OnStartMenu != null)
-                OnStartMenu(this, null);
+            //if (OnStartMenu != null)
+              //  OnStartMenu(this, null);
         }
 
         void StartTitleMenuFromDeath()

@@ -15,6 +15,15 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 {
     public class DaggerfallTransportWindow : DaggerfallPopupWindow
     {
+        #region Transport Availability
+
+        private ItemCollection inventory;
+        private bool hasHorse;
+        private bool hasCart;
+        private bool hasShip;
+
+        #endregion
+
         #region UI Rects
 
         Rect footButtonRect = new Rect(5, 5, 120, 7);
@@ -76,10 +85,10 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         protected override void Setup()
         {
             // What transport options does the player have?
-            ItemCollection inventory = GameManager.Instance.PlayerEntity.Items;
-            bool hasHorse = GameManager.Instance.TransportManager.HasHorse();
-            bool hasCart = GameManager.Instance.TransportManager.HasCart();
-            bool hasShip = GameManager.Instance.TransportManager.ShipAvailiable();
+            inventory = GameManager.Instance.PlayerEntity.Items;
+            hasHorse = GameManager.Instance.TransportManager.HasHorse();
+            hasCart = GameManager.Instance.TransportManager.HasCart();
+            hasShip = GameManager.Instance.TransportManager.ShipAvailiable();
 
             // Load all textures
             LoadTextures();
@@ -95,15 +104,11 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             // Foot button
             footButton = DaggerfallUI.AddButton(footButtonRect, mainPanel);
             footButton.OnMouseClick += FootButton_OnMouseClick;
-            footButton.Hotkey = DaggerfallShortcut.GetBinding(DaggerfallShortcut.Buttons.TransportFoot);
-            footButton.OnKeyboardEvent += FootButton_OnKeyboardEvent;
 
             // Horse button
             horseButton = DaggerfallUI.AddButton(horseButtonRect, mainPanel);
             if (hasHorse) {
                 horseButton.OnMouseClick += HorseButton_OnMouseClick;
-                horseButton.Hotkey = DaggerfallShortcut.GetBinding(DaggerfallShortcut.Buttons.TransportHorse);
-                horseButton.OnKeyboardEvent += HorseButton_OnKeyboardEvent;
             }
             else {
                 horseButton.BackgroundTexture = ImageReader.GetSubTexture(disabledTexture, horseDisabledRect, disabledTextureSize);
@@ -112,8 +117,6 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             cartButton = DaggerfallUI.AddButton(cartButtonRect, mainPanel);
             if (hasCart) {
                 cartButton.OnMouseClick += CartButton_OnMouseClick;
-                cartButton.Hotkey = DaggerfallShortcut.GetBinding(DaggerfallShortcut.Buttons.TransportCart);
-                cartButton.OnKeyboardEvent += CartButton_OnKeyboardEvent;
             }
             else {
                 cartButton.BackgroundTexture = ImageReader.GetSubTexture(disabledTexture, cartDisabledRect, disabledTextureSize);
@@ -122,8 +125,6 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             shipButton = DaggerfallUI.AddButton(shipButtonRect, mainPanel);
             if (hasShip) {
                 shipButton.OnMouseClick += ShipButton_OnMouseClick;
-                shipButton.Hotkey = DaggerfallShortcut.GetBinding(DaggerfallShortcut.Buttons.TransportShip);
-                shipButton.OnKeyboardEvent += ShipButton_OnKeyboardEvent;
             }
             else {
                 shipButton.BackgroundTexture = ImageReader.GetSubTexture(disabledTexture, shipDisabledRect, disabledTextureSize);
@@ -132,13 +133,8 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             // Exit button
             exitButton = DaggerfallUI.AddButton(exitButtonRect, mainPanel);
             exitButton.OnMouseClick += ExitButton_OnMouseClick;
-            exitButton.Hotkey = DaggerfallShortcut.GetBinding(DaggerfallShortcut.Buttons.TransportExit);
-            exitButton.OnKeyboardEvent += ExitButton_OnKeyboardEvent;
-
+            
             NativePanel.Components.Add(mainPanel);
-
-            // Store toggle closed binding for this window
-            toggleClosedBinding = InputManager.Instance.GetBinding(InputManager.Actions.Transport);
         }
 
         #endregion
@@ -148,13 +144,6 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         public override void Update()
         {
             base.Update();
-
-            if (!DaggerfallUI.Instance.HotkeySequenceProcessed)
-            {
-                // Toggle window closed with same hotkey used to open it
-                if (InputManager.Instance.GetKeyUp(toggleClosedBinding))
-                    CloseWindow();
-            }
         }
 
         #endregion
@@ -178,84 +167,61 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             CloseWindow();
         }
 
-        protected void ExitButton_OnKeyboardEvent(BaseScreenComponent sender, Event keyboardEvent)
-        {
-            if (keyboardEvent.type == EventType.KeyDown)
-            {
-                DaggerfallUI.Instance.PlayOneShot(SoundClips.ButtonClick);
-                isCloseWindowDeferred = true;
-            }
-            else if (keyboardEvent.type == EventType.KeyUp && isCloseWindowDeferred)
-            {
-                isCloseWindowDeferred = false;
-                CloseWindow();
-            }
-        }
-
         private void FootButton_OnMouseClick(BaseScreenComponent sender, Vector2 position)
         {
             // Reset to normal on foot walking.
+            SelectFootMode();
+        }
+
+        public void SelectFootMode()
+        {
             GameManager.Instance.TransportManager.TransportMode = TransportModes.Foot;
             CloseWindow();
         }
 
-        private void FootButton_OnKeyboardEvent(BaseScreenComponent sender, Event keyboardEvent)
+        public void SelectHorseMode()
         {
-            if (keyboardEvent.type == EventType.KeyUp)
-            {
-                // Reset to normal on foot walking.
-                GameManager.Instance.TransportManager.TransportMode = TransportModes.Foot;
-                CloseWindow();
-            }
-        }
+            if (!hasHorse)
+                return;
 
-        private void HorseButton_OnMouseClick(BaseScreenComponent sender, Vector2 position)
-        {
-            // Change to riding a horse.
             GameManager.Instance.TransportManager.TransportMode = TransportModes.Horse;
             CloseWindow();
         }
 
-        private void HorseButton_OnKeyboardEvent(BaseScreenComponent sender, Event keyboardEvent)
+        public void SelectCartMode()
         {
-            if (keyboardEvent.type == EventType.KeyUp)
-            {
-                // Change to riding a horse.
-                GameManager.Instance.TransportManager.TransportMode = TransportModes.Horse;
-                CloseWindow();
-            }
-        }
+            if (!hasCart)
+                return;
 
-        private void CartButton_OnMouseClick(BaseScreenComponent sender, Vector2 position) {
-            // Change to riding a cart.
             GameManager.Instance.TransportManager.TransportMode = TransportModes.Cart;
             CloseWindow();
         }
-
-        private void CartButton_OnKeyboardEvent(BaseScreenComponent sender, Event keyboardEvent)
+        
+        public void SelectShipMode()
         {
-            if (keyboardEvent.type == EventType.KeyUp)
-            {
-                // Change to riding a cart.
-                GameManager.Instance.TransportManager.TransportMode = TransportModes.Cart;
-                CloseWindow();
-            }
-        }
+            if (!hasShip)
+                return;
 
-        private void ShipButton_OnMouseClick(BaseScreenComponent sender, Vector2 position) {
-            // Teleport to your ship, or back.
             GameManager.Instance.TransportManager.TransportMode = TransportModes.Ship;
             CloseWindow();
         }
-
-        private void ShipButton_OnKeyboardEvent(BaseScreenComponent sender, Event keyboardEvent)
+        
+        private void HorseButton_OnMouseClick(BaseScreenComponent sender, Vector2 position)
         {
-            if (keyboardEvent.type == EventType.KeyUp)
-            {
-                // Teleport to your ship, or back.
-                GameManager.Instance.TransportManager.TransportMode = TransportModes.Ship;
-                CloseWindow();
-            }
+            // Change to riding a horse.
+            SelectHorseMode();
+        }
+
+        private void CartButton_OnMouseClick(BaseScreenComponent sender, Vector2 position)
+        {
+            // Change to riding a cart.
+            SelectCartMode();
+        }
+
+        private void ShipButton_OnMouseClick(BaseScreenComponent sender, Vector2 position)
+        {
+            // Teleport to your ship, or back.
+            SelectShipMode();
         }
 
         #endregion

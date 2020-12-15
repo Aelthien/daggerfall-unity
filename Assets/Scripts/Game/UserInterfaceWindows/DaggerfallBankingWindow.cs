@@ -516,7 +516,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
 
         #region banking status box
 
-        public static DaggerfallMessageBox CreateBankingStatusBox(IUserInterfaceWindow previous = null)
+        public static DaggerfallMessageBox CreateBankingStatusBox(UserInterfaceWindow previous = null)
         {
             DaggerfallMessageBox bankingBox = new DaggerfallMessageBox(DaggerfallUI.Instance.UserInterfaceManager, previous);
             bankingBox.SetHighlightColor(DaggerfallUI.DaggerfallUnityStatDrainedTextColor);

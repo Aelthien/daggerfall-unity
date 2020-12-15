@@ -64,7 +64,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         public int Fine { get { return fine; } }
         public int DaysInPrison { get { return daysInPrison; } }
 
-        public DaggerfallCourtWindow(IUserInterfaceManager uiManager, IUserInterfaceWindow previousWindow = null)
+        public DaggerfallCourtWindow(IUserInterfaceManager uiManager, UserInterfaceWindow previousWindow = null)
             : base(uiManager, previousWindow)
         {
         }

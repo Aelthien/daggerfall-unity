@@ -164,7 +164,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             get { return imagePanel; }
         }
 
-        public DaggerfallMessageBox(IUserInterfaceManager uiManager, IUserInterfaceWindow previous = null, bool wrapText = false, int posY = -1)
+        public DaggerfallMessageBox(IUserInterfaceManager uiManager, UserInterfaceWindow previous = null, bool wrapText = false, int posY = -1)
             : base(uiManager, previous)
         {
             if (wrapText)
@@ -179,19 +179,19 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
                 customYPos = posY;
         }
 
-        public DaggerfallMessageBox(IUserInterfaceManager uiManager, CommonMessageBoxButtons buttons, TextFile.Token[] tokens, IUserInterfaceWindow previous = null, IMacroContextProvider mcp = null)
+        public DaggerfallMessageBox(IUserInterfaceManager uiManager, CommonMessageBoxButtons buttons, TextFile.Token[] tokens, UserInterfaceWindow previous = null, IMacroContextProvider mcp = null)
             : base(uiManager, previous)
         {
             SetupBox(tokens, buttons, mcp);
         }
 
-        public DaggerfallMessageBox(IUserInterfaceManager uiManager, CommonMessageBoxButtons buttons, int textId, IUserInterfaceWindow previous = null, IMacroContextProvider mcp = null)
+        public DaggerfallMessageBox(IUserInterfaceManager uiManager, CommonMessageBoxButtons buttons, int textId, UserInterfaceWindow previous = null, IMacroContextProvider mcp = null)
             : base(uiManager, previous)
         {
             SetupBox(textId, buttons, mcp);
         }
 
-        public DaggerfallMessageBox(IUserInterfaceManager uiManager, CommonMessageBoxButtons buttons, string text, IUserInterfaceWindow previous = null)
+        public DaggerfallMessageBox(IUserInterfaceManager uiManager, CommonMessageBoxButtons buttons, string text, UserInterfaceWindow previous = null)
             : base(uiManager, previous)
         {
             SetupBox(text, buttons);
@@ -239,6 +239,11 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             scrollBar.VerticalAlignment = VerticalAlignment.Top;
             scrollBar.OnScroll += ScrollBar_OnScroll;
             messagePanel.Components.Add(scrollBar);
+            /*
+            parentPanel.OnMouseClick += ParentPanel_OnMouseClick;
+            parentPanel.OnRightMouseClick += ParentPanel_OnMouseClick;
+            parentPanel.OnMiddleMouseClick += ParentPanel_OnMouseClick;
+            */
 
             IsSetup = true;
         }
@@ -246,17 +251,17 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         public override void OnPush()
         {
             base.OnPush();
-            parentPanel.OnMouseClick += ParentPanel_OnMouseClick;
+            /*parentPanel.OnMouseClick += ParentPanel_OnMouseClick;
             parentPanel.OnRightMouseClick += ParentPanel_OnMouseClick;
-            parentPanel.OnMiddleMouseClick += ParentPanel_OnMouseClick;
+            parentPanel.OnMiddleMouseClick += ParentPanel_OnMouseClick;*/
         }
 
         public override void OnPop()
         {
             base.OnPop();
-            parentPanel.OnMouseClick -= ParentPanel_OnMouseClick;
+            /*parentPanel.OnMouseClick -= ParentPanel_OnMouseClick;
             parentPanel.OnRightMouseClick -= ParentPanel_OnMouseClick;
-            parentPanel.OnMiddleMouseClick -= ParentPanel_OnMouseClick;
+            parentPanel.OnMiddleMouseClick -= ParentPanel_OnMouseClick;*/
 
             // Check if any previous message boxes need to be closed as well.
             DaggerfallMessageBox prevWindow = PreviousWindow as DaggerfallMessageBox;
@@ -302,9 +307,9 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
                     {
                         // Trigger default button if one is present
                         Button defaultButton = GetDefaultButton();
-                        if (defaultButton != null)
-                            defaultButton.TriggerMouseClick();
-
+                        //if (defaultButton != null)
+                            //defaultButton.TriggerMouseClick();
+                            //fixme
                         // Exit here if no other message boxes queued
                         // Most of the time this won't be the case and we don't want message boxes waiting for input to close prematurely
                         if (nextMessageBox == null)
@@ -619,16 +624,13 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
                 return;
 
             // Filter out (mouse) fighting activity
-            if (InputManager.Instance.GetKey(InputManager.Instance.GetBinding(InputManager.Actions.SwingWeapon)))
-                return;
-
-            if (uiManager.TopWindow == this)
-            {
-                if (nextMessageBox != null)
-                    nextMessageBox.Show();
-                else if (clickAnywhereToClose)
-                    CloseWindow();
-            }
+            //if (InputManager.Instance.GetKey(InputManager.Instance.GetBinding(InputManager.Actions.SwingWeapon)))
+            //    return;
+            Debug.Log(nextMessageBox);
+            if (nextMessageBox != null)
+                nextMessageBox.Show();
+            else if (clickAnywhereToClose)
+                CloseWindow();
         }
 
         int lastScrollIndex = 0;

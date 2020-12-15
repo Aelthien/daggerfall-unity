@@ -18,6 +18,8 @@ using System.IO;
 using FullSerializer;
 using DaggerfallWorkshop.Game.Serialization;
 using System.Linq;
+using UnityEngine.InputSystem;
+using DaggerfallWorkshop.Game.UserInterface;
 
 namespace DaggerfallWorkshop.Game
 {
@@ -28,6 +30,8 @@ namespace DaggerfallWorkshop.Game
     {
         #region Fields
 
+        protected DaggerfallControls controls;
+        
         //there are only 16 recognized axes
         const int numAxes = 16;
         public const int startingAxisKeyCode = 5000;
@@ -43,13 +47,19 @@ namespace DaggerfallWorkshop.Game
         String[] axisKeyCodeToInputAxis = new String[numAxes * 2];
 
         const string keyBindsFilename = "KeyBinds.txt";
-
+        
         const float deadZone = 0.05f;
         const float inputWaitTotal = 0.0833f;
         const float moveAccelerationConst = 9.8f;
 
         KeyCode[] keyCodeList;
         KeyCode[] reservedKeys = new KeyCode[] { };
+
+        Dictionary<string, string> playerKeyBindOverrides;
+        Dictionary<string, string> playerAxisKeyBindOverrides;
+        Dictionary<string, string> playerCompositeKeyBindOverrides;
+
+        public InputActionAsset inputAsset;
 
         // KeyCode linkage between primary and secondary keybinds
         Dictionary<int, int> primarySecondaryKeybindDict = new Dictionary<int, int>();
@@ -100,6 +110,10 @@ namespace DaggerfallWorkshop.Game
         float keyboardLookY;
         float mouseX;
         float mouseY;
+        Vector2 currentMousePosition;
+        Vector2 lastMousePosition;
+        bool mouseMoving;
+
         bool invertLookX;
         bool invertLookY;
         bool posHorizontalImpulse;
@@ -111,7 +125,7 @@ namespace DaggerfallWorkshop.Game
         float joystickUIMouseSensitivity = 1.0f;
         bool cursorVisible = true;
         bool usingControllerCursor;
-        Vector2 controllerCursorPosition = new Vector2(0,0);
+        Vector2 controllerCursorPosition = new Vector2(0, 0);
         int controllerCursorWidth = 32;
         int controllerCursorHeight = 32;
         float controllerCursorHorizontalSpeed = 300.0F;
@@ -133,11 +147,70 @@ namespace DaggerfallWorkshop.Game
             public Dictionary<String, String> joystickUIKeyBinds;
         }
 
-        #endregion
+        [Serializable]
+        public class PlayerBindData
+        {
+            public string selectedMap;
+            public List<PlayerBindMap> bindMaps;
+        }
 
-        #region Properties
+        public class PlayerBindMap
+        {
+            public string name;
+            public PlayerBindOverrides overrides;
+        }
 
-        public bool IsPaused
+        public class PlayerBindOverrides
+        {
+            public List<KeyBind> keyBinds;
+            public List<AxisBind1D> axisBinds1D;
+            public List<AxisBind2D> axisBinds2D;
+            public List<CompositeBindSingle> compositeBindsSingle;
+            public List<CompositeBindDouble> compositeBindsDouble;
+        }
+
+        public class KeyBind
+        {
+            public string name;
+            public string button;
+        }
+
+        public class AxisBind1D
+        {
+            public string name;
+            public string positive;
+            public string negative;
+        }
+
+        public class AxisBind2D
+        {
+            public string name;
+            public string up;
+            public string down;
+            public string left;
+            public string right;
+        }
+
+        public class CompositeBindSingle
+        {
+            public string name;
+            public string button;
+            public string modifier;
+        }
+
+        public class CompositeBindDouble
+        {
+            public string name;
+            public string button;
+            public string modifier1;
+            public string modifier2;
+        }
+
+            #endregion
+
+            #region Properties
+
+            public bool IsPaused
         {
             get { return isPaused; }
             set { isPaused = value; }
@@ -240,13 +313,26 @@ namespace DaggerfallWorkshop.Game
             set { cursorVisible = value; }
         }
 
-        public Vector3 MousePosition {
+        public Vector3 CurrentMousePosition {
             get {
                 if (UsingController)
                     return controllerCursorPosition;
                 else
-                    return Input.mousePosition;
+                    return currentMousePosition;
             }
+            set { currentMousePosition = value; }
+        }
+
+        public Vector3 LastMousePosition
+        {
+            get
+            {
+                if (UsingController)
+                    return controllerCursorPosition;
+                else
+                    return lastMousePosition;
+            }
+            set { lastMousePosition = value; }
         }
 
         public float JoystickCursorSensitivity
@@ -349,7 +435,7 @@ namespace DaggerfallWorkshop.Game
             PrintScreen,
 
             AutoRun,
-            
+
             Unknown,
         }
 
@@ -394,6 +480,11 @@ namespace DaggerfallWorkshop.Game
 
         void Start()
         {
+            if (HasKeyBindsSave())
+            {
+                //LoadKeyBinds();
+            }
+
             getKeyMethod = (k) => heldKeyCounter > 0 && ContainsKeyCode(heldKeys, k, true);
             getKeyDownMethod = (k) => heldKeyCounter > 0 && (previousKeyCounter <= 0 || !ContainsKeyCode(previousKeys, k, false)) && ContainsKeyCode(heldKeys, k, true);
             getKeyUpMethod = (k) => previousKeyCounter > 0 && ContainsKeyCode(previousKeys, k, false) && (heldKeyCounter <= 0 || !ContainsKeyCode(heldKeys, k, true));
@@ -427,8 +518,25 @@ namespace DaggerfallWorkshop.Game
             }
         }
 
+        private void MouseDetection()
+        {
+            currentMousePosition = Mouse.current.position.ReadValue();
+
+            if (currentMousePosition != lastMousePosition)
+                mouseMoving = true;
+
+            lastMousePosition = currentMousePosition;
+        }
+
         void Update()
         {
+            if (mouseMoving)
+            {
+                Vector2 movement = new Vector2(currentMousePosition.x - lastMousePosition.x,
+                    currentMousePosition.y - lastMousePosition.y);
+                DaggerfallUI.UIManager.TopWindow.HandleMouseMove(movement);
+            }
+
             // Move current actions to previous actions
             previousActions.Clear();
             previousActions.AddRange(currentActions);
@@ -495,7 +603,7 @@ namespace DaggerfallWorkshop.Game
                 var h = Input.GetAxis(cameraAxisBindingCache[0]);
                 var v = Input.GetAxis(cameraAxisBindingCache[1]);
 
-                if (Mathf.Sqrt(h*h + v*v) > JoystickDeadzone)
+                if (Mathf.Sqrt(h * h + v * v) > JoystickDeadzone)
                 {
                     mouseX = h;
                     mouseY = v;
@@ -938,7 +1046,7 @@ namespace DaggerfallWorkshop.Game
             Action<string, AxisActions> setAxisBinding;
             Action<KeyCode, JoystickUIActions> setJoystickUIBinding;
 
-            if(autofill)
+            if (autofill)
             {
                 setBinding = TestSetBinding;
                 setAxisBinding = TestSetAxisBinding;
@@ -1470,7 +1578,7 @@ namespace DaggerfallWorkshop.Game
         {
             if (k == KeyCode.None)
                 return false;
-            
+
             bool hit = false;
 
             // If this is a non-combo KeyCode
@@ -1485,7 +1593,7 @@ namespace DaggerfallWorkshop.Game
                 // prior to pressing 'space' so that way we *only* open the inventory window.
                 if (checkModHeldFirst && heldModifier != KeyCode.None && modifierHeldFirstDict[(int)heldModifier]
                     && primarySecondaryKeybindDict.ContainsKey((int)GetComboCode(heldModifier, k)))
-                        return false;
+                    return false;
 
                 hit = true;
             }
@@ -1493,7 +1601,7 @@ namespace DaggerfallWorkshop.Game
             {
                 // Get the tuple combo of this keycode
                 var combo = GetCombo(k);
-                
+
                 // If the modifier is currently being held down (getKeyMethod)
                 if (GetUnaryKey(combo.Item1, getKeyMethod, keyDown))
                 {
@@ -1611,11 +1719,11 @@ namespace DaggerfallWorkshop.Game
                 if (GetPollKey(k))
                     AddHeldKey(heldKeys, k);
 
-                if (getKeyDownMethod(k))
-                    DaggerfallUI.Instance.OnKeyPress(k, true);
+                //if (getKeyDownMethod(k))
+                 //   DaggerfallUI.Instance.OnKeyPress(k, true);
 
-                if (getKeyUpMethod(k))
-                    DaggerfallUI.Instance.OnKeyPress(k, false);
+                //if (getKeyUpMethod(k))
+                 //   DaggerfallUI.Instance.OnKeyPress(k, false);
             }
 
             foreach (KeyCode modifier in modifierHeldFirstDict.Keys)
@@ -1689,7 +1797,7 @@ namespace DaggerfallWorkshop.Game
                 if (GetAxisActionInversion(AxisActions.MovementVertical))
                     vert *= -1;
 
-                float jd = Mathf.Sqrt(horiz*horiz + vert*vert);
+                float jd = Mathf.Sqrt(horiz * horiz + vert * vert);
 
                 if (jd <= JoystickDeadzone)
                     return;
@@ -1770,8 +1878,69 @@ namespace DaggerfallWorkshop.Game
             string path = GetKeyBindsSavePath();
 
             string json = File.ReadAllText(path);
-            KeyBindData_v1 keyBindsData = SaveLoadManager.Deserialize(typeof(KeyBindData_v1), json) as KeyBindData_v1;
 
+            PlayerBindData bindData = SaveLoadManager.Deserialize(typeof(PlayerBindData), json) as PlayerBindData;
+
+            InputActionMap actionMap;
+            PlayerBindOverrides bindOverrides = null;
+
+            if (bindOverrides == null)
+                return;
+
+            foreach (var map in bindData.bindMaps)
+            {
+                if (map.name == bindData.selectedMap)
+                {
+                    actionMap = inputAsset.FindActionMap(bindData.selectedMap);
+                    bindOverrides = map.overrides;
+                    break;
+                }
+            }
+
+            if (bindOverrides == null)
+            {
+                Debug.LogWarning("Tried to access bind map that doesn't exist.");
+                return;
+            }
+
+            foreach (var bind in bindOverrides.keyBinds)
+            {
+                InputAction action = inputAsset.FindAction(bind.name);
+                action.ChangeBindingWithPath(bind.button);
+            }
+
+            foreach (var bind in bindOverrides.axisBinds1D)
+            {
+                InputAction action = inputAsset.FindAction(bind.name);
+                action.ChangeBindingWithPath(bind.negative)
+                    .WithPath(bind.positive);
+            }
+
+            foreach (var bind in bindOverrides.axisBinds2D)
+            {
+                InputAction action = inputAsset.FindAction(bind.name);
+                action.ChangeBindingWithPath(bind.up)
+                    .WithPath(bind.down)
+                    .WithPath(bind.left)
+                    .WithPath(bind.right);
+            }
+
+            foreach (var bind in bindOverrides.compositeBindsSingle)
+            {
+                InputAction action = inputAsset.FindAction(bind.name);
+                action.ChangeBindingWithPath(bind.button)
+                    .WithPath(bind.modifier);
+            }
+
+            foreach (var bind in bindOverrides.compositeBindsDouble)
+            {
+                InputAction action = inputAsset.FindAction(bind.name);
+                action.ChangeBindingWithPath(bind.button)
+                    .WithPath(bind.modifier1)
+                    .WithPath(bind.modifier2);
+            }
+
+            /*
             LoadActionKeybinds(true, keyBindsData);
 
             if (keyBindsData.secondaryActionKeyBinds != null)
@@ -1819,6 +1988,7 @@ namespace DaggerfallWorkshop.Game
             }
 
             RaiseLoadedKeyBindsEvent();
+            */
         }
 
         static Actions ActionNameToEnum(string value)

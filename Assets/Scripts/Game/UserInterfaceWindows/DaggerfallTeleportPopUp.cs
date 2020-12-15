@@ -57,7 +57,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
         #region Constructors
 
-        public DaggerfallTeleportPopUp(IUserInterfaceManager uiManager, IUserInterfaceWindow previousWindow = null, DaggerfallTravelMapWindow travelWindow = null)
+        public DaggerfallTeleportPopUp(IUserInterfaceManager uiManager, UserInterfaceWindow previousWindow = null, DaggerfallTravelMapWindow travelWindow = null)
             : base(uiManager, previousWindow)
         {
             this.travelWindow = travelWindow;

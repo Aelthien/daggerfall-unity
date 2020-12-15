@@ -48,7 +48,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
         #region Constructors
 
-        public DaggerfallPauseOptionsWindow(IUserInterfaceManager uiManager, IUserInterfaceWindow previousWindow = null)
+        public DaggerfallPauseOptionsWindow(IUserInterfaceManager uiManager, UserInterfaceWindow previousWindow = null)
             : base(uiManager, previousWindow)
         {
         }

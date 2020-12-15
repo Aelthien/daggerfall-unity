@@ -97,7 +97,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         public delegate void OnMouseLeaveHandler(BaseScreenComponent sender);
         public event OnMouseLeaveHandler OnMouseLeave;
 
-        public delegate void OnMouseMoveHandler(int x, int y);
+        public delegate void OnMouseMoveHandler(Vector2 movement);
         public event OnMouseMoveHandler OnMouseMove;
 
         public delegate void OnMouseDownHandler(BaseScreenComponent sender, Vector2 position);
@@ -570,7 +570,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
             else
             {
                 // Update raw mouse screen position from Input - must invert mouse position Y as Unity 0,0 is bottom-left
-                mousePosition = new Vector2(InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
+                //mousePosition = new Vector2(InputManager.Instance.MousePosition.x, Screen.height - InputManager.Instance.MousePosition.y);
             }
             scaledMousePosition = -Vector2.one;
 
@@ -590,7 +590,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
                 if (mouseOverComponent == true)
                 {
                     // Raise mouse leaving event
-                    MouseLeave(this);
+                    //MouseLeave(this);
                     mouseOverComponent = false;
                 }
             }
@@ -613,8 +613,8 @@ namespace DaggerfallWorkshop.Game.UserInterface
                 if (scaledMousePosition != lastScaledMousePosition)
                 {
                     lastScaledMousePosition = scaledMousePosition;
-                    if (OnMouseMove != null)
-                        OnMouseMove((int)scaledMousePosition.x, (int)scaledMousePosition.y);
+                    //if (OnMouseMove != null)
+                        //OnMouseMove((int)scaledMousePosition.x, (int)scaledMousePosition.y);
                 }
             }
             else
@@ -681,7 +681,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
             if (mouseOverComponent && leftMouseDown)
             {
                 // Single click event
-                MouseClick(scaledMousePosition);
+                //Click(scaledMousePosition);
 
                 // Store mouse click timing
                 lastLeftClickTime = leftClickTime;
@@ -880,10 +880,10 @@ namespace DaggerfallWorkshop.Game.UserInterface
         /// <summary>
         /// Manually trigger an OnMouseClick event for this component.
         /// </summary>
-        public virtual void TriggerMouseClick()
+        /*public virtual void TriggerMouseClick()
         {
-            MouseClick(Vector2.zero);
-        }
+            Click(Vector2.zero);
+        }*/
 
         #endregion
 
@@ -903,14 +903,20 @@ namespace DaggerfallWorkshop.Game.UserInterface
             return false;
         }
 
+        public bool IsHovered(Vector2 mousePosition)
+        {
+            Vector2 newPos = new Vector2(mousePosition.x, Screen.height - mousePosition.y);
+
+            return Rectangle.Contains(newPos);
+        }
+
         /// <summary>
         /// Mouse clicked inside control area.
         /// </summary>
-        protected virtual void MouseClick(Vector2 clickPosition)
+        public virtual void MouseClick(Vector2 mousePosition)
         {
             if (OnMouseClick != null)
-                OnMouseClick(this, clickPosition);
-
+                OnMouseClick(this, mousePosition);
 
             // Set focus on click
             if (UseFocus)
@@ -973,7 +979,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         /// <summary>
         /// Mouse entered control area.
         /// </summary>
-        protected virtual void MouseEnter()
+        public virtual void MouseEnter()
         {
             if (OnMouseEnter != null)
                 OnMouseEnter(this);
@@ -982,7 +988,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         /// <summary>
         /// Mouse exited control area.
         /// </summary>
-        protected virtual void MouseLeave(BaseScreenComponent sender)
+        public virtual void MouseLeave()
         {
             if (OnMouseLeave != null)
                 OnMouseLeave(this);
@@ -991,10 +997,10 @@ namespace DaggerfallWorkshop.Game.UserInterface
         /// <summary>
         /// Mouse is moving.
         /// </summary>
-        protected virtual void MouseMove(int x, int y)
+        public virtual void MouseMove(Vector2 movement)
         {
             if (OnMouseMove != null)
-                OnMouseMove(x, y);
+                OnMouseMove(movement);
         }
 
         /// <summary>
@@ -1088,7 +1094,8 @@ namespace DaggerfallWorkshop.Game.UserInterface
         /// </summary>
         public void SetFocus()
         {
-            IUserInterfaceWindow topWindow = DaggerfallUI.UIManager.TopWindow;
+            UserInterfaceWindow topWindow = DaggerfallUI.UIManager.TopWindow;
+
             if (topWindow != null)
             {
                 topWindow.SetFocus(this);
@@ -1100,7 +1107,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         /// </summary>
         public bool HasFocus()
         {
-            IUserInterfaceWindow topWindow = DaggerfallUI.UIManager.TopWindow;
+            UserInterfaceWindow topWindow = DaggerfallUI.UIManager.TopWindow;
             if (topWindow != null)
             {
                 if (topWindow.FocusControl == this)

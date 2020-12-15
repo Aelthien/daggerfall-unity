@@ -74,7 +74,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             get { return selectedSaveGame; }
         }
 
-        public DaggerfallLoadClassicGameWindow(IUserInterfaceManager uiManager, IUserInterfaceWindow previousWindow = null)
+        public DaggerfallLoadClassicGameWindow(IUserInterfaceManager uiManager, UserInterfaceWindow previousWindow = null)
             : base(uiManager, previousWindow)
         {
         }

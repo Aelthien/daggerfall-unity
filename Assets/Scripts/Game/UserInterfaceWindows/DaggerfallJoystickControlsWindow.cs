@@ -72,7 +72,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
         #region Constructors
 
-        public DaggerfallJoystickControlsWindow(IUserInterfaceManager uiManager, IUserInterfaceWindow previousWindow = null)
+        public DaggerfallJoystickControlsWindow(IUserInterfaceManager uiManager, UserInterfaceWindow previousWindow = null)
             : base(uiManager, previousWindow)
         {
         }

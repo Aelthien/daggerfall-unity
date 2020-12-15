@@ -120,7 +120,19 @@ namespace DaggerfallWorkshop.Game.UserInterface
         /// <summary>
         /// True when active mouse cursor is over large HUD.
         /// </summary>
-        public bool ActiveMouseOverLargeHUD { get; private set; }
+        public bool ActiveMouseOverLargeHUD
+        {
+            get { return ActiveMouseOverLargeHUD; }
+            set
+            {
+                if (value)
+                    base.MouseEnter();
+                else
+                    base.MouseLeave();
+
+                ActiveMouseOverLargeHUD = value;
+            }
+        }
 
         public HUDLarge()
             : base()
@@ -356,21 +368,6 @@ namespace DaggerfallWorkshop.Game.UserInterface
                     interactionModePanel.BackgroundTexture = infoModeTexture;
                     break;
             }
-        }
-
-        protected override void MouseEnter()
-        {
-            // Cannot be over large HUD when cursor not active or large HUD not enabled
-            ActiveMouseOverLargeHUD = GameManager.Instance.PlayerMouseLook.cursorActive && DaggerfallUnity.Settings.LargeHUD;
-
-            base.MouseEnter();
-        }
-
-        protected override void MouseLeave(BaseScreenComponent sender)
-        {
-            ActiveMouseOverLargeHUD = false;
-
-            base.MouseLeave(sender);
         }
 
         #region Event Handlers

@@ -257,7 +257,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         public ListBox()
         {
             OnMouseMove += MouseMove;
-            OnMouseLeave += MouseLeave;
+            OnMouseLeave += ListBox_OnMouseLeave;
         }
         #endregion
 
@@ -367,14 +367,14 @@ namespace DaggerfallWorkshop.Game.UserInterface
                 label.ShadowColor = listItems[i].shadowColor;
             }
         }
-        protected override void MouseMove(int x, int y)
+        public override void MouseMove(Vector2 movement)
         {
             if (listItems.Count == 0)
                 return;
             highlightedIndex = -1;
             if (verticalScrollMode == VerticalScrollModes.EntryWise)
             {
-                int row = (y / (font.GlyphHeight + rowSpacing));
+                int row = (((int) movement.y / (font.GlyphHeight + rowSpacing)));
                 int index = scrollIndex + row;
                 if (index >= 0 && index < Count)
                 {
@@ -388,8 +388,9 @@ namespace DaggerfallWorkshop.Game.UserInterface
                 for (int i = 0; i < listItems.Count; i++)
                 {
                     yNextItem = yCurrentItem + listItems[i].textLabel.TextHeight + rowSpacing;
-                    int yVal = scrollIndex + y;
-                    if (yVal >= yCurrentItem - rowSpacing * 0.5 && yVal < yNextItem - rowSpacing * 0.5)
+                    int yVal = scrollIndex + (int) movement.y;
+                    if (yVal >= yCurrentItem - rowSpacing * 0.5
+                        && yVal < yNextItem - rowSpacing * 0.5)
                     {
                         highlightedIndex = i;
                         break;
@@ -400,12 +401,17 @@ namespace DaggerfallWorkshop.Game.UserInterface
             }
         }
 
-        protected override void MouseLeave(BaseScreenComponent sender)
+        protected void ListBox_OnMouseLeave(BaseScreenComponent sender)
+        {
+            MouseLeave();
+        }
+
+        public override void MouseLeave()
         {
             highlightedIndex = -1;
         }
 
-        protected override void MouseClick(Vector2 clickPosition)
+        public override void MouseClick(Vector2 clickPosition)
         {
             base.MouseClick(clickPosition);
 

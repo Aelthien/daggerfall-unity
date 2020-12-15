@@ -465,7 +465,7 @@ namespace DaggerfallWorkshop.Game
             switch (uiManager.GetMessage())
             {
                 case DaggerfallUIMessages.dfuiSetupGameWizard:
-                    uiManager.PushWindow(new DaggerfallUnitySetupGameWizard(uiManager));
+                    //uiManager.PushWindow(new DaggerfallUnitySetupGameWizard(uiManager));
                     break;
                 case DaggerfallUIMessages.dfuiInitGame:
                     InitGame(splashVideo);
@@ -473,9 +473,9 @@ namespace DaggerfallWorkshop.Game
                 case DaggerfallUIMessages.dfuiInitGameFromDeath:
                     InitGame(deathVideo);
                     break;
-                case DaggerfallUIMessages.dfuiStartNewGameWizard:
-                    uiManager.PushWindow(new StartNewGameWizard(uiManager));
-                    break;
+                //case DaggerfallUIMessages.dfuiStartNewGameWizard:
+                    //uiManager.PushWindow(new StartNewGameWizard(uiManager));
+                    //break;
                 case DaggerfallUIMessages.dfuiOpenPauseOptionsDialog:
                     uiManager.PushWindow(dfPauseOptionsWindow);
                     break;
@@ -872,7 +872,7 @@ namespace DaggerfallWorkshop.Game
 
         public static void SetFocus(BaseScreenComponent control)
         {
-            IUserInterfaceWindow topWindow = Instance.uiManager.TopWindow;
+            UserInterfaceWindow topWindow = Instance.uiManager.TopWindow;
             if (topWindow != null)
             {
                 topWindow.SetFocus(control);
@@ -1380,7 +1380,7 @@ namespace DaggerfallWorkshop.Game
             statusBox.Show();
         }
 
-        public DaggerfallMessageBox CreateHealthStatusBox(IUserInterfaceWindow previous = null)
+        public DaggerfallMessageBox CreateHealthStatusBox(UserInterfaceWindow previous = null)
         {
             const int youAreHealthyID = 18;
             const int youHaveBeenPoisoned = 117;

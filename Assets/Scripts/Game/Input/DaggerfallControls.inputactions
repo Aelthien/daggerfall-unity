@@ -1,0 +1,507 @@
+{
+    "name": "DaggerfallControls",
+    "maps": [
+        {
+            "name": "KeyboardMouse",
+            "id": "d6551b00-30d1-49b6-a8ae-c2f8dc88d920",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Button",
+                    "id": "2ac8be6f-ff5b-4026-8740-2af0352b3e64",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "66971fc8-8317-41fa-9f2f-44a11c5b559f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Submit",
+                    "type": "Button",
+                    "id": "f6253aa1-4a52-4c68-a7c3-ef7632fff68e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "db1d1ab8-f36d-4a72-a1f6-5ab9f0ad9cdd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Aim",
+                    "type": "Value",
+                    "id": "f2e59a64-641a-4cd7-967e-160f9c42a468",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "34cfd0f2-5c63-413b-b654-fb5538d23458",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "94ae3f2f-8c53-4528-9ac9-fe0d0293f132",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)"
+                },
+                {
+                    "name": "CharacterSheet",
+                    "type": "Button",
+                    "id": "036adc1b-cc59-42e6-918f-8517a9f417dd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Rest",
+                    "type": "Button",
+                    "id": "cb305b04-dd2f-4f1c-8ee4-602a674a3819",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Transport",
+                    "type": "Button",
+                    "id": "8ac318cc-eb17-4264-bc4f-0022e8d7d6dc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Float",
+                    "type": "Button",
+                    "id": "558f1aa8-cbdb-4a1b-ab7d-c84e6ead23f3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "ef23d7af-e2d1-430c-b62e-26981e9749b5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Status",
+                    "type": "Button",
+                    "id": "31cb5c5f-a29a-4d02-9e14-c8eef3d03fb1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "b4a827c9-3fba-4229-b54e-0ae6e3adb437",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "AbortSpell",
+                    "type": "Button",
+                    "id": "242287be-dad7-414b-8078-0781a9e3d13d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TransportFoot",
+                    "type": "Button",
+                    "id": "3aa6eaae-435b-42e9-9dba-5afd8b39bc2a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TransportHorse",
+                    "type": "Button",
+                    "id": "944677f3-0a0d-47da-8ed6-383e3efe18fd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TransportShip",
+                    "type": "Button",
+                    "id": "8c92f6af-502b-40c8-8d12-417b28cc5b49",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "7d2099a7-2c93-4c42-bfaa-7327104a8300",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TravelMapFind",
+                    "type": "Button",
+                    "id": "193121b8-4657-4c55-8639-cb2f22e929a1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TravelMapList",
+                    "type": "Button",
+                    "id": "a0e890c6-b5c6-490f-bf91-f6a7a26d3dd3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "201ac2ae-d175-44ad-b0fe-6aa7d2f36e0f",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "71062a30-09d4-4824-91e5-00640720a827",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "ad49a40e-8859-4565-bc75-357b1d46fc48",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "46293078-6f8b-4f40-868a-7e4ba0df8a0e",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "f4af6c50-a3f9-4a71-b251-9ac2675ccb08",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "3bca5a23-de60-4d40-a952-d224d46fdcef",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cadb7ac9-a7ec-4c20-95fc-25eb0e8d9bfa",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b12b80cf-1aff-45a6-bc50-bbc8276ae68e",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec965de8-d496-481a-9413-1ab1744c0b1f",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d8032c11-c8ed-4f0c-a699-7e52171da9f8",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "34f27150-1169-402e-9cd3-79bde5bd0a68",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0adcc64a-9a23-4921-a685-7c272e99ec97",
+                    "path": "<Keyboard>/f5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CharacterSheet",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e6cf8c8-dea8-4319-b354-0797313a164c",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5783c893-5b9d-4c19-9e7e-ad49355880f3",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Transport",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "8893ee6f-760e-4553-bc82-8375841a0f53",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Float",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "27d01f0a-b920-42ec-882c-8c23ef7b553a",
+                    "path": "<Keyboard>/pageDown",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Float",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "b83724e6-567f-480b-ae9c-21e84f22944f",
+                    "path": "<Keyboard>/pageUp",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Float",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "29ddeb31-4fd4-4130-a1a1-6b0ed0d51e48",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eac62cad-2439-4b4c-91ac-9ff6f7cbab7a",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Status",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "044579ed-c092-45e2-8444-e52769074dcc",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f214c52-1e2e-4a38-a5bb-858cdb6088f7",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AbortSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5be6c1de-82b9-4aa1-ae47-5a74a89c5279",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TransportFoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43f53489-dc2a-4745-b002-b074834bff6a",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TransportHorse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e14c551-8096-4cfc-9219-44737d2d5db2",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TransportShip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "dee37906-8147-4c31-a2a2-00a11b0a12da",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "fbb8b708-dd0e-4525-bd4b-e3a03d78d140",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "badaacbe-3495-449d-85df-2428bfbe3ab8",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "8577b174-2e2a-4ef3-998d-6d354ab868d2",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TravelMapFind",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d84a0c50-6ffc-4f40-bf55-bac0a9f8d662",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TravelMapList",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "New control scheme",
+            "bindingGroup": "New control scheme",
+            "devices": []
+        }
+    ]
+}

@@ -49,7 +49,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             set { listBox.RowsDisplayed = (value > 0) ? value : listBox.RowsDisplayed; }
         }
 
-        public DaggerfallListPickerWindow(IUserInterfaceManager uiManager, IUserInterfaceWindow previous = null, DaggerfallFont font = null, int rowsDisplayed = 0)
+        public DaggerfallListPickerWindow(IUserInterfaceManager uiManager, UserInterfaceWindow previous = null, DaggerfallFont font = null, int rowsDisplayed = 0)
             : base(uiManager, previous)
         {
             Font = font;

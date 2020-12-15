@@ -85,9 +85,9 @@ namespace DaggerfallWorkshop.Game.UserInterface
                 if (!KeyboardEvent(DaggerfallUI.Instance.KeyEvent))
                 {
                     // Legacy support fallback, OnMouseClick handlers receive KeyDown events as faked clicks
-                    if (isKeyDown)
-                        TriggerMouseClick();
-                }
+                    //if (isKeyDown)
+                      //  TriggerMouseClick();
+                }//fixme
             }
             return isActivated;
         }

@@ -60,7 +60,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 
         #region Constructors
 
-        public DaggerfallControlsWindow(IUserInterfaceManager uiManager, IUserInterfaceWindow previousWindow = null)
+        public DaggerfallControlsWindow(IUserInterfaceManager uiManager, UserInterfaceWindow previousWindow = null)
             :base(uiManager, previousWindow)
         {
         }

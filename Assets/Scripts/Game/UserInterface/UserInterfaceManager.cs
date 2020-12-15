@@ -11,22 +11,24 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace DaggerfallWorkshop.Game.UserInterface
 {
     public interface IUserInterfaceManager
     {
         event EventHandler OnWindowChange;
-        IUserInterfaceWindow TopWindow { get; }
+        UserInterfaceWindow TopWindow { get; }
         void PopWindow();
-        void PushWindow(IUserInterfaceWindow window);
-        bool ContainsWindow(IUserInterfaceWindow window);
-        void ChangeWindow(IUserInterfaceWindow newWindow);
+        void PushWindow(UserInterfaceWindow window);
+        bool ContainsWindow(UserInterfaceWindow window);
+        void ChangeWindow(UserInterfaceWindow newWindow);
         int MessageCount { get; }
         int WindowCount { get; }
         void PostMessage(string message);
         string GetMessage();
         string PeekMessage();
+        void CloseWindow();
     }
 
     /// <summary>
@@ -38,7 +40,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         const int maxMessageCount = 10;
 
         Queue<string> messages = new Queue<string>();
-        Stack<IUserInterfaceWindow> windows = new Stack<IUserInterfaceWindow>();
+        Stack<UserInterfaceWindow> windows = new Stack<UserInterfaceWindow>();
         public event EventHandler OnWindowChange;
 
         /// <summary>
@@ -47,11 +49,11 @@ namespace DaggerfallWorkshop.Game.UserInterface
         public UserInterfaceManager()
         {
         }
-
+ 
         /// <summary>
         /// Peeks window at top of stack.
         /// </summary>
-        public IUserInterfaceWindow TopWindow
+        public UserInterfaceWindow TopWindow
         {
             get { return (windows.Count > 0) ? windows.Peek() : null; }
         }
@@ -76,7 +78,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         /// Push a new window onto the stack.
         /// </summary>
         /// <param name="window">New window.</param>
-        public void PushWindow(IUserInterfaceWindow window)
+        public void PushWindow(UserInterfaceWindow window)
         {
             // Add window
             AddWindow(window);
@@ -91,6 +93,11 @@ namespace DaggerfallWorkshop.Game.UserInterface
             // Raise event
             if (OnWindowChange != null)
                 OnWindowChange(this, null);
+        }
+
+        public void CloseWindow()
+        {
+            PostMessage(UserInterfaceWindows.WindowMessages.wmCloseWindow);
         }
 
         /// <summary>
@@ -111,7 +118,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         /// </summary>
         /// <param name="window">Window to look for.</param>
         /// <returns>True if window exists on stack.</returns>
-        public bool ContainsWindow(IUserInterfaceWindow window)
+        public bool ContainsWindow(UserInterfaceWindow window)
         {
             return (windows.Contains(window));
         }
@@ -120,7 +127,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         /// Replace entire stack with a new window.
         /// </summary>
         /// <param name="window">New window.</param>
-        public void ChangeWindow(IUserInterfaceWindow window)
+        public void ChangeWindow(UserInterfaceWindow window)
         {
             // We are changing windows so pop everything
             while (windows.Count > 0)
@@ -176,7 +183,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         /// <summary>
         /// Add window to stack.
         /// </summary>
-        private void AddWindow(IUserInterfaceWindow window)
+        private void AddWindow(UserInterfaceWindow window)
         {
             windows.Push(window);
             window.OnPush();
@@ -189,7 +196,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         /// </summary>
         private void RemoveWindow()
         {
-            IUserInterfaceWindow oldWindow = TopWindow;
+            UserInterfaceWindow oldWindow = TopWindow;
             if (oldWindow != null && !(TopWindow is UserInterfaceWindows.DaggerfallHUD))
             {
                 windows.Pop();

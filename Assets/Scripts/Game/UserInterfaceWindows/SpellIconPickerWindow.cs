@@ -261,7 +261,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             UpdateSelectedIcon();
         }
 
-        private void ScrollingPanel_OnMouseMove(int x, int y)
+        private void ScrollingPanel_OnMouseMove(Vector2 movement)
         {
             UpdateSelectedIcon();
         }

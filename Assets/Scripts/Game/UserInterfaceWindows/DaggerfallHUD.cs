@@ -163,6 +163,19 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             arrowCountTextLabel.TextColor = new Color(0.6f, 0.6f, 0.6f);
             arrowCountTextLabel.ShadowPosition = Vector2.zero;
             ParentPanel.Components.Add(arrowCountTextLabel);
+
+            largeHUD.OnMouseLeave += LargeHUD_OnMouseLeave;
+            largeHUD.OnMouseEnter += LargeHUD_OnMouseEnter;
+        }
+
+        public void LargeHUD_OnMouseLeave(BaseScreenComponent sender)
+        {
+            largeHUD.ActiveMouseOverLargeHUD = false;
+        }
+
+        public void LargeHUD_OnMouseEnter(BaseScreenComponent sender)
+        {
+            largeHUD.ActiveMouseOverLargeHUD = GameManager.Instance.PlayerMouseLook.cursorActive && DaggerfallUnity.Settings.LargeHUD;
         }
 
         public override void Update()

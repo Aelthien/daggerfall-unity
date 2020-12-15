@@ -143,7 +143,7 @@ namespace DaggerfallWorkshop.Game.Guilds
     {
         #region Merchant service registration
 
-        public delegate void CustomMerchantService(IUserInterfaceWindow window);
+        public delegate void CustomMerchantService(UserInterfaceWindow window);
 
         private static Dictionary<int, string> customMerchantServiceNames = new Dictionary<int, string>();
         private static Dictionary<int, CustomMerchantService> customMerchantServices = new Dictionary<int, CustomMerchantService>();
@@ -184,7 +184,7 @@ namespace DaggerfallWorkshop.Game.Guilds
 
         #region Guild service registration
 
-        public delegate void CustomGuildService(IUserInterfaceWindow window);
+        public delegate void CustomGuildService(UserInterfaceWindow window);
 
         // Store for extra guild NPC services (i.e. from mods)
         private static Dictionary<int, GuildServices> guildNpcServices = new Dictionary<int, GuildServices>();

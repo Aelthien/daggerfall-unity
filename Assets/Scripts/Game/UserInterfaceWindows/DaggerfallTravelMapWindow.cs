@@ -24,6 +24,7 @@ using Wenzil.Console.Commands;
 using DaggerfallWorkshop.Game.Utility;
 using DaggerfallWorkshop.Game.Serialization;
 using DaggerfallWorkshop.Utility.AssetInjection;
+using UnityEngine.InputSystem;
 
 namespace DaggerfallWorkshop.Game.UserInterfaceWindows
 {
@@ -362,6 +363,17 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             gotoLocation = null;
             distanceRegionName = null;
             distance = null;
+        }
+
+        public void SelectionHandler()
+        {
+            if (RegionSelected)
+            {
+                // Zoom to mouse position
+                zoomPosition = Mouse.current.position.ReadValue();
+                zoom = !zoom;
+                ZoomMapTextures();
+            }
         }
 
         public override void Update()
@@ -945,6 +957,25 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             UpdateCrosshair();
         }
 
+        public void FindLocation()
+        {
+            if (RegionSelected)
+            {
+                DaggerfallUI.Instance.PlayOneShot(SoundClips.ButtonClick);
+                DaggerfallInputMessageBox findPopUp = new DaggerfallInputMessageBox(uiManager, null, 31, TextManager.Instance.GetLocalizedText("findLocationPrompt"), true, this);
+                findPopUp.TextPanelDistanceY = 5;
+                findPopUp.TextBox.WidthOverride = 308;
+                findPopUp.TextBox.MaxCharacters = 32;
+                findPopUp.OnGotUserInput += HandleLocationFindEvent;
+                findPopUp.Show();
+            }
+        }
+
+        public void OnFindLocation(BaseScreenComponent sender, Vector2 position)
+        {
+            FindLocation();
+        }
+
         protected virtual void FindlocationButtonClickHandler(BaseScreenComponent sender, Vector2 position)
         {
             // Open find location pop-up
@@ -1420,7 +1451,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         protected virtual void HandleLocationFindEvent(DaggerfallInputMessageBox inputMessageBox, string locationName)
         {
             List<DistanceMatch> matching;
-            if (FindLocation(locationName, out matching))
+            if (FindLocationSearch(locationName, out matching))
             {
                 if (matching.Count == 1)
                 { //place flashing crosshair over location
@@ -1446,7 +1477,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         }
 
         // Find location by name
-        protected virtual bool FindLocation(string name, out List<DistanceMatch> matching)
+        protected virtual bool FindLocationSearch(string name, out List<DistanceMatch> matching)
         {
             matching = new List<DistanceMatch>();
             if (string.IsNullOrEmpty(name))
