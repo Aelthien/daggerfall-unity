@@ -54,7 +54,7 @@ namespace DaggerfallWorkshop.Game.Entity
         const int testPlayerLevel = 1;
         const string testPlayerName = "Nameless";
 
-        protected RaceTemplate raceTemplate;
+        protected RaceDefinition raceTemplate;
         protected int faceIndex;
         protected PlayerReflexes reflexes;
         protected ItemCollection wagonItems = new ItemCollection();
@@ -146,8 +146,8 @@ namespace DaggerfallWorkshop.Game.Entity
         public bool IsLoitering { get; set; }
         public DaggerfallRestWindow.RestModes CurrentRestMode { get; set; }
         public Races Race { get { return (Races)RaceTemplate.ID; } }
-        public RaceTemplate RaceTemplate { get { return GetLiveRaceTemplate(); } }
-        public RaceTemplate BirthRaceTemplate { get { return raceTemplate; } set { raceTemplate = value; } }
+        public RaceDefinition RaceTemplate { get { return GetLiveRaceTemplate(); } }
+        public RaceDefinition BirthRaceTemplate { get { return raceTemplate; } set { raceTemplate = value; } }
         public int FaceIndex { get { return faceIndex; } set { faceIndex = value; } }
         public PlayerReflexes Reflexes { get { return reflexes; } set { reflexes = value; } }
         public ItemCollection WagonItems { get { return wagonItems; } set { wagonItems.ReplaceAll(value); } }
@@ -227,7 +227,7 @@ namespace DaggerfallWorkshop.Game.Entity
             Array.Clear(skillsRecentlyRaised, 0, 2);
         }
 
-        public RaceTemplate GetLiveRaceTemplate()
+        public RaceDefinition GetLiveRaceTemplate()
         {
             // Look for racial override effect
             RacialOverrideEffect racialOverrideEffect = GameManager.Instance.PlayerEffectManager.GetRacialOverrideEffect();

@@ -167,7 +167,7 @@ namespace DaggerfallWorkshop.Game.Questing
                 if (race == Races.None)
                     race = GameManager.Instance.PlayerGPS.GetRaceOfCurrentRegion();
 
-                int oathId = (int)RaceTemplate.GetFactionRaceFromRace(race);
+                int oathId = (int)RaceDefinition.GetFactionRaceFromRace(race);
                 return DaggerfallUnity.Instance.TextProvider.GetRandomText(201 + oathId);
             }
 

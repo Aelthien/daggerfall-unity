@@ -363,7 +363,7 @@ namespace DaggerfallWorkshop.Game.Questing
             if (DaggerfallUnity.Instance.ContentReader.FlatsFileReader.GetFlatData(flatID, out flatCFG))
                 return flatCFG.caption;
             else
-                return RaceTemplate.GetRaceDictionary()[(int)race].Name;
+                return RaceDefinition.GetRaceDictionary()[(int)race].Name;
         }
 
         public override void Tick(Quest caller)
@@ -540,7 +540,7 @@ namespace DaggerfallWorkshop.Game.Questing
         void AssignRace()
         {
             // Try to get the race from the current faction
-            race = RaceTemplate.GetRaceFromFactionRace((FactionFile.FactionRaces)factionData.race);
+            race = RaceDefinition.GetRaceFromFactionRace((FactionFile.FactionRaces)factionData.race);
             if (race == Races.None)
                 // Otherwise use race of current region
                 race = GameManager.Instance.PlayerGPS.GetRaceOfCurrentRegion();

@@ -26,7 +26,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         const string nativeImgName = "CHAR00I0.IMG";
 
         NameHelper nameHelper = new NameHelper();
-        RaceTemplate raceTemplate;
+        RaceDefinition raceTemplate;
         Genders gender;
 
         Texture2D nativeTexture;
@@ -34,7 +34,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         Button randomNameButton = new Button();
         Button okButton = new Button();
 
-        public RaceTemplate RaceTemplate
+        public RaceDefinition RaceTemplate
         {
             get { return raceTemplate; }
             set { SetRaceTemplate(value); }
@@ -128,7 +128,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
                 CloseWindow();
         }
 
-        void SetRaceTemplate(RaceTemplate raceTemplate)
+        void SetRaceTemplate(RaceDefinition raceTemplate)
         {
             if (this.raceTemplate != null)
             {

@@ -1,0 +1,122 @@
+{
+	"races": [
+		{
+			"Name": "breton",
+			"DescriptionID": "2003",
+			"ClipID": "209",
+			"DollBG": "SCBG00I0.IMG",
+			"DollMaleNude": "BODY00I0.IMG",
+			"DollMale": "BODY00I1.IMG",
+			"DollFemaleNude": "BODY10I0.IMG",
+			"DollFemale": "BODY10I1.IMG",
+			"DollHeadsMale": "FACE00I0.CIF",
+			"DollHeadsFemale": "FACE10I0.CIF",
+			"ResistanceFlags": [],
+			"ImmunityFlags": []
+		},
+		{
+			"Name": "redguard",
+			"DescriptionID": "2002",
+			"ClipID": "210",
+			"DollBG": "SCBG01I0.IMG",
+			"DollMaleNude": "BODY01I0.IMG",
+			"DollMaleClothed": "BODY01I1.IMG",
+			"DollFemaleNude": "BODY11I0.IMG",
+			"DollFemaleClothed": "BODY11I1.IMG",
+			"DollHeadsMale": "FACE01I0.CIF",
+			"DollHeadsFemale": "FACE11I0.CIF",
+			"ResistanceFlags": [],
+			"ImmunityFlags": []
+		},
+		{
+			"Name": "nord",
+			"DescriptionID": "2000",
+			"ClipID": "211",
+			"DollBG": "SCBG02I0.IMG",
+			"DollMaleNude": "BODY02I0.IMG",
+			"DollMaleClothed": "BODY02I1.IMG",
+			"DollFemaleNude": "BODY12I0.IMG",
+			"DollFemaleClothed": "BODY12I1.IMG",
+			"DollHeadsMale": "FACE02I0.CIF",
+			"DollHeadsFemale": "FACE12I0.CIF",
+			"ResistanceFlags": [
+				"Frost"
+			],
+			"ImmunityFlags": [
+				"Paralysis"
+			]
+		},
+		{
+			"Name": "darkElf",
+			"DescriptionID": "2007",
+			"ClipID": "212",
+			"DollBG": "SCBG03I0.IMG",
+			"DollMaleNude": "BODY03I0.IMG",
+			"DollMaleClothed": "BODY03I1.IMG",
+			"DollFemaleNude": "BODY13I0.IMG",
+			"DollFemaleClothed": "BODY13I1.IMG",
+			"DollHeadsMale": "FACE03I0.CIF",
+			"DollHeadsFemale": "FACE13I0.CIF",
+			"ResistanceFlags": [],
+			"ImmunityFlags": []
+		},
+		{
+			"Name": "highElf",
+			"DescriptionID": "2006",
+			"ClipID": "213",
+			"DollBG": "SCBG04I0.IMG",
+			"DollMaleNude": "BODY04I0.IMG",
+			"DollMaleClothed": "BODY04I1.IMG",
+			"DollFemaleNude": "BODY14I0.IMG",
+			"DollFemaleClothed": "BODY14I1.IMG",
+			"DollHeadsMale": "FACE04I0.CIF",
+			"DollHeadsFemale": "FACE14I0.CIF",
+			"ResistanceFlags": [],
+			"ImmunityFlags": [
+				"Paralysis"
+			]
+		},
+		{
+			"Name": "woodElf",
+			"DescriptionID": "2005",
+			"ClipID": "214",
+			"DollBG": "SCBG05I0.IMG",
+			"DollMaleNude": "BODY05I0.IMG",
+			"DollMaleClothed": "BODY05I1.IMG",
+			"DollFemaleNude": "BODY15I0.IMG",
+			"DollFemaleClothed": "BODY15I1.IMG",
+			"DollHeadsMale": "FACE05I0.CIF",
+			"DollHeadsFemale": "FACE15I0.CIF",
+			"ResistanceFlags": [],
+			"ImmunityFlags": []
+		},
+		{
+			"Name": "khajiit",
+			"DescriptionID": "2001",
+			"ClipID": "215",
+			"DollBG": "SCBG06I0.IMG",
+			"DollMaleNude": "BODY06I0.IMG",
+			"DollMaleClothed": "BODY06I1.IMG",
+			"DollFemaleNude": "BODY16I0.IMG",
+			"DollFemaleClothed": "BODY16I1.IMG",
+			"DollHeadsMale": "FACE06I0.CIF",
+			"DollHeadsFemale": "FACE16I0.CIF",
+			"ResistanceFlags": [],
+			"ImmunityFlags": []
+		},
+		{
+			"Name": "argonian",
+			"DescriptionID": "2004",
+			"ClipID": "216",
+			"DollBG": "SCBG07I0.IMG",
+			"DollMaleNude": "BODY07I0.IMG",
+			"DollMaleClothed": "BODY07I1.IMG",
+			"DollFemaleNude": "BODY17I0.IMG",
+			"DollFemaleClothed": "BODY17I1.IMG",
+			"DollHeadsMale": "FACE07I0.CIF",
+			"DollHeadsFemale": "FACE17I0.CIF",
+			"ResistanceFlags": [],
+			"ImmunityFlags": []
+		}
+	]
+}

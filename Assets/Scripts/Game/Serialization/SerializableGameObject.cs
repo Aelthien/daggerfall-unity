@@ -156,7 +156,7 @@ namespace DaggerfallWorkshop.Game.Serialization
     {
         public Genders gender;
         public int faceIndex;
-        public RaceTemplate raceTemplate;
+        public RaceDefinition raceTemplate;
         public DFCareer careerTemplate;
         public PlayerReflexes reflexes;
         public string name;

@@ -209,7 +209,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
             foreach (FaceDetails face in faces)
             {
                 // Get race template
-                RaceTemplate raceTemplate;
+                RaceDefinition raceTemplate;
                 switch(face.targetRace)
                 {
                     case Races.Redguard:

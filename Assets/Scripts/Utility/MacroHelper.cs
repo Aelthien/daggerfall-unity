@@ -301,7 +301,7 @@ namespace DaggerfallWorkshop.Utility
             }
 
             Genders gender = (Genders) ((fd.ruler + 1) % 2); // even entries are female titles/genders, odd entries are male ones
-            Races race = RaceTemplate.GetRaceFromFactionRace((FactionFile.FactionRaces)fd.race);
+            Races race = RaceDefinition.GetRaceFromFactionRace((FactionFile.FactionRaces)fd.race);
             // Matched to classic: used to retain the same old and new ruler name for each region
             DFRandom.Seed = oldRuler ? fd.rulerNameSeed >> 16 : fd.rulerNameSeed & 0xffff;
 

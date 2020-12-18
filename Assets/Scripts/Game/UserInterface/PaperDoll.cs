@@ -205,7 +205,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
                 DFPosition position = playerGPS.CurrentMapPixel;
                 int region = DaggerfallUnity.Instance.ContentReader.MapFileReader.GetPoliticIndex(position.X, position.Y) - 128;
                 if (region < 0 || region >= DaggerfallUnity.Instance.ContentReader.MapFileReader.RegionCount || region >= regionBackgroundIdxChars.Length)
-                    return entity.RaceTemplate.PaperDollBackground;
+                    return entity.RaceTemplate.DollBG;
 
                 // Set background based on location.
                 if (playerGPS.IsPlayerInTown(true))
@@ -219,7 +219,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
             }
             else
             {
-                return entity.RaceTemplate.PaperDollBackground;
+                return entity.RaceTemplate.DollBG;
             }
         }
 

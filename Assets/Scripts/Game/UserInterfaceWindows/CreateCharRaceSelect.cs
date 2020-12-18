@@ -33,11 +33,11 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         Texture2D nativeTexture;
         TextLabel promptLabel;
         DFBitmap racePickerBitmap;
-        RaceTemplate selectedRace;
+        RaceDefinition selectedRace;
 
-        Dictionary<int, RaceTemplate> raceDict = RaceTemplate.GetRaceDictionary();
+        Dictionary<int, RaceDefinition> raceDict = RaceDefinition.GetRaceDictionary();
 
-        public RaceTemplate SelectedRace
+        public RaceDefinition SelectedRace
         {
             get { return selectedRace; }
         }

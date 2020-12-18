@@ -9,28 +9,36 @@
 // Notes:
 //
 
+using System;
 using System.Collections.Generic;
+using System.IO;
 using DaggerfallConnect;
 using DaggerfallConnect.Arena2;
+using DaggerfallWorkshop.Game.Serialization;
+using DaggerfallWorkshop.Game.Utility.ModSupport;
+using FullSerializer;
+using UnityEngine;
 
 namespace DaggerfallWorkshop.Game.Entity
 {
     /// <summary>
     /// Every race is defined by a common template.
     /// </summary>
-    public class RaceTemplate
+    [Serializable]
+    [fsObject]
+    public class RaceDefinition
     {
         public int ID;                                          // A unique id for this race. Default race IDs match colour picker index on TAMRIEL2.IMG
         public string Name;                                     // Name of this race in singular, e.g. "Dark Elf"
         public int DescriptionID;                               // TEXT.RSC ID text to display on race selection
         public int ClipID;                                      // DAGGER.SND clip ID to play at race selection
 
-        public string PaperDollBackground;                      // IMG filename of paper doll background
+        public string DollBG;                      // IMG filename of paper doll background
 
-        public string PaperDollBodyMaleUnclothed;               // IMG filename of male paper doll body - unclothed
-        public string PaperDollBodyMaleClothed;                 // IMG filename of male paper doll body - clothed
-        public string PaperDollBodyFemaleUnclothed;             // IMG filename of female paper doll body - unclothed
-        public string PaperDollBodyFemaleClothed;               // IMG filename of female paper doll body - clothed
+        public string DollMaleNude;               // IMG filename of male paper doll body - unclothed
+        public string DollMale;                 // IMG filename of male paper doll body - clothed
+        public string DollFemaleNude;             // IMG filename of female paper doll body - unclothed
+        public string DollFemale;               // IMG filename of female paper doll body - clothed
 
         public string PaperDollHeadsMale;                       // CIF filename of male head selection
         public string PaperDollHeadsFemale;                     // CIF filename of female head selection
@@ -45,18 +53,18 @@ namespace DaggerfallWorkshop.Game.Entity
         /// Clones this race template.
         /// </summary>
         /// <returns>Cloned RaceTemplate reference.</returns>
-        public RaceTemplate Clone()
+        public RaceDefinition Clone()
         {
-            RaceTemplate clone = new RaceTemplate();
+            RaceDefinition clone = new RaceDefinition();
             clone.ID = ID;
             clone.Name = Name;
             clone.DescriptionID = DescriptionID;
             clone.ClipID = ClipID;
-            clone.PaperDollBackground = PaperDollBackground;
-            clone.PaperDollBodyMaleUnclothed = PaperDollBodyMaleUnclothed;
-            clone.PaperDollBodyMaleClothed = PaperDollBodyMaleClothed;
-            clone.PaperDollBodyFemaleUnclothed = PaperDollBodyFemaleUnclothed;
-            clone.PaperDollBodyFemaleClothed = PaperDollBodyFemaleClothed;
+            clone.DollBG = DollBG;
+            clone.DollMaleNude = DollMaleNude;
+            clone.DollMale = DollMale;
+            clone.DollFemaleNude = DollFemaleNude;
+            clone.DollFemale = DollFemale;
             clone.PaperDollHeadsMale = PaperDollHeadsMale;
             clone.PaperDollHeadsFemale = PaperDollHeadsFemale;
             clone.ResistanceFlags = ResistanceFlags;
@@ -68,14 +76,32 @@ namespace DaggerfallWorkshop.Game.Entity
             return clone;
         }
 
+        public static string GetRaceDefinitionsPath()
+        {
+            return Path.Combine(Application.dataPath, "StreamingAssets", "Races", "RaceDefinitions.json");
+        }
+
+         public static List<RaceDefinition> LoadRaceDefinition(int index)
+         {
+            fsSerializer serializer = new fsSerializer();
+
+            string json = File.ReadAllText(GetRaceDefinitionsPath());
+            object deserialised = null;
+            fsData data = fsJsonParser.Parse(json);
+            
+            serializer.TryDeserialize(data, typeof(List<RaceDefinition>), ref deserialised).AssertSuccessWithoutWarnings();
+
+            return (List<RaceDefinition>) deserialised;
+         }
+
         /// <summary>
         /// Populates a race dictionary with standard RaceTemplate definitions.
         /// This is only temporary until loading race definitions from file is implemented.
         /// </summary>
         /// <returns></returns>
-        public static Dictionary<int, RaceTemplate> GetRaceDictionary()
+        public static Dictionary<int, RaceDefinition> GetRaceDictionary()
         {
-            Dictionary<int, RaceTemplate> raceDict = new Dictionary<int, RaceTemplate>();
+            Dictionary<int, RaceDefinition> raceDict = new Dictionary<int, RaceDefinition>();
 
             // Instantiate race templates
             Breton breton = new Breton();
@@ -169,7 +195,7 @@ namespace DaggerfallWorkshop.Game.Entity
 
     #region Default Race Templates
 
-    public class Breton : RaceTemplate
+    public class Breton : RaceDefinition
     {
         public Breton()
         {
@@ -178,19 +204,19 @@ namespace DaggerfallWorkshop.Game.Entity
             DescriptionID = 2003;
             ClipID = 209;
 
-            PaperDollBackground = "SCBG00I0.IMG";
+            DollBG = "SCBG00I0.IMG";
 
-            PaperDollBodyMaleUnclothed = "BODY00I0.IMG";
-            PaperDollBodyMaleClothed = "BODY00I1.IMG";
-            PaperDollBodyFemaleUnclothed = "BODY10I0.IMG";
-            PaperDollBodyFemaleClothed = "BODY10I1.IMG";
+            DollMaleNude = "BODY00I0.IMG";
+            DollMale = "BODY00I1.IMG";
+            DollFemaleNude = "BODY10I0.IMG";
+            DollFemale = "BODY10I1.IMG";
 
             PaperDollHeadsMale = "FACE00I0.CIF";
             PaperDollHeadsFemale = "FACE10I0.CIF";
         }
     }
 
-    public class Redguard : RaceTemplate
+    public class Redguard : RaceDefinition
     {
         public Redguard()
         {
@@ -199,19 +225,19 @@ namespace DaggerfallWorkshop.Game.Entity
             DescriptionID = 2002;
             ClipID = 210;
 
-            PaperDollBackground = "SCBG01I0.IMG";
+            DollBG = "SCBG01I0.IMG";
 
-            PaperDollBodyMaleUnclothed = "BODY01I0.IMG";
-            PaperDollBodyMaleClothed = "BODY01I1.IMG";
-            PaperDollBodyFemaleUnclothed = "BODY11I0.IMG";
-            PaperDollBodyFemaleClothed = "BODY11I1.IMG";
+            DollMaleNude = "BODY01I0.IMG";
+            DollMale = "BODY01I1.IMG";
+            DollFemaleNude = "BODY11I0.IMG";
+            DollFemale = "BODY11I1.IMG";
 
             PaperDollHeadsMale = "FACE01I0.CIF";
             PaperDollHeadsFemale = "FACE11I0.CIF";
         }
     }
 
-    public class Nord : RaceTemplate
+    public class Nord : RaceDefinition
     {
         public Nord()
         {
@@ -220,12 +246,12 @@ namespace DaggerfallWorkshop.Game.Entity
             DescriptionID = 2000;
             ClipID = 211;
 
-            PaperDollBackground = "SCBG02I0.IMG";
+            DollBG = "SCBG02I0.IMG";
 
-            PaperDollBodyMaleUnclothed = "BODY02I0.IMG";
-            PaperDollBodyMaleClothed = "BODY02I1.IMG";
-            PaperDollBodyFemaleUnclothed = "BODY12I0.IMG";
-            PaperDollBodyFemaleClothed = "BODY12I1.IMG";
+            DollMaleNude = "BODY02I0.IMG";
+            DollMale = "BODY02I1.IMG";
+            DollFemaleNude = "BODY12I0.IMG";
+            DollFemale = "BODY12I1.IMG";
 
             PaperDollHeadsMale = "FACE02I0.CIF";
             PaperDollHeadsFemale = "FACE12I0.CIF";
@@ -234,7 +260,7 @@ namespace DaggerfallWorkshop.Game.Entity
         }
     }
 
-    public class DarkElf : RaceTemplate
+    public class DarkElf : RaceDefinition
     {
         public DarkElf()
         {
@@ -243,19 +269,19 @@ namespace DaggerfallWorkshop.Game.Entity
             DescriptionID = 2007;
             ClipID = 212;
 
-            PaperDollBackground = "SCBG03I0.IMG";
+            DollBG = "SCBG03I0.IMG";
 
-            PaperDollBodyMaleUnclothed = "BODY03I0.IMG";
-            PaperDollBodyMaleClothed = "BODY03I1.IMG";
-            PaperDollBodyFemaleUnclothed = "BODY13I0.IMG";
-            PaperDollBodyFemaleClothed = "BODY13I1.IMG";
+            DollMaleNude = "BODY03I0.IMG";
+            DollMale = "BODY03I1.IMG";
+            DollFemaleNude = "BODY13I0.IMG";
+            DollFemale = "BODY13I1.IMG";
 
             PaperDollHeadsMale = "FACE03I0.CIF";
             PaperDollHeadsFemale = "FACE13I0.CIF";
         }
     }
 
-    public class HighElf : RaceTemplate
+    public class HighElf : RaceDefinition
     {
         public HighElf()
         {
@@ -264,12 +290,12 @@ namespace DaggerfallWorkshop.Game.Entity
             DescriptionID = 2006;
             ClipID = 213;
 
-            PaperDollBackground = "SCBG04I0.IMG";
+            DollBG = "SCBG04I0.IMG";
 
-            PaperDollBodyMaleUnclothed = "BODY04I0.IMG";
-            PaperDollBodyMaleClothed = "BODY04I1.IMG";
-            PaperDollBodyFemaleUnclothed = "BODY14I0.IMG";
-            PaperDollBodyFemaleClothed = "BODY14I1.IMG";
+            DollMaleNude = "BODY04I0.IMG";
+            DollMale = "BODY04I1.IMG";
+            DollFemaleNude = "BODY14I0.IMG";
+            DollFemale = "BODY14I1.IMG";
 
             PaperDollHeadsMale = "FACE04I0.CIF";
             PaperDollHeadsFemale = "FACE14I0.CIF";
@@ -278,7 +304,7 @@ namespace DaggerfallWorkshop.Game.Entity
         }
     }
 
-    public class WoodElf : RaceTemplate
+    public class WoodElf : RaceDefinition
     {
         public WoodElf()
         {
@@ -287,19 +313,19 @@ namespace DaggerfallWorkshop.Game.Entity
             DescriptionID = 2005;
             ClipID = 214;
 
-            PaperDollBackground = "SCBG05I0.IMG";
+            DollBG = "SCBG05I0.IMG";
 
-            PaperDollBodyMaleUnclothed = "BODY05I0.IMG";
-            PaperDollBodyMaleClothed = "BODY05I1.IMG";
-            PaperDollBodyFemaleUnclothed = "BODY15I0.IMG";
-            PaperDollBodyFemaleClothed = "BODY15I1.IMG";
+            DollMaleNude = "BODY05I0.IMG";
+            DollMale = "BODY05I1.IMG";
+            DollFemaleNude = "BODY15I0.IMG";
+            DollFemale = "BODY15I1.IMG";
 
             PaperDollHeadsMale = "FACE05I0.CIF";
             PaperDollHeadsFemale = "FACE15I0.CIF";
         }
     }
 
-    public class Khajiit : RaceTemplate
+    public class Khajiit : RaceDefinition
     {
         public Khajiit()
         {
@@ -308,19 +334,19 @@ namespace DaggerfallWorkshop.Game.Entity
             DescriptionID = 2001;
             ClipID = 215;
 
-            PaperDollBackground = "SCBG06I0.IMG";
+            DollBG = "SCBG06I0.IMG";
 
-            PaperDollBodyMaleUnclothed = "BODY06I0.IMG";
-            PaperDollBodyMaleClothed = "BODY06I1.IMG";
-            PaperDollBodyFemaleUnclothed = "BODY16I0.IMG";
-            PaperDollBodyFemaleClothed = "BODY16I1.IMG";
+            DollMaleNude = "BODY06I0.IMG";
+            DollMale = "BODY06I1.IMG";
+            DollFemaleNude = "BODY16I0.IMG";
+            DollFemale = "BODY16I1.IMG";
 
             PaperDollHeadsMale = "FACE06I0.CIF";
             PaperDollHeadsFemale = "FACE16I0.CIF";
         }
     }
 
-    public class Argonian : RaceTemplate
+    public class Argonian : RaceDefinition
     {
         public Argonian()
         {
@@ -329,12 +355,12 @@ namespace DaggerfallWorkshop.Game.Entity
             DescriptionID = 2004;
             ClipID = 216;
 
-            PaperDollBackground = "SCBG07I0.IMG";
+            DollBG = "SCBG07I0.IMG";
 
-            PaperDollBodyMaleUnclothed = "BODY07I0.IMG";
-            PaperDollBodyMaleClothed = "BODY07I1.IMG";
-            PaperDollBodyFemaleUnclothed = "BODY17I0.IMG";
-            PaperDollBodyFemaleClothed = "BODY17I1.IMG";
+            DollMaleNude = "BODY07I0.IMG";
+            DollMale = "BODY07I1.IMG";
+            DollFemaleNude = "BODY17I0.IMG";
+            DollFemale = "BODY17I1.IMG";
 
             PaperDollHeadsMale = "FACE07I0.CIF";
             PaperDollHeadsFemale = "FACE17I0.CIF";

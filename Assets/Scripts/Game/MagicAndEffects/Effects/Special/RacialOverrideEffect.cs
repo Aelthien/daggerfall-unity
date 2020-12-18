@@ -201,7 +201,7 @@ namespace DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects
         /// <summary>
         /// Gets custom race exposed by this override
         /// </summary>
-        public abstract RaceTemplate CustomRace { get; }
+        public abstract RaceDefinition CustomRace { get; }
 
         #endregion
     }

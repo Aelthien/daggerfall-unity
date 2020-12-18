@@ -20,7 +20,7 @@ namespace DaggerfallWorkshop.Game.Player
     /// </summary>
     public class CharacterDocument
     {
-        public RaceTemplate raceTemplate;
+        public RaceDefinition raceTemplate;
         public Genders gender;
         public DFCareer career;
         public string name;
@@ -88,7 +88,7 @@ namespace DaggerfallWorkshop.Game.Player
             }
         }
 
-        public static RaceTemplate GetRaceTemplate(Races race)
+        public static RaceDefinition GetRaceTemplate(Races race)
         {
             switch (race)
             {

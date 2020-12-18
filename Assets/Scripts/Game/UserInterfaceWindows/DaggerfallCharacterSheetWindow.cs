@@ -514,7 +514,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
         {
             List<string> specials = new List<string>();
             DFCareer career = GameManager.Instance.PlayerEntity.Career;
-            RaceTemplate race = GameManager.Instance.PlayerEntity.RaceTemplate;
+            RaceDefinition race = GameManager.Instance.PlayerEntity.RaceTemplate;
 
             // Tolerances
             Dictionary<DFCareer.Tolerance, string> tolerances = new Dictionary<DFCareer.Tolerance, string>

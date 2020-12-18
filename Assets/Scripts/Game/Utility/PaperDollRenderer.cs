@@ -317,13 +317,13 @@ namespace DaggerfallWorkshop.Game.Utility
             ImageData head = GetHeadImageData(entity);
             if (entity.Gender == Genders.Male)
             {
-                nudeBody = ImageReader.GetImageData(entity.RaceTemplate.PaperDollBodyMaleUnclothed, 0, 0, true);
-                clothedBody = ImageReader.GetImageData(entity.RaceTemplate.PaperDollBodyMaleClothed, 0, 0, true);
+                nudeBody = ImageReader.GetImageData(entity.RaceTemplate.DollMaleNude, 0, 0, true);
+                clothedBody = ImageReader.GetImageData(entity.RaceTemplate.DollMale, 0, 0, true);
             }
             else if (entity.Gender == Genders.Female)
             {
-                nudeBody = ImageReader.GetImageData(entity.RaceTemplate.PaperDollBodyFemaleUnclothed, 0, 0, true);
-                clothedBody = ImageReader.GetImageData(entity.RaceTemplate.PaperDollBodyFemaleClothed, 0, 0, true);
+                nudeBody = ImageReader.GetImageData(entity.RaceTemplate.DollFemaleNude, 0, 0, true);
+                clothedBody = ImageReader.GetImageData(entity.RaceTemplate.DollFemale, 0, 0, true);
             }
             else
             {

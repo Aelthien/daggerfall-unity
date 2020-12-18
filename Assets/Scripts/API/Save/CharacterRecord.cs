@@ -55,7 +55,7 @@ namespace DaggerfallConnect.Save
         public CharacterDocument ToCharacterDocument(LycanthropyTypes stripLycanthropyType = LycanthropyTypes.None)
         {
             CharacterDocument doc = new CharacterDocument();
-            Dictionary<int, RaceTemplate> raceDict = RaceTemplate.GetRaceDictionary();
+            Dictionary<int, RaceDefinition> raceDict = RaceDefinition.GetRaceDictionary();
 
             // Strip back classic changes for vampire or lycanthrope as this is handled by effect system in DFU
             // If player is not transformed then this will simply return parsedData.race + 1

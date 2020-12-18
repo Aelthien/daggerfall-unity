@@ -62,7 +62,7 @@ namespace DaggerfallWorkshop.Game.UserInterfaceWindows
             okButton.OnMouseClick += OkButton_OnMouseClick;
         }
 
-        public void SetFaceTextures(RaceTemplate raceTemplate, Genders raceGender)
+        public void SetFaceTextures(RaceDefinition raceTemplate, Genders raceGender)
         {
             facePicker.SetFaceTextures(raceTemplate, raceGender);
         }

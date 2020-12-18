@@ -321,7 +321,7 @@ namespace DaggerfallWorkshop.Game
             {
                 FactionFile.FactionData fd;
                 GameManager.Instance.PlayerEntity.FactionData.GetFactionData(factionId, out fd);
-                Races race = RaceTemplate.GetRaceFromFactionRace((FactionFile.FactionRaces)fd.race);
+                Races race = RaceDefinition.GetRaceFromFactionRace((FactionFile.FactionRaces)fd.race);
                 if (race != Races.None)
                     return race;
             }

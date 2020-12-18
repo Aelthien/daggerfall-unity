@@ -37,7 +37,7 @@ namespace DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects
         const int paperDollWidth = 110;
         const int paperDollHeight = 184;
 
-        RaceTemplate compoundRace;
+        RaceDefinition compoundRace;
         VampireClans vampireClan = VampireClans.Lyrezi;
         uint lastTimeFed;
         bool hasStartedInitialVampireQuest;
@@ -65,7 +65,7 @@ namespace DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects
             set { vampireClan = value; }
         }
 
-        public override RaceTemplate CustomRace
+        public override RaceDefinition CustomRace
         {
             get { return GetCompoundRace(); }
         }
@@ -334,7 +334,7 @@ namespace DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects
             compoundRace.SpecialAbilities |= DFCareer.SpecialAbilityFlags.HolyDamage;
         }
 
-        RaceTemplate GetCompoundRace()
+        RaceDefinition GetCompoundRace()
         {
             // Create compound race if one doesn't already exist
             if (compoundRace == null)
@@ -389,7 +389,7 @@ namespace DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects
         [fsObject("v1")]
         public struct CustomSaveData_v1
         {
-            public RaceTemplate compoundRace;
+            public RaceDefinition compoundRace;
             public VampireClans vampireClan;
             public uint lastTimeFed;
             public bool hasStartedInitialVampireQuest;

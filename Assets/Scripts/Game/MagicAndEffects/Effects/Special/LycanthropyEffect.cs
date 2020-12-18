@@ -42,7 +42,7 @@ namespace DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects
         const int needToKillPeriod = DaggerfallDateTime.MinutesPerDay * DaggerfallDateTime.DaysPerMonth;
         const float needToKillHealthLossPerMinute = 24.0f / DaggerfallDateTime.MinutesPerDay;
 
-        RaceTemplate compoundRace;
+        RaceDefinition compoundRace;
         LycanthropyTypes infectionType = LycanthropyTypes.None;
         uint lastKilledInnocent;
         uint lastCastMorphSelf;
@@ -83,7 +83,7 @@ namespace DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects
             set { infectionType = value; }
         }
 
-        public override RaceTemplate CustomRace
+        public override RaceDefinition CustomRace
         {
             get { return GetCompoundRace(); }
         }
@@ -554,7 +554,7 @@ namespace DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects
             compoundRace.ImmunityFlags |= DFCareer.EffectFlags.Disease;
         }
 
-        RaceTemplate GetCompoundRace()
+        RaceDefinition GetCompoundRace()
         {
             // Create compound race if one doesn't already exist
             if (compoundRace == null)
@@ -676,7 +676,7 @@ namespace DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects
         [fsObject("v1")]
         public struct CustomSaveData_v1
         {
-            public RaceTemplate compoundRace;
+            public RaceDefinition compoundRace;
             public LycanthropyTypes infectionType;
             public uint lastKilledInnocent;
             public uint lastCastMorphSelf;

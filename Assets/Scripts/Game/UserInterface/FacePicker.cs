@@ -34,7 +34,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
         const int minFaceIndex = 0;
         const int maxFaceIndex = faceCount - 1;
 
-        RaceTemplate raceTemplate;
+        RaceDefinition raceTemplate;
         Genders raceGender;
         Panel faceDisplayPanel = new Panel();
         Panel facePanel = new Panel();
@@ -71,7 +71,7 @@ namespace DaggerfallWorkshop.Game.UserInterface
 
         #region Public Methods
 
-        public void SetFaceTextures(RaceTemplate raceTemplate, Genders raceGender)
+        public void SetFaceTextures(RaceDefinition raceTemplate, Genders raceGender)
         {
             this.raceTemplate = raceTemplate;
             this.raceGender = raceGender;
